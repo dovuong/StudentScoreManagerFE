@@ -27,10 +27,10 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+import authorsTableData from "layouts/subjects/data/authorsTableData";
+import projectsTableData from "layouts/subjects/data/projectsTableData";
 
-function Tables() {
+function Subjects() {
   const { columns, rows } = authorsTableData();
   const { columns: pColumns, rows: pRows } = projectsTableData();
 
@@ -99,4 +99,4 @@ function Tables() {
   );
 }
 
-export default Tables;
+export default Subjects;

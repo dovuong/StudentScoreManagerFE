@@ -1,8 +1,8 @@
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
-import Billing from "layouts/billing";
-import Notifications from "layouts/notifications";
+import Subjects from "layouts/subjects";
+import Class from "layouts/classed";
+import Teacher from "layouts/teacher";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
@@ -14,7 +14,7 @@ const routes = [
   {
     type: "collapse",
     name: "Dashboard",
-    key: "dashboard",
+    key: "admin/dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/admin/dashboard",
     component: <Dashboard />,
@@ -22,39 +22,39 @@ const routes = [
   {
     type: "collapse",
     name: "Quản lý môn học",
-    key: "tables",
+    key: "admin/subjects",
     icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/admin/monhoc",
-    component: <Tables />,
+    route: "/admin/subjects",
+    component: <Subjects />,
   },
   {
     type: "collapse",
     name: "Quản lý lớp học",
-    key: "billing",
+    key: "admin/class",
     icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/admin/lophoc",
-    component: <Billing />,
+    route: "/admin/class",
+    component: <Class />,
   },
   {
     type: "collapse",
     name: "Quản lý giáo viên",
-    key: "notifications",
+    key: "admin/teacher",
     icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/admin/giaovien",
-    component: <Notifications />,
+    route: "/admin/teacher",
+    component: <Teacher />,
   },
   {
     type: "collapse",
     name: "Quản lý học sinh",
-    key: "billing",
+    key: "admin/student",
     icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/admin/hocsinh",
-    component: <Billing />,
+    route: "/admin/student",
+    component: <Teacher />,
   },
   {
     type: "collapse",
     name: "Profile",
-    key: "profile",
+    key: "admin/profile",
     icon: <Icon fontSize="small">person</Icon>,
     route: "/admin/profile",
     component: <Profile />,
