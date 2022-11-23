@@ -3,6 +3,7 @@ import Dashboard from "layouts/dashboard";
 import Subjects from "layouts/subjects";
 import Class from "layouts/classed";
 import Teacher from "layouts/teacher";
+import Student from "layouts/student";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
@@ -45,11 +46,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Quản lý học sinh",
+    name: "Quản lý sinh viên",
     key: "admin/student",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/student",
-    component: <Teacher />,
+    component: <Student />,
   },
   {
     type: "collapse",
