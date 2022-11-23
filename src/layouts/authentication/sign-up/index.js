@@ -56,7 +56,7 @@ function Cover() {
                 fullWidth
                 color="info"
               >
-                sign in
+                sign up
               </MDButton>
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
