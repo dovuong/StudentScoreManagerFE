@@ -8,10 +8,9 @@ import MDTypography from "components/MDTypography";
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import ListClass from "layouts/classed/ListClass";
-import AddClass from "layouts/classed/AddClass";
+import ListStudent from "layouts/student/ListStudent";
 
-function Classed() {
+function Subjects() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -29,18 +28,11 @@ function Classed() {
               marginBottom="2rem"
             >
               <MDTypography variant="h6" color="white">
-                Quản lý lớp học
+                Quản lý sinh viên
               </MDTypography>
             </MDBox>
-            <MDBox mb={3}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={7}>
-                  <ListClass />
-                </Grid>
-                <Grid item xs={12} md={5}>
-                  <AddClass />
-                </Grid>
-              </Grid>
+            <MDBox mb={3} width="100%">
+              <ListStudent />
             </MDBox>
           </Grid>
         </Grid>
@@ -49,4 +41,4 @@ function Classed() {
   );
 }
 
-export default Classed;
+export default Subjects;
