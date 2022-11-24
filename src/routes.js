@@ -1,6 +1,7 @@
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Subjects from "layouts/subjects";
+import Department from "layouts/department";
 import Class from "layouts/classed";
 import Teacher from "layouts/teacher";
 import Student from "layouts/student";
@@ -22,11 +23,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Quản lý môn học",
-    key: "admin/subjects",
+    name: "Quản lý khoa",
+    key: "admin/department",
     icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/admin/subjects",
-    component: <Subjects />,
+    route: "/admin/department",
+    component: <Department />,
   },
   {
     type: "collapse",
@@ -35,6 +36,14 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/class",
     component: <Class />,
+  },
+  {
+    type: "collapse",
+    name: "Quản lý môn học",
+    key: "admin/subjects",
+    icon: <Icon fontSize="small">receipt_long</Icon>,
+    route: "/admin/subjects",
+    component: <Subjects />,
   },
   {
     type: "collapse",

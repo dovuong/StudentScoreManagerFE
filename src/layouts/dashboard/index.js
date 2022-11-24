@@ -19,8 +19,8 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="dark"
                 icon="assignment"
-                title="Môn học"
-                count="+12"
+                title="Khoa"
+                count="+7"
                 percentage={{
                   color: "success",
                   amount: "+",
@@ -35,6 +35,21 @@ function Dashboard() {
                 icon="cottage"
                 title="Lớp học"
                 count="+50"
+                percentage={{
+                  color: "success",
+                  amount: "+",
+                  label: "Chi tiết",
+                }}
+              />
+            </MDBox>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <MDBox mb={1.5} height="18rem">
+              <ComplexStatisticsCard
+                color="dark"
+                icon="assignment"
+                title="Môn học"
+                count="+12"
                 percentage={{
                   color: "success",
                   amount: "+",
@@ -63,7 +78,7 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="primary"
                 icon="groups"
-                title="Học sinh"
+                title="Sinh viên"
                 count="+2000"
                 percentage={{
                   color: "success",
