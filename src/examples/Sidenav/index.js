@@ -67,7 +67,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
-  const rou = routes.slice(0, 7);
+  const rou = routes.slice(0, 8);
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = rou.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
     let returnValue;
