@@ -10,8 +10,10 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ListDepartment from "layouts/department/ListDepartment";
 import AddDepartment from "layouts/department/AddDepartment";
+import { useState } from "react";
 
 function Department() {
+  const [clickSave, setClickSave] = useState(false);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -35,10 +37,10 @@ function Department() {
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={7}>
-                  <ListDepartment />
+                  <ListDepartment clickSave={clickSave} setClickSave={setClickSave} />
                 </Grid>
                 <Grid item xs={12} md={5}>
-                  <AddDepartment />
+                  <AddDepartment setClickSave={setClickSave} />
                 </Grid>
               </Grid>
             </MDBox>
