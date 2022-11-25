@@ -22,10 +22,7 @@ const createDepartment = (department) => {
     method: "post",
     url: `${baseUrl}create-faculty?name=${department}`,
   })
-    .then((res) => {
-      console.log(`${baseUrl}create-faculty?name=${department}`);
-      return res.data;
-    })
+    .then((res) => res.data)
     .then((data) => {
       console.log(data);
     })
