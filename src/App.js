@@ -53,6 +53,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 import * as Sentry from "@sentry/react";
+import PrivateRoutes from "layouts/PrivateRoutes/PrivateRoutes";
 
 export default function App() {
   try {
@@ -116,13 +117,22 @@ export default function App() {
       document.scrollingElement.scrollTop = 0;
     }, [pathname]);
 
-    const getRoutes = (allRoutes) =>
+    const getRoutesPublic = (allRoutes) =>
       allRoutes.map((route) => {
-        if (route.collapse) {
-          return getRoutes(route.collapse);
+        if (!route.permission) {
+          return <Route exact path={route.route} element={route.component} key={route.key} />;
         }
 
-        if (route.route) {
+        return null;
+      });
+
+    const getRoutes = (allRoutes) =>
+      allRoutes.map((route) => {
+        // if (route.collapse) {
+        //   return getRoutes(route.collapse);
+        // }
+
+        if (route.route && route.permission) {
           return <Route exact path={route.route} element={route.component} key={route.key} />;
         }
 
@@ -197,8 +207,9 @@ export default function App() {
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/admin/dashboard" />} />
+          {getRoutesPublic(routes)}
+          <Route element={<PrivateRoutes />}>{getRoutes(routes)}</Route>
+          {/* <Route path="*" element={<Navigate to="/admin/dashboard" />} /> */}
         </Routes>
       </ThemeProvider>
     );

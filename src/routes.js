@@ -20,6 +20,7 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/admin/dashboard",
     component: <Dashboard />,
+    permission: "login",
   },
   {
     type: "collapse",
@@ -28,6 +29,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/department",
     component: <Department />,
+    permission: "login",
   },
   {
     type: "collapse",
@@ -36,6 +38,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/class",
     component: <Class />,
+    permission: "login",
   },
   {
     type: "collapse",
@@ -44,6 +47,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/subjects",
     component: <Subjects />,
+    permission: "login",
   },
   {
     type: "collapse",
@@ -52,6 +56,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/teacher",
     component: <Teacher />,
+    permission: "login",
   },
   {
     type: "collapse",
@@ -60,6 +65,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/student",
     component: <Student />,
+    permission: "login",
   },
   {
     type: "collapse",
@@ -68,6 +74,7 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/admin/profile",
     component: <Profile />,
+    permission: "login",
   },
   {
     type: "collapse",
@@ -76,6 +83,7 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+    permission: "",
   },
   {
     type: "collapse",
@@ -84,6 +92,7 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
+    permission: "",
   },
 ];
 
