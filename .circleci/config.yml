@@ -41,9 +41,9 @@ jobs:
   #     - run: npm install eslint-plugin-react@latest --save-dev
   #     - run: npm run lint
 
-workflows:
-  version: 2
-  build:
-    jobs:
-      - build
-      - lint
+# workflows:
+#   version: 2
+#   build:
+#     jobs:
+#       - build
+#       - lint
