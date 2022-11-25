@@ -22,11 +22,17 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      
-      - run: npm start
       # run tests!
       # - run: npm test
 
       # - run: npm build
 
-      # - run: yarn netlify:deploy 
+      # - run: yarn netlify:deploy
+  eslint:
+    description: |
+      Lint JS
+    steps:
+      - run:
+          command: mkdir -p reports/eslint
+          name: Ensure artifacts directory is present
+      - run: yarn eslint --max-warnings=0 --format junit --output-file ./reports/eslint/eslint.xml
