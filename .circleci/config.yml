@@ -7,7 +7,6 @@ jobs:
     working_directory: ~/repo
 
     steps:
-    
       - checkout
 
       # Download and cache dependencies
@@ -25,25 +24,4 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
        - run: npm run lint
-      # run tests!
-      # - run: npm test
-
-      # - run: npm build
-
-      # - run: yarn netlify:deploy
-  # lint:
-  #   docker:
-  #     - image: circleci/node:12.4
-  #   working_directory: ~/repo
-  #   steps:
-  #     - checkout
-  #     - run: npm install eslint
-  #     - run: npm install eslint-plugin-react@latest --save-dev
-  #     - run: npm run lint
-
-# workflows:
-#   version: 2
-#   build:
-#     jobs:
-#       - build
-#       - lint
+ 
