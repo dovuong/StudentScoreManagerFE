@@ -22,10 +22,6 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run:
-          name: Checkstyle
-          command: mvn clean install
       # run tests!
       # - run: npm test
 
