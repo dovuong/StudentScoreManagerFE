@@ -77,9 +77,9 @@ const routes = [
     permission: "login",
   },
   {
+    key: "sign-in",
     type: "collapse",
     name: "Logout",
-    key: "sign-in",
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,

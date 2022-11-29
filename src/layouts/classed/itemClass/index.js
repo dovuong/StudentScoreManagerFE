@@ -33,16 +33,26 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { updateClassroom } from "Apis/classroom.api";
+// import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-function ItemClass({ stt, lophoc, khoa }) {
+function ItemClass({ stt, lophoc, khoa, idClass, idFaculty, nameFaculty }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
+  const [newNameClass, setnewNameClass] = React.useState("");
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleUpdateClass = () => {
+    updateClassroom({
+      idClass,
+      idFaculty,
+      nameClassRoom: newNameClass,
+    });
   };
 
   return (
@@ -78,6 +88,12 @@ function ItemClass({ stt, lophoc, khoa }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            style={{
+              marginBottom: 20,
+            }}
+            onChange={(e) => {
+              setnewNameClass(e.target.value);
+            }}
           />
           <TextField
             autoFocus
@@ -88,11 +104,43 @@ function ItemClass({ stt, lophoc, khoa }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            value={nameFaculty}
+            readonly
           />
+          {/* <FormControl
+            size="small"
+            sx={{ width: "450px", mx: 4 }}
+            // autoWidth
+            style={{
+              height: 40,
+            }}
+          >
+            <InputLabel id="demo-simple-select-label">Khoa</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Khoa"
+              onChange={(e) => {
+                setIdFaculty(e.target.value);
+              }}
+              style={{ height: "100%" }}
+            >
+              {departments.map((item) => (
+                <MenuItem value={item.id}>{item.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Update</Button>
+          <Button
+            onClick={() => {
+              handleUpdateClass();
+              handleClose();
+            }}
+          >
+            Update
+          </Button>
         </DialogActions>
       </Dialog>
     </MDBox>
@@ -109,6 +157,10 @@ ItemClass.propTypes = {
   stt: PropTypes.string.isRequired,
   lophoc: PropTypes.string.isRequired,
   khoa: PropTypes.string.isRequired,
+  // departments: PropTypes.arrayOf.isRequired,
+  idClass: PropTypes.number.isRequired,
+  idFaculty: PropTypes.number.isRequired,
+  nameFaculty: PropTypes.string.isRequired,
 };
 
 export default ItemClass;

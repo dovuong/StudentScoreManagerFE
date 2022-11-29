@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useLayoutEffect } from "react";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -54,6 +54,7 @@ import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 import * as Sentry from "@sentry/react";
 import PrivateRoutes from "layouts/PrivateRoutes/PrivateRoutes";
+import { currentUser } from "Apis/auth.api";
 
 export default function App() {
   try {
@@ -125,7 +126,9 @@ export default function App() {
 
         return null;
       });
-
+    useLayoutEffect(() => {
+      currentUser();
+    }, []);
     const getRoutes = (allRoutes) =>
       allRoutes.map((route) => {
         // if (route.collapse) {
@@ -172,7 +175,7 @@ export default function App() {
               <Sidenav
                 color={sidenavColor}
                 brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                brandName="Trang quản trị"
+                brandName="Trang quản trị 12"
                 routes={routes}
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
@@ -208,8 +211,10 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutesPublic(routes)}
-          <Route element={<PrivateRoutes />}>{getRoutes(routes)}</Route>
-          {/* <Route path="*" element={<Navigate to="/admin/dashboard" />} /> */}
+          <Route element={<PrivateRoutes />}>
+            {getRoutes(routes)}
+            <Route path="*" element={<Navigate to="/admin/dashboard" />} />
+          </Route>
         </Routes>
       </ThemeProvider>
     );

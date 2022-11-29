@@ -20,7 +20,11 @@ const getDepartment = (setDepartments) => {
 const createDepartment = (department) => {
   axios({
     method: "post",
-    url: `${baseUrl}create-faculty?name=${department}`,
+    // url: `${baseUrl}create-faculty?name=${department}`,
+    url: `${baseUrl}create-faculty`,
+    data: {
+      name: department,
+    },
   })
     .then((res) => res.data)
     .then((data) => {

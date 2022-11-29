@@ -10,8 +10,25 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ListClass from "layouts/classed/ListClass";
 import AddClass from "layouts/classed/AddClass";
+import { useEffect, useState } from "react";
+import { getListClassroom, getListClassroomById } from "Apis/classroom.api";
+import { getDepartment } from "Apis/department.api";
 
 function Classed() {
+  const [listClass, setListClass] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  const [idFacultyChosen, setIdFacultyChosen] = useState(0);
+  useEffect(() => {
+    getListClassroom(setListClass);
+    getDepartment(setDepartments);
+  }, []);
+  useEffect(() => {
+    if (idFacultyChosen === 0) {
+      getListClassroom(setListClass);
+    } else {
+      getListClassroomById(idFacultyChosen, setListClass);
+    }
+  }, [idFacultyChosen]);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -35,10 +52,14 @@ function Classed() {
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={7}>
-                  <ListClass />
+                  <ListClass
+                    listClass={listClass}
+                    departments={departments}
+                    setIdFacultyChosen={setIdFacultyChosen}
+                  />
                 </Grid>
                 <Grid item xs={12} md={5}>
-                  <AddClass />
+                  <AddClass departments={departments} />
                 </Grid>
               </Grid>
             </MDBox>
