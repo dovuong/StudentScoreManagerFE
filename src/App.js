@@ -174,7 +174,12 @@ export default function App() {
           {layout === "vr" && <Configurator />}
           <Routes>
             {getRoutes(routes)}
-            <Route path="*" element={<Navigate to="/admin/dashboard" />} />
+            {localStorage.getItem("POSITION") === "0" ? (
+              <Route path="*" element={<Navigate to="/admin/dashboard" />} />
+            ) : (
+              <Route path="*" element={<Navigate to="/manageScore" />} />
+            )}
+            ;
           </Routes>
         </ThemeProvider>
       </CacheProvider>
@@ -198,7 +203,11 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/admin/dashboard" />} />
+          {localStorage.getItem("POSITION") === "0" ? (
+            <Route path="*" element={<Navigate to="/admin/dashboard" />} />
+          ) : (
+            <Route path="*" element={<Navigate to="/manageScore" />} />
+          )}
         </Routes>
       </ThemeProvider>
     );

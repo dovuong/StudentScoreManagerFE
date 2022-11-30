@@ -49,6 +49,7 @@ function ListStudent() {
           <MDBox mt="-40px">
             <Item
               stt="1"
+              masv="102190025"
               hovaten="Nguyen Van A"
               lop="19TCLC_DT2"
               ngaysinh="12/05/2001"
@@ -57,6 +58,7 @@ function ListStudent() {
             />
             <Item
               stt="2"
+              masv="102190025"
               hovaten="Nguyen Van B"
               lop="19TCLC_DT2"
               ngaysinh="12/05/2001"
@@ -65,6 +67,7 @@ function ListStudent() {
             />
             <Item
               stt="3"
+              masv="102190025"
               hovaten="Nguyen Van C"
               lop="19TCLC_DT2"
               ngaysinh="12/05/2001"
@@ -73,6 +76,7 @@ function ListStudent() {
             />
             <Item
               stt="4"
+              masv="102190025"
               hovaten="Nguyen Van D"
               lop="19SH2"
               ngaysinh="12/05/2001"
@@ -81,6 +85,7 @@ function ListStudent() {
             />
             <Item
               stt="5"
+              masv="102190025"
               hovaten="Nguyen Van E"
               lop="22T2"
               ngaysinh="12/05/2001"
@@ -89,6 +94,7 @@ function ListStudent() {
             />
             <Item
               stt="6"
+              masv="102190025"
               hovaten="Nguyen Van R"
               lop="21T1"
               ngaysinh="12/05/2001"
@@ -97,6 +103,7 @@ function ListStudent() {
             />
             <Item
               stt="7"
+              masv="102190025"
               hovaten="Nguyen Van S"
               lop="19TCLC_DT2"
               ngaysinh="12/05/2001"

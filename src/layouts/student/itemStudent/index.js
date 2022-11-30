@@ -34,7 +34,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
+function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, email, sdt }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -50,10 +50,13 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
       <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
         {stt}
       </MDTypography>
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={12} width="30%">
+        {masv}
+      </MDTypography>
       <MDTypography variant="caption" color="text" fontWeight="medium" ml={11} width="50%">
         {hovaten}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={4} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={3} width="50%">
         {lop}
       </MDTypography>
       <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
@@ -62,7 +65,7 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
       <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
         {email}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={10} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={10} width="48%">
         {sdt}
       </MDTypography>
       <MDBox display="flex" alignItems="center" mt={-2}>
@@ -140,6 +143,7 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
 
 ItemStudent.propTypes = {
   stt: PropTypes.string.isRequired,
+  masv: PropTypes.string.isRequired,
   hovaten: PropTypes.string.isRequired,
   lop: PropTypes.string.isRequired,
   ngaysinh: PropTypes.string.isRequired,

@@ -8,6 +8,7 @@ import Student from "layouts/student";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import ManageScore from "layouts/manageScore";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -67,6 +68,30 @@ const routes = [
     key: "admin/profile",
     icon: <Icon fontSize="small">person</Icon>,
     route: "/admin/profile",
+    component: <Profile />,
+  },
+  {
+    type: "collapse",
+    name: "Logout",
+    key: "sign-in",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/authentication/sign-in",
+    component: <SignIn />,
+  },
+  {
+    type: "collapse",
+    name: "Quản lý điểm",
+    key: "manageScore",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/manageScore",
+    component: <ManageScore />,
+  },
+  {
+    type: "collapse",
+    name: "Profile",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/profile",
     component: <Profile />,
   },
   {
