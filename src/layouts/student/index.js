@@ -1,4 +1,6 @@
 import Grid from "@mui/material/Grid";
+import { getListClassroom } from "Apis/classroom.api";
+import { getListStudent, getListStudentByClass } from "Apis/student.api";
 // import Card from "@mui/material/Card";
 
 // Material Dashboard 2 React components
@@ -9,8 +11,23 @@ import MDTypography from "components/MDTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ListStudent from "layouts/student/ListStudent";
+import { useEffect, useState } from "react";
 
 function Subjects() {
+  const [listStudent, setListStudent] = useState([]);
+  const [listClass, setListClass] = useState([]);
+  const [idClassChosen, setIdClassChosen] = useState(0);
+  useEffect(() => {
+    getListStudent(setListStudent);
+    getListClassroom(setListClass);
+  }, []);
+  useEffect(() => {
+    if (idClassChosen === 0) {
+      getListStudent(setListStudent);
+    } else {
+      getListStudentByClass(idClassChosen, setListStudent);
+    }
+  }, [idClassChosen]);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -32,7 +49,11 @@ function Subjects() {
               </MDTypography>
             </MDBox>
             <MDBox mb={3} width="100%">
-              <ListStudent />
+              <ListStudent
+                listStudent={listStudent}
+                listClass={listClass}
+                setIdClassChosen={setIdClassChosen}
+              />
             </MDBox>
           </Grid>
         </Grid>
