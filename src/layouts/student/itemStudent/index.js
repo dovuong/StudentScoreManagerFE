@@ -33,8 +33,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { deleteStudent } from "Apis/student.api";
 
-function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
+function ItemStudent({ stt, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -43,6 +44,17 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleDeleteStudent = () => {
+    console.log({
+      idClass,
+      idStudent,
+    });
+    deleteStudent({
+      idClass,
+      idStudent,
+    });
   };
 
   return (
@@ -59,15 +71,21 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
       <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
         {ngaysinh}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
+      {/* <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
         {email}
-      </MDTypography>
+      </MDTypography> */}
       <MDTypography variant="caption" color="text" fontWeight="medium" ml={10} width="50%">
         {sdt}
       </MDTypography>
       <MDBox display="flex" alignItems="center" mt={-2}>
         <MDBox mr={6} ml={2}>
-          <MDButton variant="text" color="error">
+          <MDButton
+            variant="text"
+            color="error"
+            onClick={() => {
+              handleDeleteStudent();
+            }}
+          >
             <Icon>delete</Icon>&nbsp;delete
           </MDButton>
         </MDBox>
@@ -87,6 +105,7 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            defaultValue={hovaten}
           />
           <TextField
             autoFocus
@@ -97,6 +116,8 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            defaultValue="a"
+            readonly
           />
           <TextField
             autoFocus
@@ -107,8 +128,9 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            defaultValue={ngaysinh}
           />
-          <TextField
+          {/* <TextField
             autoFocus
             margin="dense"
             id="name"
@@ -117,7 +139,7 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
-          />
+          /> */}
           <TextField
             autoFocus
             margin="dense"
@@ -127,6 +149,7 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            defaultValue={sdt}
           />
         </DialogContent>
         <DialogActions>
@@ -143,8 +166,10 @@ ItemStudent.propTypes = {
   hovaten: PropTypes.string.isRequired,
   lop: PropTypes.string.isRequired,
   ngaysinh: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  // email: PropTypes.string.isRequired,
   sdt: PropTypes.string.isRequired,
+  idClass: PropTypes.number.isRequired,
+  idStudent: PropTypes.number.isRequired,
 };
 
 export default ItemStudent;
