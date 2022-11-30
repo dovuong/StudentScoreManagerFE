@@ -82,7 +82,7 @@ function ListStudent({ listStudent, listClass, setIdClassChosen }) {
             })}
           </Select>
         </FormControl>
-        <MDBox mt={1} mb={2} ml="60%" width="120px">
+        <MDBox mt={1} mb={2} ml="50%" width="120px">
           <MDButton to="/admin/dashboard" variant="gradient" color="info" onClick={handleClickOpen}>
             + create
           </MDButton>

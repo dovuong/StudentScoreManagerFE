@@ -54,6 +54,7 @@ function logout(navigate) {
     .then(() => {
       removeLocalStorage(STORAGE.USER_DATA);
       removeLocalStorage(STORAGE.USER_TOKEN);
+      removeLocalStorage("POSITION");
       navigate("/authentication/sign-in");
     })
     .catch((err) => {

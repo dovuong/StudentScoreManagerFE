@@ -60,10 +60,10 @@ function Basic() {
   };
   const [position, setPosition] = useState("");
   const [url, seturl] = useState(false);
-
   useEffect(() => {
+    console.log(url);
     localStorage.setItem("POSITION", position);
-    if (position === 0) {
+    if (position === "0") {
       seturl("/admin/dashboard");
     } else {
       seturl("/manageScore");

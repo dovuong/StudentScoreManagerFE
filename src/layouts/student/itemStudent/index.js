@@ -33,9 +33,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { deleteStudent } from "Apis/student.api";
+import { deleteStudent, updateStudent } from "Apis/student.api";
 
-function ItemStudent({ stt, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
+function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -46,14 +46,37 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
     setOpen(false);
   };
 
+  const [dataUpdate, setDataUpdate] = React.useState({
+    birthday: "",
+    name: "",
+    numberPhone: "",
+  });
+
   const handleDeleteStudent = () => {
-    console.log({
-      idClass,
-      idStudent,
-    });
+    // console.log({
+    //   idClass,
+    //   idStudent,
+    // });
     deleteStudent({
       idClass,
       idStudent,
+    });
+  };
+
+  const handleUpdateStudent = () => {
+    // console.log({
+    //   birthday: dataUpdate.birthday,
+    //   idClassroom: idClass,
+    //   idStudent,
+    //   name: dataUpdate.name,
+    //   numberPhone: dataUpdate.numberPhone,
+    // });
+    updateStudent({
+      birthday: dataUpdate.birthday,
+      idClassroom: idClass,
+      idStudent,
+      name: dataUpdate.name,
+      numberPhone: dataUpdate.numberPhone,
     });
   };
 
@@ -109,6 +132,12 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
             defaultValue={hovaten}
+            onChange={(e) => {
+              setDataUpdate({
+                ...dataUpdate,
+                name: e.target.value,
+              });
+            }}
           />
           <TextField
             autoFocus
@@ -119,8 +148,8 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
-            defaultValue="a"
-            readonly
+            defaultValue={lop}
+            inputProps={{ readOnly: true }}
           />
           <TextField
             autoFocus
@@ -132,6 +161,12 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
             defaultValue={ngaysinh}
+            onChange={(e) => {
+              setDataUpdate({
+                ...dataUpdate,
+                birthday: e.target.value,
+              });
+            }}
           />
           {/* <TextField
             autoFocus
@@ -153,11 +188,24 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
             defaultValue={sdt}
+            onChange={(e) => {
+              setDataUpdate({
+                ...dataUpdate,
+                numberPhone: e.target.value,
+              });
+            }}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Update</Button>
+          <Button
+            onClick={() => {
+              handleUpdateStudent();
+              handleClose();
+            }}
+          >
+            Update
+          </Button>
         </DialogActions>
       </Dialog>
     </MDBox>

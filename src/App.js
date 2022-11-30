@@ -53,7 +53,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 import * as Sentry from "@sentry/react";
-import PrivateRoutes from "layouts/PrivateRoutes/PrivateRoutes";
+// import PrivateRoutes from "layouts/PrivateRoutes/PrivateRoutes";
 import { currentUser } from "Apis/auth.api";
 
 export default function App() {
@@ -134,12 +134,18 @@ export default function App() {
         // if (route.collapse) {
         //   return getRoutes(route.collapse);
         // }
-
-        if (route.route && route.permission) {
+        if (localStorage.getItem("POSITION") === "1") {
+          if (route.route && route.permission && route.role === "teacher") {
+            return <Route exact path={route.route} element={route.component} key={route.key} />;
+          }
+          return null;
+        }
+        if (route.route && route.permission && route.role === "admin") {
           return <Route exact path={route.route} element={route.component} key={route.key} />;
         }
-
         return null;
+
+        // return null;
       });
 
     const configsButton = (
@@ -215,6 +221,7 @@ export default function App() {
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
+          {getRoutesPublic(routes)}
           {getRoutes(routes)}
           {localStorage.getItem("POSITION") === "0" ? (
             <Route path="*" element={<Navigate to="/admin/dashboard" />} />

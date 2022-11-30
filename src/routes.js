@@ -21,6 +21,7 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/admin/dashboard",
     component: <Dashboard />,
+    role: "admin",
     permission: "login",
   },
   {
@@ -30,6 +31,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/department",
     component: <Department />,
+    role: "admin",
     permission: "login",
   },
   {
@@ -39,6 +41,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/class",
     component: <Class />,
+    role: "admin",
     permission: "login",
   },
   {
@@ -48,6 +51,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/subjects",
     component: <Subjects />,
+    role: "admin",
     permission: "login",
   },
   {
@@ -57,6 +61,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/teacher",
     component: <Teacher />,
+    role: "admin",
     permission: "login",
   },
   {
@@ -66,6 +71,7 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/student",
     component: <Student />,
+    role: "admin",
     permission: "login",
   },
   {
@@ -75,6 +81,7 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/admin/profile",
     component: <Profile />,
+    role: "admin",
     permission: "login",
   },
   {
@@ -93,6 +100,8 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/manageScore",
     component: <ManageScore />,
+    role: "teacher",
+    permission: "login",
   },
   {
     type: "collapse",
@@ -101,6 +110,8 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
+    role: "teacher",
+    permission: "login",
   },
   {
     type: "collapse",
@@ -109,6 +120,7 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+    permission: "",
   },
   {
     type: "collapse",

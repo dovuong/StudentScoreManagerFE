@@ -70,13 +70,13 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
   const [rou, setRou] = useState([]);
   useEffect(() => {
-    if (localStorage.getItem("POSITION") === "0") {
-      setRou(routes.slice(0, 8));
-    } else {
+    if (localStorage.getItem("POSITION") === "1") {
       setRou(routes.slice(8, 11));
+    } else {
+      setRou(routes.slice(0, 8));
     }
   }, [routes]);
-
+  const navigate = useNavigate();
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = rou.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
     let returnValue;

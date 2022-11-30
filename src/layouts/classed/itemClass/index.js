@@ -91,6 +91,7 @@ function ItemClass({ stt, lophoc, khoa, idClass, idFaculty, nameFaculty }) {
             style={{
               marginBottom: 20,
             }}
+            defaultValue={lophoc}
             onChange={(e) => {
               setnewNameClass(e.target.value);
             }}
@@ -104,8 +105,8 @@ function ItemClass({ stt, lophoc, khoa, idClass, idFaculty, nameFaculty }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
-            value={nameFaculty}
-            readonly
+            defaultValue={nameFaculty}
+            inputProps={{ readOnly: true }}
           />
           {/* <FormControl
             size="small"
