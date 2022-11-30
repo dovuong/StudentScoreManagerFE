@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
 import { useNavigate } from "react-router-dom";
@@ -23,6 +23,7 @@ import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
 import MuiLink from "@mui/material/Link";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 // @mui icons
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -34,7 +35,6 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
-
 // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 
@@ -58,6 +58,18 @@ function Basic() {
     // console.log(data);
     login(data, navigate, setErr);
   };
+  const [position, setPosition] = useState("");
+  const [url, seturl] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("POSITION", position);
+    if (position === 0) {
+      seturl("/admin/dashboard");
+    } else {
+      seturl("/manageScore");
+    }
+  }, [position]);
+
   return (
     <BasicLayout image={bgImage}>
       <Card>
@@ -120,6 +132,24 @@ function Basic() {
                   });
                 }}
               />
+            </MDBox>
+            <MDBox>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Position</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={position}
+                  label="Position"
+                  sx={{ height: "45px" }}
+                  onChange={(e) => {
+                    setPosition(e.target.value);
+                  }}
+                >
+                  <MenuItem value={0}>Quản lý</MenuItem>
+                  <MenuItem value={1}>Giáo viên</MenuItem>
+                </Select>
+              </FormControl>
             </MDBox>
             {err ? (
               <MDBox mt={-1} mb={1} textAlign="start">

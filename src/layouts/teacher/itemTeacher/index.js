@@ -50,19 +50,19 @@ function ItemTeacher({ stt, hovaten, chuyenmon, chunhiemlop, email, sdt }) {
       <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
         {stt}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={11} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={12} width="50%">
         {hovaten}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={4} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="50%">
         {chuyenmon}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={10} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={4} width="46%">
         {chunhiemlop}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={6} width="50%">
         {email}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={10} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={6} width="50%">
         {sdt}
       </MDTypography>
       <MDBox display="flex" alignItems="center" mt={-2}>

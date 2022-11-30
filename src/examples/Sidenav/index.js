@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
 import { useLocation, NavLink, useNavigate } from "react-router-dom";
@@ -68,8 +68,15 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
-  const rou = routes.slice(0, 8);
-  const navigate = useNavigate();
+  const [rou, setRou] = useState([]);
+  useEffect(() => {
+    if (localStorage.getItem("POSITION") === "0") {
+      setRou(routes.slice(0, 8));
+    } else {
+      setRou(routes.slice(8, 11));
+    }
+  }, [routes]);
+
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = rou.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
     let returnValue;

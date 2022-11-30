@@ -62,10 +62,13 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
       <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
         {stt}
       </MDTypography>
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={12} width="30%">
+        {masv}
+      </MDTypography>
       <MDTypography variant="caption" color="text" fontWeight="medium" ml={11} width="50%">
         {hovaten}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={4} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={3} width="50%">
         {lop}
       </MDTypography>
       <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
@@ -163,6 +166,7 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
 
 ItemStudent.propTypes = {
   stt: PropTypes.string.isRequired,
+  masv: PropTypes.string.isRequired,
   hovaten: PropTypes.string.isRequired,
   lop: PropTypes.string.isRequired,
   ngaysinh: PropTypes.string.isRequired,
