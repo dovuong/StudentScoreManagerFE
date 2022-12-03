@@ -14,9 +14,13 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+// import MUIDataTable from "mui-datatables";
+import { PropTypes } from "prop-types";
 
-function ListTeacher() {
+function ListTeacher({ listTeacher }) {
   const { columns, rows } = authorsTableData();
+  // const { columns } = authorsTableData();
+
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,21 +28,73 @@ function ListTeacher() {
   const handleClose = () => {
     setOpen(false);
   };
+  // const data = [
+  //   { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
+  //   { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
+  //   { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
+  //   { name: "James Houston", company: "Test Corp", city: "Dallas", state: "TX" },
+  //   { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
+  //   { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
+  //   { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
+  //   { name: "James Houston", company: "Test Corp", city: "Dallas", state: "TX" },
+  //   { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
+  //   { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
+  //   { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
+  //   { name: "James Houston", company: "Test Corp", city: "Dallas", state: "TX" },
+  //   { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
+  //   { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
+  //   { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
+  //   { name: "James Houston", company: "Test Corp", city: "Dallas", state: "TX" },
+  //   { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
+  //   { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
+  //   { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
+  //   { name: "James Houston", company: "Test Corp", city: "Dallas", state: "TX" },
+  //   { name: "Joe James", company: "Test Corp", city: "Yonkers", state: "NY" },
+  //   { name: "John Walsh", company: "Test Corp", city: "Hartford", state: "CT" },
+  //   { name: "Bob Herm", company: "Test Corp", city: "Tampa", state: "FL" },
+  //   { name: "James Houston", company: "Test Corp", city: "Dallas", state: "TX" },
+  // ];
 
+  // const options = {
+  //   filterType: "checkbox",
+  // };
   return (
     <Card id="delete-account">
-      <MDBox pt={3} px={2} display="flex">
+      <MDBox pt={3} px={2} display="flex" justifyContent="space-between">
         <MDTypography variant="h6" fontWeight="medium" ml={2}>
           Danh sách giáo viên
         </MDTypography>
-        <MDBox mt={1} mb={2} ml="75%" width="120px">
+        <MDBox mt={1} mb={2} width="120px">
           <MDButton to="/admin/dashboard" variant="gradient" color="info" onClick={handleClickOpen}>
             + create
           </MDButton>
         </MDBox>
       </MDBox>
       <MDBox pt={1} pb={2} px={2}>
+        <Item
+          stt="stt"
+          hovaten="họ và tên"
+          chuyenmon="chuyên môn"
+          chunhiemlop="chủ nhiệm lớp"
+          email="email"
+          sdt="Số điện thoại"
+          hide
+        />
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
+          {/* <div style={{ flexGrow: 1 }}>
+            <MUIDataTable
+              title="Danh sách giáo viên"
+              data={data}
+              columns={columns1}
+              options={options}
+              fixedHeader
+              fixedSelectColumn
+              style={{
+                width: "100%",
+              }}
+              sx={{ display: "table-header-group" }}
+            />
+          </div> */}
           <DataTable
             table={{ columns, rows }}
             isSorted={false}
@@ -46,63 +102,19 @@ function ListTeacher() {
             showTotalEntries={false}
             noEndBorder
           />
+
           <MDBox mt="-40px">
-            <Item
-              stt="1"
-              hovaten="Nguyen Van A"
-              chuyenmon="Mạng máy tính"
-              chunhiemlop="19TCLC_DT2"
-              email="a@gmail.com"
-              sdt="0356266554"
-            />
-            <Item
-              stt="2"
-              hovaten="Nguyen Van B"
-              chuyenmon="Giải tích 1"
-              chunhiemlop="19TCLC_DT2"
-              email="a@gmail.com"
-              sdt="0356266554"
-            />
-            <Item
-              stt="3"
-              hovaten="Nguyen Van C"
-              chuyenmon="Lập trình mạng"
-              chunhiemlop="19TCLC_DT2"
-              email="a@gmail.com"
-              sdt="0356266554"
-            />
-            <Item
-              stt="4"
-              hovaten="Nguyen Van D"
-              chuyenmon="Khoa học  máy tính"
-              chunhiemlop="19TCLC_DT2"
-              email="a@gmail.com"
-              sdt="0356266554"
-            />
-            <Item
-              stt="5"
-              hovaten="Nguyen Van E"
-              chuyenmon="Hướng đối tượng"
-              chunhiemlop="19TCLC_DT2"
-              email="a@gmail.com"
-              sdt="0356266554"
-            />
-            <Item
-              stt="6"
-              hovaten="Nguyen Van R"
-              chuyenmon="Lập trình Java"
-              chunhiemlop="19TCLC_DT2"
-              email="a@gmail.com"
-              sdt="0356266554"
-            />
-            <Item
-              stt="7"
-              hovaten="Nguyen Van S"
-              chuyenmon="Lịch sử đảng"
-              chunhiemlop="19TCLC_DT2"
-              email="a@gmail.com"
-              sdt="0356266554"
-            />
+            {listTeacher.map((item, index) => (
+              <Item
+                stt={index + 1}
+                hovaten={item.name}
+                chuyenmon="Mạng máy tính"
+                chunhiemlop="19TCLC_DT2"
+                email="a@gmail.comAAA"
+                sdt={item.numberPhone}
+                hide={false}
+              />
+            ))}
           </MDBox>
         </MDBox>
       </MDBox>
@@ -168,5 +180,9 @@ function ListTeacher() {
     </Card>
   );
 }
+
+ListTeacher.propTypes = {
+  listTeacher: PropTypes.arrayOf.isRequired,
+};
 
 export default ListTeacher;

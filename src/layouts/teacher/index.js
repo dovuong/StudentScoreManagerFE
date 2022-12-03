@@ -1,4 +1,5 @@
 import Grid from "@mui/material/Grid";
+import { getListTeacher } from "Apis/teacher.api";
 // import Card from "@mui/material/Card";
 
 // Material Dashboard 2 React components
@@ -9,8 +10,13 @@ import MDTypography from "components/MDTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ListTeacher from "layouts/teacher/ListTeacher";
+import { useEffect, useState } from "react";
 
 function Subjects() {
+  const [listTeacher, setListTeacher] = useState([]);
+  useEffect(() => {
+    getListTeacher(setListTeacher);
+  }, []);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -32,7 +38,7 @@ function Subjects() {
               </MDTypography>
             </MDBox>
             <MDBox mb={3} width="100%">
-              <ListTeacher />
+              <ListTeacher listTeacher={listTeacher} />
             </MDBox>
           </Grid>
         </Grid>

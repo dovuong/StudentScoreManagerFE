@@ -1,5 +1,6 @@
 import Grid from "@mui/material/Grid";
 import { getListClassroom } from "Apis/classroom.api";
+import { getDepartment } from "Apis/department.api";
 import { getListStudent, getListStudentByClass } from "Apis/student.api";
 // import Card from "@mui/material/Card";
 
@@ -16,10 +17,12 @@ import { useEffect, useState } from "react";
 function Subjects() {
   const [listStudent, setListStudent] = useState([]);
   const [listClass, setListClass] = useState([]);
+  const [listFaculty, setListFaculty] = useState([]);
   const [idClassChosen, setIdClassChosen] = useState(0);
   useEffect(() => {
     getListStudent(setListStudent);
     getListClassroom(setListClass);
+    getDepartment(setListFaculty);
   }, []);
   useEffect(() => {
     if (idClassChosen === 0) {
@@ -28,6 +31,28 @@ function Subjects() {
       getListStudentByClass(idClassChosen, setListStudent);
     }
   }, [idClassChosen]);
+  // useEffect(() => {
+  //   if (idFacultyChosen === 0) {
+  //     getListClassroom(setListClass);
+  //   } else {
+  //     getListClassroomById(idFacultyChosen, setListClass);
+  //   }
+  // }, [idFacultyChosen]);
+  // useEffect(() => {
+  //   if (idFacultyChosen === 0 && idClassChosen === 0) {
+  //     getListStudent(setListStudent);
+  //     getListClassroom(setListClass);
+  //   } else if (idFacultyChosen === 0 && idClassChosen !== 0) {
+  //     getListClassroom(setListClass);
+  //     getListStudentByClass(idClassChosen, setListStudent);
+  //   } else if (idFacultyChosen !== 0 && idClassChosen === 0) {
+  //     getListClassroomById(idFacultyChosen, setListClass);
+  //     getListStudent(setListStudent);
+  //   } else {
+  //     getListClassroomById(idFacultyChosen, setListClass);
+  //     getListStudentByClass(idClassChosen, setListStudent);
+  //   }
+  // }, [idClassChosen, idFacultyChosen]);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -52,6 +77,7 @@ function Subjects() {
               <ListStudent
                 listStudent={listStudent}
                 listClass={listClass}
+                listFaculty={listFaculty}
                 setIdClassChosen={setIdClassChosen}
               />
             </MDBox>

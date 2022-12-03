@@ -2,10 +2,10 @@ import axios from "axios";
 import { getLocalStorage, STORAGE } from "Utils/storage";
 import baseUrl from "./config";
 
-const createClassroom = (Data) => {
+const createTeacher = (Data) => {
   axios({
     method: "post",
-    url: `${baseUrl}create-classroom`,
+    url: `${baseUrl}create-teacher`,
     data: Data,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
@@ -21,10 +21,10 @@ const createClassroom = (Data) => {
     });
 };
 
-const createListClassroom = (Data) => {
+const createListTeacher = (Data) => {
   axios({
     method: "post",
-    url: `${baseUrl}create-list-classroom`,
+    url: `${baseUrl}create-list-teacher`,
     data: Data,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
@@ -40,10 +40,47 @@ const createListClassroom = (Data) => {
     });
 };
 
-const getListClassroom = (setListClassroom) => {
+const deleteTeacher = (idTeacher) => {
+  axios({
+    method: "post",
+    url: `${baseUrl}delete-teacher/${idTeacher}`,
+    headers: {
+      Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
+    },
+  })
+    .then((res) => res.data)
+    .then((data) => data.body)
+    .then((body) => {
+      console.log(body);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const deleteListTeacher = (Data) => {
+  axios({
+    method: "post",
+    url: `${baseUrl}delete-list-teacher`,
+    data: Data,
+    headers: {
+      Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
+    },
+  })
+    .then((res) => res.data)
+    .then((data) => data.body)
+    .then((body) => {
+      console.log(body);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const getListTeacher = (setListTeacher) => {
   axios({
     method: "get",
-    url: `${baseUrl}get-list-classroom`,
+    url: `${baseUrl}get-teacher`,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
@@ -52,17 +89,17 @@ const getListClassroom = (setListClassroom) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
-      setListClassroom(body);
+      setListTeacher(body);
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-const getListClassroomById = (idFaculty, setListClassroomByFaculty) => {
+const getListTeacherByUsername = (username, setListTeacherByUsername) => {
   axios({
     method: "get",
-    url: `${baseUrl}get-list-classroom-by-faculty/${idFaculty}`,
+    url: `${baseUrl}get-teacher-by-username/${username}`,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
@@ -71,17 +108,17 @@ const getListClassroomById = (idFaculty, setListClassroomByFaculty) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
-      setListClassroomByFaculty(body);
+      setListTeacherByUsername(body);
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-const updateClassroom = (Data) => {
+const updateTeacher = (Data) => {
   axios({
     method: "post",
-    url: `${baseUrl}update-classroom`,
+    url: `${baseUrl}update-teacher`,
     data: Data,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
@@ -97,10 +134,10 @@ const updateClassroom = (Data) => {
     });
 };
 
-const updateListClassroom = (Data) => {
+const updateListTeacher = (Data) => {
   axios({
     method: "post",
-    url: `${baseUrl}update-list-classroom`,
+    url: `${baseUrl}update-list-teacher`,
     data: Data,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
@@ -117,10 +154,12 @@ const updateListClassroom = (Data) => {
 };
 
 export {
-  createClassroom,
-  createListClassroom,
-  getListClassroom,
-  getListClassroomById,
-  updateClassroom,
-  updateListClassroom,
+  createListTeacher,
+  createTeacher,
+  deleteListTeacher,
+  deleteTeacher,
+  getListTeacher,
+  getListTeacherByUsername,
+  updateListTeacher,
+  updateTeacher,
 };

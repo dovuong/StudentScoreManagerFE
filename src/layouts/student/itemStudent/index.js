@@ -35,7 +35,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { deleteStudent, updateStudent } from "Apis/student.api";
 
-function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, sdt, idStudent, idClass }) {
+function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, sdt, idStudent, idClass, hide }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -82,43 +82,57 @@ function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, sdt, idStudent, idClas
 
   return (
     <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
-      <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        marginLeft="5px"
+        width="5%"
+        textAlign="left"
+      >
         {stt}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={12} width="30%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="13%" textAlign="left">
         {masv}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={11} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="13%" textAlign="left">
         {hovaten}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={3} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="13%" textAlign="left">
         {lop}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="13%" textAlign="left">
         {ngaysinh}
       </MDTypography>
-      {/* <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
+      {/* <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="13%"
+        textAlign="left">
         {email}
       </MDTypography> */}
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={10} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="13%" textAlign="left">
         {sdt}
       </MDTypography>
-      <MDBox display="flex" alignItems="center" mt={-2}>
-        <MDBox mr={6} ml={2}>
-          <MDButton
-            variant="text"
-            color="error"
-            onClick={() => {
-              handleDeleteStudent();
-            }}
-          >
-            <Icon>delete</Icon>&nbsp;delete
+      {hide ? (
+        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
+          {null}
+        </MDBox>
+      ) : (
+        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
+          <MDBox mr={6} ml={2}>
+            <MDButton
+              variant="text"
+              color="error"
+              onClick={() => {
+                handleDeleteStudent();
+              }}
+            >
+              <Icon>delete</Icon>&nbsp;delete
+            </MDButton>
+          </MDBox>
+          <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
+            <Icon>edit</Icon>&nbsp;edit
           </MDButton>
         </MDBox>
-        <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
-          <Icon>edit</Icon>&nbsp;edit
-        </MDButton>
-      </MDBox>
+      )}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle ml="43%">Update</DialogTitle>
         <DialogContent>
@@ -222,6 +236,7 @@ ItemStudent.propTypes = {
   sdt: PropTypes.string.isRequired,
   idClass: PropTypes.number.isRequired,
   idStudent: PropTypes.number.isRequired,
+  hide: PropTypes.bool.isRequired,
 };
 
 export default ItemStudent;
