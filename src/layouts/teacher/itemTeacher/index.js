@@ -34,7 +34,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-function ItemTeacher({ stt, hovaten, chuyenmon, chunhiemlop, email, sdt }) {
+function ItemTeacher({ stt, hovaten, chuyenmon, chunhiemlop, email, sdt, hide }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -47,34 +47,85 @@ function ItemTeacher({ stt, hovaten, chuyenmon, chunhiemlop, email, sdt }) {
 
   return (
     <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
-      <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
+      <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px" width="5%">
         {stt}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={12} width="50%">
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        width="15%"
+        ml={3}
+        textAlign="left"
+      >
         {hovaten}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="50%">
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        width="15%"
+        ml={3}
+        textAlign="left"
+      >
         {chuyenmon}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={4} width="46%">
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        width="20%"
+        ml={3}
+        textAlign="left"
+      >
         {chunhiemlop}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={6} width="50%">
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        width="20%"
+        ml={3}
+        textAlign="left"
+      >
         {email}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={6} width="50%">
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        width="20%"
+        ml={3}
+        textAlign="left"
+      >
         {sdt}
       </MDTypography>
-      <MDBox display="flex" alignItems="center" mt={-2}>
-        <MDBox mr={6} ml={2}>
-          <MDButton variant="text" color="error">
-            <Icon>delete</Icon>&nbsp;delete
+      {/* <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        width="20%"
+        ml={3}
+        textAlign="left"
+      >
+        Function
+      </MDTypography> */}
+      {hide ? (
+        <MDBox display="flex" alignItems="center" mt={-2} width="30%">
+          {null}
+        </MDBox>
+      ) : (
+        <MDBox display="flex" alignItems="center" mt={-2} width="30%">
+          <MDBox mr={6} ml={2}>
+            <MDButton variant="text" color="error">
+              <Icon>delete</Icon>&nbsp;delete
+            </MDButton>
+          </MDBox>
+          <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
+            <Icon>edit</Icon>&nbsp;edit
           </MDButton>
         </MDBox>
-        <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
-          <Icon>edit</Icon>&nbsp;edit
-        </MDButton>
-      </MDBox>
+      )}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle ml="43%">Update</DialogTitle>
         <DialogContent>
@@ -129,6 +180,7 @@ function ItemTeacher({ stt, hovaten, chuyenmon, chunhiemlop, email, sdt }) {
             sx={{ width: "450px", mx: 4 }}
           />
         </DialogContent>
+
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleClose}>Update</Button>
@@ -145,6 +197,7 @@ ItemTeacher.propTypes = {
   chunhiemlop: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   sdt: PropTypes.string.isRequired,
+  hide: PropTypes.bool.isRequired,
 };
 
 export default ItemTeacher;

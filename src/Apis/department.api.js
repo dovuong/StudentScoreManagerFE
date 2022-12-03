@@ -1,15 +1,19 @@
 import axios from "axios";
+import { getLocalStorage, STORAGE } from "Utils/storage";
 import baseUrl from "./config";
 
 const getDepartment = (setDepartments) => {
   axios({
     method: "get",
     url: `${baseUrl}all-faculty`,
+    headers: {
+      Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
+    },
   })
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      // console.log(body);
+      console.log(body);
       setDepartments(body);
     })
     .catch((err) => {
@@ -24,6 +28,9 @@ const createDepartment = (department) => {
     url: `${baseUrl}create-faculty`,
     data: {
       name: department,
+    },
+    headers: {
+      Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
   })
     .then((res) => res.data)

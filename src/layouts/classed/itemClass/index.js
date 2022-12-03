@@ -36,7 +36,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { updateClassroom } from "Apis/classroom.api";
 // import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-function ItemClass({ stt, lophoc, khoa, idClass, idFaculty, nameFaculty }) {
+function ItemClass({ stt, lophoc, khoa, idClass, idFaculty, nameFaculty, hide }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -56,26 +56,68 @@ function ItemClass({ stt, lophoc, khoa, idClass, idFaculty, nameFaculty }) {
   };
 
   return (
-    <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
-      <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
+    <MDBox
+      pl={3}
+      display="flex"
+      height="3.5rem"
+      borderBottom="0.2px solid #f0f2f5"
+      style={{
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        style={{
+          width: "8%",
+        }}
+      >
         {stt}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="30%">
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        // width="30%"
+        // textAlign="left"
+        px={2}
+        style={{
+          width: "40%",
+        }}
+      >
         {lophoc}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={4} width="30%">
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        style={{
+          width: "20%",
+        }}
+        textAlign="left"
+      >
         {khoa}
       </MDTypography>
-      <MDBox display="flex" alignItems="center" mt={-2}>
-        <MDBox mr={2} ml={2}>
-          <MDButton variant="text" color="error">
-            <Icon>delete</Icon>&nbsp;delete
+      {hide ? (
+        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
+          {null}
+        </MDBox>
+      ) : (
+        <MDBox display="flex" alignItems="center" mt={-1} width="40%">
+          <MDBox mr={2} ml={2}>
+            <MDButton variant="text" color="error">
+              <Icon>delete</Icon>&nbsp;delete
+            </MDButton>
+          </MDBox>
+          <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
+            <Icon>edit</Icon>&nbsp;edit
           </MDButton>
         </MDBox>
-        <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
-          <Icon>edit</Icon>&nbsp;edit
-        </MDButton>
-      </MDBox>
+      )}
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle ml="43%">Update</DialogTitle>
         <DialogContent>
@@ -162,6 +204,7 @@ ItemClass.propTypes = {
   idClass: PropTypes.number.isRequired,
   idFaculty: PropTypes.number.isRequired,
   nameFaculty: PropTypes.string.isRequired,
+  hide: PropTypes.bool.isRequired,
 };
 
 export default ItemClass;

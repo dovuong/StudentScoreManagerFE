@@ -28,7 +28,9 @@ function ListDepartment(props) {
           Danh sách khoa
         </MDTypography>
       </MDBox>
+
       <MDBox pt={1} pb={2} px={2}>
+        <Item stt="STT" khoa="Khoa" key={0} hide />
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
           <DataTable
             table={{ columns, rows }}
@@ -45,7 +47,7 @@ function ListDepartment(props) {
             <Item stt="5" khoa="Nhiệt" />
             <Item stt="6" khoa="Điện" /> */}
             {departments.map((item) => (
-              <Item stt={item.id.toString()} khoa={item.name} key={item.id} />
+              <Item stt={item.id.toString()} khoa={item.name} key={item.id} hide={false} />
             ))}
           </MDBox>
         </MDBox>

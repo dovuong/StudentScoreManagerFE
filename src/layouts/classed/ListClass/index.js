@@ -67,6 +67,15 @@ function ListClass({ listClass, departments, setIdFacultyChosen }) {
         </FormControl>
       </MDBox>
       <MDBox pt={1} pb={2} px={2}>
+        <Item
+          stt="STT"
+          lophoc="Lớp Học"
+          khoa="Khoa"
+          // idClass={item.id}
+          // idFaculty={item.faculty.id}
+          // nameFaculty=""
+          hide
+        />
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
           <DataTable
             table={{ columns, rows }}
@@ -76,13 +85,6 @@ function ListClass({ listClass, departments, setIdFacultyChosen }) {
             noEndBorder
           />
           <MDBox mt="-40px">
-            {/* <Item stt="1" lophoc="19TCLC_DT2" khoa="CNTT" />
-            <Item stt="2" lophoc="19SH1" khoa="Hóa" />
-            <Item stt="3" lophoc="19DTVT" khoa="Diện tử viễn thông" />
-            <Item stt="4" lophoc="22T2" khoa="CNTT" />
-            <Item stt="5" lophoc="21C4" khoa="Cơ khí" />
-            <Item stt="6" lophoc="19SH2" khoa="Hóa" />
-            <Item stt="7" lophoc="19TCT_DT4" khoa="CNTT" /> */}
             {listClass.map((item, index) => (
               <Item
                 stt={index + 1}
@@ -91,6 +93,7 @@ function ListClass({ listClass, departments, setIdFacultyChosen }) {
                 idClass={item.id}
                 idFaculty={item.faculty.id}
                 nameFaculty={item.faculty.name}
+                hide={false}
               />
             ))}
           </MDBox>
