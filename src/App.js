@@ -55,6 +55,7 @@ import brandDark from "assets/images/logo-ct-dark.png";
 import * as Sentry from "@sentry/react";
 // import PrivateRoutes from "layouts/PrivateRoutes/PrivateRoutes";
 import { currentUser } from "Apis/auth.api";
+import { STORAGE } from "Utils/storage";
 
 export default function App() {
   try {
@@ -221,7 +222,7 @@ export default function App() {
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
-          {getRoutesPublic(routes)}
+          {!localStorage.getItem(STORAGE.USER_TOKEN) ? getRoutesPublic(routes) : null}
           {getRoutes(routes)}
           {localStorage.getItem("POSITION") === "0" ? (
             <Route path="*" element={<Navigate to="/admin/dashboard" />} />

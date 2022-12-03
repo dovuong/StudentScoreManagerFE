@@ -1,5 +1,6 @@
 import Grid from "@mui/material/Grid";
 import { getListTeacher } from "Apis/teacher.api";
+import Loading from "components/Loading";
 // import Card from "@mui/material/Card";
 
 // Material Dashboard 2 React components
@@ -14,9 +15,12 @@ import { useEffect, useState } from "react";
 
 function Subjects() {
   const [listTeacher, setListTeacher] = useState([]);
+  const [isSave, setIsSave] = useState(true);
   useEffect(() => {
-    getListTeacher(setListTeacher);
-  }, []);
+    if (isSave) {
+      getListTeacher(setListTeacher, setIsSave);
+    }
+  }, [isSave]);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -38,7 +42,11 @@ function Subjects() {
               </MDTypography>
             </MDBox>
             <MDBox mb={3} width="100%">
-              <ListTeacher listTeacher={listTeacher} />
+              {isSave ? (
+                <Loading type="spin" color="rgb(41,130,235)" />
+              ) : (
+                <ListTeacher listTeacher={listTeacher} setIsSave={setIsSave} />
+              )}
             </MDBox>
           </Grid>
         </Grid>

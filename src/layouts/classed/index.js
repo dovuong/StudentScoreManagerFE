@@ -13,22 +13,25 @@ import AddClass from "layouts/classed/AddClass";
 import { useEffect, useState } from "react";
 import { getListClassroom, getListClassroomById } from "Apis/classroom.api";
 import { getDepartment } from "Apis/department.api";
+import Loading from "components/Loading";
 
 function Classed() {
   const [listClass, setListClass] = useState([]);
   const [departments, setDepartments] = useState([]);
+  const [isSave, setIsSave] = useState(true);
   const [idFacultyChosen, setIdFacultyChosen] = useState(0);
+
   useEffect(() => {
-    getListClassroom(setListClass);
-    getDepartment(setDepartments);
-  }, []);
-  useEffect(() => {
-    if (idFacultyChosen === 0) {
-      getListClassroom(setListClass);
-    } else {
-      getListClassroomById(idFacultyChosen, setListClass);
+    if (isSave) {
+      if (idFacultyChosen === 0) {
+        getListClassroom(setListClass);
+        getDepartment(setDepartments, setIsSave);
+      } else {
+        getListClassroomById(idFacultyChosen, setListClass);
+        getDepartment(setDepartments, setIsSave);
+      }
     }
-  }, [idFacultyChosen]);
+  }, [idFacultyChosen, isSave]);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -52,14 +55,20 @@ function Classed() {
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={7}>
-                  <ListClass
-                    listClass={listClass}
-                    departments={departments}
-                    setIdFacultyChosen={setIdFacultyChosen}
-                  />
+                  {isSave ? (
+                    <Loading type="spin" color="rgb(41,130,235)" />
+                  ) : (
+                    <ListClass
+                      listClass={listClass}
+                      departments={departments}
+                      setIdFacultyChosen={setIdFacultyChosen}
+                      setIsSave={setIsSave}
+                      idFacultyChosen={idFacultyChosen}
+                    />
+                  )}
                 </Grid>
                 <Grid item xs={12} md={5}>
-                  <AddClass departments={departments} />
+                  <AddClass departments={departments} setIsSave={setIsSave} />
                 </Grid>
               </Grid>
             </MDBox>

@@ -10,10 +10,18 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ListDepartment from "layouts/department/ListDepartment";
 import AddDepartment from "layouts/department/AddDepartment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Loading from "components/Loading";
+import { getDepartment } from "Apis/department.api";
 
 function Department() {
-  const [clickSave, setClickSave] = useState(false);
+  const [clickSave, setClickSave] = useState(true);
+  const [departments, setDepartments] = useState([]);
+  useEffect(() => {
+    if (clickSave) {
+      getDepartment(setDepartments, setClickSave);
+    }
+  }, [clickSave]);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -37,7 +45,15 @@ function Department() {
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={7}>
-                  <ListDepartment clickSave={clickSave} setClickSave={setClickSave} />
+                  {clickSave ? (
+                    <Loading type="spin" color="rgb(41,130,235)" />
+                  ) : (
+                    <ListDepartment
+                      clickSave={clickSave}
+                      setClickSave={setClickSave}
+                      departments={departments}
+                    />
+                  )}
                 </Grid>
                 <Grid item xs={12} md={5}>
                   <AddDepartment setClickSave={setClickSave} />

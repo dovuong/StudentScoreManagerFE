@@ -12,8 +12,7 @@ import { PropTypes } from "prop-types";
 function AddDepartment({ setClickSave }) {
   const [department, setDepartment] = useState("");
   const handleCreateDepartment = () => {
-    createDepartment(department);
-    setClickSave(true);
+    createDepartment(department, setClickSave);
   };
   return (
     <Card sx={{ height: "200px" }}>

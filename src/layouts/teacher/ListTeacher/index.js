@@ -16,8 +16,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 // import MUIDataTable from "mui-datatables";
 import { PropTypes } from "prop-types";
+import { createTeacher } from "Apis/teacher.api";
 
-function ListTeacher({ listTeacher }) {
+function ListTeacher({ listTeacher, setIsSave }) {
   const { columns, rows } = authorsTableData();
   // const { columns } = authorsTableData();
 
@@ -58,6 +59,14 @@ function ListTeacher({ listTeacher }) {
   // const options = {
   //   filterType: "checkbox",
   // };
+  const [data, setData] = React.useState({
+    birthday: "",
+    name: "",
+    numberPhone: "",
+  });
+  const handleCreateInforTeacher = () => {
+    createTeacher(data, setIsSave);
+  };
   return (
     <Card id="delete-account">
       <MDBox pt={3} px={2} display="flex" justifyContent="space-between">
@@ -71,15 +80,7 @@ function ListTeacher({ listTeacher }) {
         </MDBox>
       </MDBox>
       <MDBox pt={1} pb={2} px={2}>
-        <Item
-          stt="stt"
-          hovaten="họ và tên"
-          chuyenmon="chuyên môn"
-          chunhiemlop="chủ nhiệm lớp"
-          email="email"
-          sdt="Số điện thoại"
-          hide
-        />
+        <Item stt="STT" hovaten="Họ và tên" ngaysinh="Ngày sinh" sdt="Số điện thoại" hide />
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
           {/* <div style={{ flexGrow: 1 }}>
             <MUIDataTable
@@ -108,11 +109,11 @@ function ListTeacher({ listTeacher }) {
               <Item
                 stt={index + 1}
                 hovaten={item.name}
-                chuyenmon="Mạng máy tính"
-                chunhiemlop="19TCLC_DT2"
-                email="a@gmail.comAAA"
+                ngaysinh={item.birthday}
                 sdt={item.numberPhone}
+                setIsSave={setIsSave}
                 hide={false}
+                idTeacher={item.id}
               />
             ))}
           </MDBox>
@@ -130,8 +131,30 @@ function ListTeacher({ listTeacher }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            onChange={(e) => {
+              setData({
+                ...data,
+                name: e.target.value,
+              });
+            }}
           />
           <TextField
+            id="date"
+            label="Ngày sinh"
+            type="date"
+            // defaultValue="2022-12-02"
+            sx={{ width: "450px", mx: 4, mt: 2 }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={(e) => {
+              setData({
+                ...data,
+                birthday: e.target.value,
+              });
+            }}
+          />
+          {/* <TextField
             autoFocus
             margin="dense"
             id="name"
@@ -160,7 +183,7 @@ function ListTeacher({ listTeacher }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
-          />
+          /> */}
           <TextField
             autoFocus
             margin="dense"
@@ -170,11 +193,24 @@ function ListTeacher({ listTeacher }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            onChange={(e) => {
+              setData({
+                ...data,
+                numberPhone: e.target.value,
+              });
+            }}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Create</Button>
+          <Button
+            onClick={() => {
+              handleCreateInforTeacher();
+              handleClose();
+            }}
+          >
+            Create
+          </Button>
         </DialogActions>
       </Dialog>
     </Card>
@@ -183,6 +219,7 @@ function ListTeacher({ listTeacher }) {
 
 ListTeacher.propTypes = {
   listTeacher: PropTypes.arrayOf.isRequired,
+  setIsSave: PropTypes.bool.isRequired,
 };
 
 export default ListTeacher;

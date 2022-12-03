@@ -18,7 +18,14 @@ import { PropTypes } from "prop-types";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { createStudent } from "Apis/student.api";
 
-function ListStudent({ listStudent, listClass, setIdClassChosen }) {
+function ListStudent({
+  listStudent,
+  listClass,
+  setIdClassChosen,
+  setIsSave,
+  idClassChosen,
+  setNotification,
+}) {
   const { columns, rows } = authorsTableData();
   const [open, setOpen] = React.useState(false);
   const [dataAdd, setDataAdd] = React.useState({
@@ -36,7 +43,7 @@ function ListStudent({ listStudent, listClass, setIdClassChosen }) {
 
   const handleCreateStudent = () => {
     // console.log(dataAdd);
-    createStudent(dataAdd);
+    createStudent(dataAdd, setIsSave, setNotification);
   };
 
   return (
@@ -79,8 +86,10 @@ function ListStudent({ listStudent, listClass, setIdClassChosen }) {
               id="demo-simple-select"
               label="Lop"
               defaultValue={0}
+              value={idClassChosen}
               onChange={(e) => {
                 setIdClassChosen(e.target.value);
+                setIsSave(true);
               }}
               style={{ height: "100%" }}
             >
@@ -130,6 +139,8 @@ function ListStudent({ listStudent, listClass, setIdClassChosen }) {
                 idStudent={item.id}
                 idClass={item.classRoom.id}
                 hide={false}
+                setIsSave={setIsSave}
+                setNotification={setNotification}
               />
             ))}
           </MDBox>
@@ -187,10 +198,14 @@ function ListStudent({ listStudent, listClass, setIdClassChosen }) {
             margin="dense"
             id="name"
             label="Ngày sinh"
-            type="email"
+            type="date"
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            // defaultValue={new Date().toJSON().slice(0, 10).replace(/-/g, "/")}
             onChange={(e) => {
               setDataAdd({
                 ...dataAdd,
@@ -198,7 +213,7 @@ function ListStudent({ listStudent, listClass, setIdClassChosen }) {
               });
             }}
           />
-          <TextField
+          {/* <TextField
             autoFocus
             margin="dense"
             id="name"
@@ -207,7 +222,7 @@ function ListStudent({ listStudent, listClass, setIdClassChosen }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
-          />
+          /> */}
           <TextField
             autoFocus
             margin="dense"
@@ -245,5 +260,8 @@ ListStudent.propTypes = {
   listStudent: PropTypes.arrayOf.isRequired,
   listClass: PropTypes.arrayOf.isRequired,
   setIdClassChosen: PropTypes.func.isRequired,
+  setIsSave: PropTypes.func.isRequired,
+  idClassChosen: PropTypes.number.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
 export default ListStudent;

@@ -1,5 +1,4 @@
 import Card from "@mui/material/Card";
-import { getDepartment } from "Apis/department.api";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -7,20 +6,12 @@ import MDTypography from "components/MDTypography";
 import DataTable from "examples/Tables/DataTable";
 import authorsTableData from "layouts/department/data/authorsTableData";
 import Item from "layouts/department/itemDepartment";
-import { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
 
 function ListDepartment(props) {
-  const { clickSave, setClickSave } = props;
+  const { departments } = props;
   const { columns, rows } = authorsTableData();
-  const [departments, setDepartments] = useState([]);
-  useEffect(() => {
-    getDepartment(setDepartments);
-  }, []);
-  useEffect(() => {
-    getDepartment(setDepartments);
-    setClickSave(false);
-  }, [clickSave]);
+
   return (
     <Card id="delete-account">
       <MDBox pt={3} px={2}>
@@ -40,12 +31,6 @@ function ListDepartment(props) {
             noEndBorder
           />
           <MDBox mt="-40px">
-            {/* <Item stt="1" khoa="CNTT" />
-            <Item stt="2" khoa="Cơ khí" />
-            <Item stt="3" khoa="Điện tử viễn thông" />
-            <Item stt="4" khoa="Hóa" />
-            <Item stt="5" khoa="Nhiệt" />
-            <Item stt="6" khoa="Điện" /> */}
             {departments.map((item) => (
               <Item stt={item.id.toString()} khoa={item.name} key={item.id} hide={false} />
             ))}
@@ -57,8 +42,7 @@ function ListDepartment(props) {
 }
 
 ListDepartment.propTypes = {
-  clickSave: PropTypes.bool.isRequired,
-  setClickSave: PropTypes.func.isRequired,
+  departments: PropTypes.arrayOf.isRequired,
 };
 
 export default ListDepartment;
