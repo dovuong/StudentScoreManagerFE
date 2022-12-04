@@ -64,11 +64,16 @@ function ItemStudent({
     numberPhone: sdt,
   });
 
+  React.useEffect(() => {
+    setDataUpdate({
+      birthday: ngaysinh,
+      name: hovaten,
+      numberPhone: sdt,
+    });
+  }, [ngaysinh, hovaten, sdt]);
+
   const handleDeleteStudent = () => {
-    // console.log({
-    //   idClass,
-    //   idStudent,
-    // });
+    // console.log(dataUpdate);
     deleteStudent(
       {
         idClass,
@@ -87,6 +92,7 @@ function ItemStudent({
     //   name: dataUpdate.name,
     //   numberPhone: dataUpdate.numberPhone,
     // });
+    // console.log(dataUpdate);
     updateStudent(
       {
         birthday: dataUpdate.birthday,

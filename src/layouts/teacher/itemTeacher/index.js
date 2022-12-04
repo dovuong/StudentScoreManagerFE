@@ -35,7 +35,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { updateTeacher, deleteTeacher } from "Apis/teacher.api";
 
-function ItemTeacher({ stt, hovaten, ngaysinh, sdt, hide, setIsSave, idTeacher }) {
+function ItemTeacher({ stt, hovaten, ngaysinh, sdt, hide, setIsSave, idTeacher, setNotification }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -53,12 +53,21 @@ function ItemTeacher({ stt, hovaten, ngaysinh, sdt, hide, setIsSave, idTeacher }
     numberPhone: sdt,
     password: "",
   });
+  React.useEffect(() => {
+    setData({
+      birthday: ngaysinh.split("T")[0],
+      idTeacher,
+      name: hovaten,
+      numberPhone: sdt,
+      password: "",
+    });
+  }, [ngaysinh, hovaten, sdt]);
   const handleUpdateTeacher = () => {
-    updateTeacher(data, setIsSave);
+    updateTeacher(data, setIsSave, setNotification);
   };
   const handleDeleteTeacher = () => {
     // console.log("a");
-    deleteTeacher(idTeacher, setIsSave);
+    deleteTeacher(idTeacher, setIsSave, setNotification);
   };
   return (
     <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
@@ -206,6 +215,7 @@ ItemTeacher.propTypes = {
   hide: PropTypes.bool.isRequired,
   setIsSave: PropTypes.bool.isRequired,
   idTeacher: PropTypes.number.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
 
 export default ItemTeacher;

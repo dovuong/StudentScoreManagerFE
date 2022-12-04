@@ -10,7 +10,14 @@ import Item from "layouts/classed/itemClass";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { PropTypes } from "prop-types";
 
-function ListClass({ listClass, departments, setIdFacultyChosen, idFacultyChosen, setIsSave }) {
+function ListClass({
+  listClass,
+  departments,
+  setIdFacultyChosen,
+  idFacultyChosen,
+  setIsSave,
+  setNotification,
+}) {
   const { columns, rows } = authorsTableData();
 
   return (
@@ -96,6 +103,7 @@ function ListClass({ listClass, departments, setIdFacultyChosen, idFacultyChosen
                 nameFaculty={item.faculty.name}
                 hide={false}
                 setIsSave={setIsSave}
+                setNotification={setNotification}
               />
             ))}
           </MDBox>
@@ -111,5 +119,6 @@ ListClass.propTypes = {
   setIdFacultyChosen: PropTypes.number.isRequired,
   idFacultyChosen: PropTypes.number.isRequired,
   setIsSave: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
 export default ListClass;

@@ -18,7 +18,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { PropTypes } from "prop-types";
 import { createTeacher } from "Apis/teacher.api";
 
-function ListTeacher({ listTeacher, setIsSave }) {
+function ListTeacher({ listTeacher, setIsSave, setNotification }) {
   const { columns, rows } = authorsTableData();
   // const { columns } = authorsTableData();
 
@@ -65,7 +65,7 @@ function ListTeacher({ listTeacher, setIsSave }) {
     numberPhone: "",
   });
   const handleCreateInforTeacher = () => {
-    createTeacher(data, setIsSave);
+    createTeacher(data, setIsSave, setNotification);
   };
   return (
     <Card id="delete-account">
@@ -114,6 +114,7 @@ function ListTeacher({ listTeacher, setIsSave }) {
                 setIsSave={setIsSave}
                 hide={false}
                 idTeacher={item.id}
+                setNotification={setNotification}
               />
             ))}
           </MDBox>
@@ -220,6 +221,7 @@ function ListTeacher({ listTeacher, setIsSave }) {
 ListTeacher.propTypes = {
   listTeacher: PropTypes.arrayOf.isRequired,
   setIsSave: PropTypes.bool.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
 
 export default ListTeacher;

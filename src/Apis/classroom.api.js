@@ -2,7 +2,7 @@ import axios from "axios";
 import { getLocalStorage, STORAGE } from "Utils/storage";
 import baseUrl from "./config";
 
-const createClassroom = (Data, setIsSave) => {
+const createClassroom = (Data, setIsSave, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}create-classroom`,
@@ -15,14 +15,16 @@ const createClassroom = (Data, setIsSave) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
       setIsSave(true);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 
-const createListClassroom = (Data) => {
+const createListClassroom = (Data, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}create-list-classroom`,
@@ -35,9 +37,11 @@ const createListClassroom = (Data) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 
@@ -81,7 +85,7 @@ const getListClassroomById = (idFaculty, setListClassroomByFaculty, setIsSave) =
     });
 };
 
-const updateClassroom = (Data, setIsSave) => {
+const updateClassroom = (Data, setIsSave, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}update-classroom`,
@@ -94,10 +98,12 @@ const updateClassroom = (Data, setIsSave) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
       setIsSave(true);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 

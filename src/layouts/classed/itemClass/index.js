@@ -36,11 +36,24 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { updateClassroom } from "Apis/classroom.api";
 // import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-function ItemClass({ stt, lophoc, khoa, idClass, idFaculty, nameFaculty, hide, setIsSave }) {
+function ItemClass({
+  stt,
+  lophoc,
+  khoa,
+  idClass,
+  idFaculty,
+  nameFaculty,
+  hide,
+  setIsSave,
+  setNotification,
+}) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
-  const [newNameClass, setnewNameClass] = React.useState(lophoc);
+  const [newNameClass, setnewNameClass] = React.useState("");
+  React.useEffect(() => {
+    setnewNameClass(lophoc);
+  }, [lophoc]);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -54,7 +67,8 @@ function ItemClass({ stt, lophoc, khoa, idClass, idFaculty, nameFaculty, hide, s
         idFaculty,
         nameClassRoom: newNameClass,
       },
-      setIsSave
+      setIsSave,
+      setNotification
     );
   };
 
@@ -136,7 +150,6 @@ function ItemClass({ stt, lophoc, khoa, idClass, idFaculty, nameFaculty, hide, s
             style={{
               marginBottom: 20,
             }}
-            // defaultValue={lophoc}
             value={newNameClass}
             onChange={(e) => {
               setnewNameClass(e.target.value);
@@ -210,6 +223,7 @@ ItemClass.propTypes = {
   nameFaculty: PropTypes.string.isRequired,
   hide: PropTypes.bool.isRequired,
   setIsSave: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
 
 export default ItemClass;

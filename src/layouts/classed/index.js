@@ -14,17 +14,27 @@ import { useEffect, useState } from "react";
 import { getListClassroom, getListClassroomById } from "Apis/classroom.api";
 import { getDepartment } from "Apis/department.api";
 import Loading from "components/Loading";
+import { Alert, Button } from "@mui/material";
 
 function Classed() {
   const [listClass, setListClass] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [isSave, setIsSave] = useState(true);
   const [idFacultyChosen, setIdFacultyChosen] = useState(0);
+  const [notification, setNotification] = useState("");
+  useEffect(() => {
+    const notiTime = setTimeout(() => {
+      setNotification("");
+    }, 5000);
+    return () => {
+      clearTimeout(notiTime);
+    };
+  }, [notification]);
 
   useEffect(() => {
     if (isSave) {
       if (idFacultyChosen === 0) {
-        getListClassroom(setListClass);
+        getListClassroom(setListClass, setIsSave);
         getDepartment(setDepartments, setIsSave);
       } else {
         getListClassroomById(idFacultyChosen, setListClass);
@@ -32,6 +42,33 @@ function Classed() {
       }
     }
   }, [idFacultyChosen, isSave]);
+  const elemNoti = () => {
+    let res = null;
+    if (notification.length > 0) {
+      if (notification === "error") {
+        res = (
+          <Alert
+            severity="error"
+            style={{ marginBottom: "10px" }}
+            action={
+              <Button color="inherit" size="small">
+                UNDO
+              </Button>
+            }
+          >
+            {notification}
+          </Alert>
+        );
+      } else {
+        res = (
+          <Alert severity="success" style={{ marginBottom: "10px" }}>
+            {notification}
+          </Alert>
+        );
+      }
+    }
+    return res;
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -52,6 +89,7 @@ function Classed() {
                 Quản lý lớp học
               </MDTypography>
             </MDBox>
+            {elemNoti()}
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={7}>
@@ -64,11 +102,16 @@ function Classed() {
                       setIdFacultyChosen={setIdFacultyChosen}
                       setIsSave={setIsSave}
                       idFacultyChosen={idFacultyChosen}
+                      setNotification={setNotification}
                     />
                   )}
                 </Grid>
                 <Grid item xs={12} md={5}>
-                  <AddClass departments={departments} setIsSave={setIsSave} />
+                  <AddClass
+                    departments={departments}
+                    setIsSave={setIsSave}
+                    setNotification={setNotification}
+                  />
                 </Grid>
               </Grid>
             </MDBox>

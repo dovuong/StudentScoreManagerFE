@@ -10,7 +10,7 @@ import { PropTypes } from "prop-types";
 import { useState } from "react";
 import { createClassroom, createListClassroom } from "Apis/classroom.api";
 
-function AddClass({ departments, setIsSave }) {
+function AddClass({ departments, setIsSave, setNotification }) {
   const [idFaculty, setIdFaculty] = useState(0);
   const [nameClassRoom, setNameClassroom] = useState("");
   const hanldeCreateClassroom = () => {
@@ -18,17 +18,21 @@ function AddClass({ departments, setIsSave }) {
       const array = nameClassRoom.split(" ").map((item) => ({
         nameClassroom: item,
       }));
-      createListClassroom({
-        idFaculty,
-        nameClassroom: array,
-      });
+      createListClassroom(
+        {
+          idFaculty,
+          nameClassroom: array,
+        },
+        setNotification
+      );
     } else {
       createClassroom(
         {
           idFaculty,
           nameClassRoom,
         },
-        setIsSave
+        setIsSave,
+        setNotification
       );
     }
   };
@@ -114,5 +118,6 @@ function AddClass({ departments, setIsSave }) {
 AddClass.propTypes = {
   departments: PropTypes.arrayOf.isRequired,
   setIsSave: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
 export default AddClass;

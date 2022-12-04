@@ -9,10 +9,10 @@ import { useState } from "react";
 import { createDepartment } from "Apis/department.api";
 import { PropTypes } from "prop-types";
 
-function AddDepartment({ setClickSave }) {
+function AddDepartment({ setClickSave, setNotification }) {
   const [department, setDepartment] = useState("");
   const handleCreateDepartment = () => {
-    createDepartment(department, setClickSave);
+    createDepartment(department, setClickSave, setNotification);
   };
   return (
     <Card sx={{ height: "200px" }}>
@@ -57,6 +57,7 @@ function AddDepartment({ setClickSave }) {
 }
 AddDepartment.propTypes = {
   setClickSave: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
 
 export default AddDepartment;

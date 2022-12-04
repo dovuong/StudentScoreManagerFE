@@ -2,7 +2,7 @@ import axios from "axios";
 import { getLocalStorage, STORAGE } from "Utils/storage";
 import baseUrl from "./config";
 
-const getDepartment = (setDepartments, setIsSave) => {
+const getDepartment = (setDepartments, setIsSave = null) => {
   axios({
     method: "get",
     url: `${baseUrl}all-faculty`,
@@ -15,14 +15,16 @@ const getDepartment = (setDepartments, setIsSave) => {
     .then((body) => {
       console.log(body);
       setDepartments(body);
-      setIsSave(false);
+      if (setIsSave) {
+        setIsSave(false);
+      }
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-const createDepartment = (department, setIsSave) => {
+const createDepartment = (department, setIsSave, setNotification) => {
   axios({
     method: "post",
     // url: `${baseUrl}create-faculty?name=${department}`,
@@ -35,12 +37,14 @@ const createDepartment = (department, setIsSave) => {
     },
   })
     .then((res) => res.data)
-    .then((data) => {
-      console.log(data);
+    .then((data) => data.body)
+    .then((body) => {
+      setNotification(body);
       setIsSave(true);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 

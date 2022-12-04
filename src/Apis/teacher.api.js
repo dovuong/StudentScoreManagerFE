@@ -2,7 +2,7 @@ import axios from "axios";
 import { getLocalStorage, STORAGE } from "Utils/storage";
 import baseUrl from "./config";
 
-const createTeacher = (Data, setIsSave) => {
+const createTeacher = (Data, setIsSave, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}create-teacher`,
@@ -15,9 +15,11 @@ const createTeacher = (Data, setIsSave) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
       setIsSave(true);
     })
     .catch((err) => {
+      setNotification("error");
       console.log(err);
     });
 };
@@ -41,7 +43,7 @@ const createListTeacher = (Data) => {
     });
 };
 
-const deleteTeacher = (idTeacher, setIsSave) => {
+const deleteTeacher = (idTeacher, setIsSave, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}delete-teacher/${idTeacher}`,
@@ -53,10 +55,12 @@ const deleteTeacher = (idTeacher, setIsSave) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
       setIsSave(true);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 
@@ -118,7 +122,7 @@ const getListTeacherByUsername = (username, setListTeacherByUsername) => {
     });
 };
 
-const updateTeacher = (Data, setIsSave) => {
+const updateTeacher = (Data, setIsSave, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}update-teacher`,
@@ -131,10 +135,12 @@ const updateTeacher = (Data, setIsSave) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
       setIsSave(true);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 
