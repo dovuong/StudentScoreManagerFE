@@ -1,7 +1,8 @@
+import { Alert, Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { getListClassroom } from "Apis/classroom.api";
-import { getDepartment } from "Apis/department.api";
 import { getListStudent, getListStudentByClass } from "Apis/student.api";
+import Loading from "components/Loading";
 // import Card from "@mui/material/Card";
 
 // Material Dashboard 2 React components
@@ -17,20 +18,29 @@ import { useEffect, useState } from "react";
 function Subjects() {
   const [listStudent, setListStudent] = useState([]);
   const [listClass, setListClass] = useState([]);
-  const [listFaculty, setListFaculty] = useState([]);
   const [idClassChosen, setIdClassChosen] = useState(0);
+  const [isSave, setIsSave] = useState(true);
+  const [notification, setNotification] = useState("");
   useEffect(() => {
-    getListStudent(setListStudent);
-    getListClassroom(setListClass);
-    getDepartment(setListFaculty);
-  }, []);
+    const notiTime = setTimeout(() => {
+      setNotification("");
+    }, 5000);
+    return () => {
+      clearTimeout(notiTime);
+    };
+  }, [notification]);
+
   useEffect(() => {
-    if (idClassChosen === 0) {
-      getListStudent(setListStudent);
-    } else {
-      getListStudentByClass(idClassChosen, setListStudent);
+    if (isSave) {
+      if (idClassChosen === 0) {
+        getListStudent(setListStudent, setIsSave);
+        getListClassroom(setListClass, setIsSave);
+      } else {
+        getListStudentByClass(idClassChosen, setListStudent, setIsSave);
+        getListClassroom(setListClass, setIsSave);
+      }
     }
-  }, [idClassChosen]);
+  }, [idClassChosen, isSave]);
   // useEffect(() => {
   //   if (idFacultyChosen === 0) {
   //     getListClassroom(setListClass);
@@ -53,6 +63,33 @@ function Subjects() {
   //     getListStudentByClass(idClassChosen, setListStudent);
   //   }
   // }, [idClassChosen, idFacultyChosen]);
+  const elemNoti = () => {
+    let res = null;
+    if (notification.length > 0) {
+      if (notification === "error") {
+        res = (
+          <Alert
+            severity="error"
+            style={{ marginBottom: "10px" }}
+            action={
+              <Button color="inherit" size="small">
+                UNDO
+              </Button>
+            }
+          >
+            {notification}
+          </Alert>
+        );
+      } else {
+        res = (
+          <Alert severity="success" style={{ marginBottom: "10px" }}>
+            {notification}
+          </Alert>
+        );
+      }
+    }
+    return res;
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -73,13 +110,21 @@ function Subjects() {
                 Quản lý sinh viên
               </MDTypography>
             </MDBox>
+            {elemNoti()}
+
             <MDBox mb={3} width="100%">
-              <ListStudent
-                listStudent={listStudent}
-                listClass={listClass}
-                listFaculty={listFaculty}
-                setIdClassChosen={setIdClassChosen}
-              />
+              {isSave ? (
+                <Loading type="spin" color="rgb(41,130,235)" />
+              ) : (
+                <ListStudent
+                  listStudent={listStudent}
+                  listClass={listClass}
+                  setIdClassChosen={setIdClassChosen}
+                  setIsSave={setIsSave}
+                  idClassChosen={idClassChosen}
+                  setNotification={setNotification}
+                />
+              )}
             </MDBox>
           </Grid>
         </Grid>

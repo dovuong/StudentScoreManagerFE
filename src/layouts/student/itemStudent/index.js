@@ -35,7 +35,19 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { deleteStudent, updateStudent } from "Apis/student.api";
 
-function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, sdt, idStudent, idClass, hide }) {
+function ItemStudent({
+  stt,
+  masv,
+  hovaten,
+  lop,
+  ngaysinh,
+  sdt,
+  idStudent,
+  idClass,
+  hide,
+  setIsSave,
+  setNotification,
+}) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -47,20 +59,29 @@ function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, sdt, idStudent, idClas
   };
 
   const [dataUpdate, setDataUpdate] = React.useState({
-    birthday: "",
-    name: "",
-    numberPhone: "",
+    birthday: ngaysinh,
+    name: hovaten,
+    numberPhone: sdt,
   });
 
-  const handleDeleteStudent = () => {
-    // console.log({
-    //   idClass,
-    //   idStudent,
-    // });
-    deleteStudent({
-      idClass,
-      idStudent,
+  React.useEffect(() => {
+    setDataUpdate({
+      birthday: ngaysinh,
+      name: hovaten,
+      numberPhone: sdt,
     });
+  }, [ngaysinh, hovaten, sdt]);
+
+  const handleDeleteStudent = () => {
+    // console.log(dataUpdate);
+    deleteStudent(
+      {
+        idClass,
+        idStudent,
+      },
+      setIsSave,
+      setNotification
+    );
   };
 
   const handleUpdateStudent = () => {
@@ -71,13 +92,18 @@ function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, sdt, idStudent, idClas
     //   name: dataUpdate.name,
     //   numberPhone: dataUpdate.numberPhone,
     // });
-    updateStudent({
-      birthday: dataUpdate.birthday,
-      idClassroom: idClass,
-      idStudent,
-      name: dataUpdate.name,
-      numberPhone: dataUpdate.numberPhone,
-    });
+    // console.log(dataUpdate);
+    updateStudent(
+      {
+        birthday: dataUpdate.birthday,
+        idClassroom: idClass,
+        idStudent,
+        name: dataUpdate.name,
+        numberPhone: dataUpdate.numberPhone,
+      },
+      setIsSave,
+      setNotification
+    );
   };
 
   return (
@@ -145,7 +171,7 @@ function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, sdt, idStudent, idClas
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
-            defaultValue={hovaten}
+            value={dataUpdate.name}
             onChange={(e) => {
               setDataUpdate({
                 ...dataUpdate,
@@ -170,11 +196,11 @@ function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, sdt, idStudent, idClas
             margin="dense"
             id="name"
             label="Ngày sinh"
-            type="email"
+            type="date"
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
-            defaultValue={ngaysinh}
+            value={dataUpdate.birthday}
             onChange={(e) => {
               setDataUpdate({
                 ...dataUpdate,
@@ -201,7 +227,7 @@ function ItemStudent({ stt, masv, hovaten, lop, ngaysinh, sdt, idStudent, idClas
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
-            defaultValue={sdt}
+            value={dataUpdate.numberPhone}
             onChange={(e) => {
               setDataUpdate({
                 ...dataUpdate,
@@ -237,6 +263,8 @@ ItemStudent.propTypes = {
   idClass: PropTypes.number.isRequired,
   idStudent: PropTypes.number.isRequired,
   hide: PropTypes.bool.isRequired,
+  setIsSave: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
 
 export default ItemStudent;

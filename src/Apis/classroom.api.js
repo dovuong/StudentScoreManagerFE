@@ -2,7 +2,7 @@ import axios from "axios";
 import { getLocalStorage, STORAGE } from "Utils/storage";
 import baseUrl from "./config";
 
-const createClassroom = (Data) => {
+const createClassroom = (Data, setIsSave, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}create-classroom`,
@@ -15,13 +15,16 @@ const createClassroom = (Data) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
+      setIsSave(true);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 
-const createListClassroom = (Data) => {
+const createListClassroom = (Data, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}create-list-classroom`,
@@ -34,13 +37,15 @@ const createListClassroom = (Data) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 
-const getListClassroom = (setListClassroom) => {
+const getListClassroom = (setListClassroom, setIsSave) => {
   axios({
     method: "get",
     url: `${baseUrl}get-list-classroom`,
@@ -53,13 +58,14 @@ const getListClassroom = (setListClassroom) => {
     .then((body) => {
       console.log(body);
       setListClassroom(body);
+      setIsSave(false);
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-const getListClassroomById = (idFaculty, setListClassroomByFaculty) => {
+const getListClassroomById = (idFaculty, setListClassroomByFaculty, setIsSave) => {
   axios({
     method: "get",
     url: `${baseUrl}get-list-classroom-by-faculty/${idFaculty}`,
@@ -72,13 +78,14 @@ const getListClassroomById = (idFaculty, setListClassroomByFaculty) => {
     .then((body) => {
       console.log(body);
       setListClassroomByFaculty(body);
+      setIsSave(false);
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-const updateClassroom = (Data) => {
+const updateClassroom = (Data, setIsSave, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}update-classroom`,
@@ -91,9 +98,12 @@ const updateClassroom = (Data) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
+      setIsSave(true);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 

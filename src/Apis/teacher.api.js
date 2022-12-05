@@ -2,7 +2,7 @@ import axios from "axios";
 import { getLocalStorage, STORAGE } from "Utils/storage";
 import baseUrl from "./config";
 
-const createTeacher = (Data) => {
+const createTeacher = (Data, setIsSave, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}create-teacher`,
@@ -15,8 +15,11 @@ const createTeacher = (Data) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
+      setIsSave(true);
     })
     .catch((err) => {
+      setNotification("error");
       console.log(err);
     });
 };
@@ -40,7 +43,7 @@ const createListTeacher = (Data) => {
     });
 };
 
-const deleteTeacher = (idTeacher) => {
+const deleteTeacher = (idTeacher, setIsSave, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}delete-teacher/${idTeacher}`,
@@ -52,9 +55,12 @@ const deleteTeacher = (idTeacher) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
+      setIsSave(true);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 
@@ -77,7 +83,7 @@ const deleteListTeacher = (Data) => {
     });
 };
 
-const getListTeacher = (setListTeacher) => {
+const getListTeacher = (setListTeacher, setIsSave) => {
   axios({
     method: "get",
     url: `${baseUrl}get-teacher`,
@@ -90,6 +96,7 @@ const getListTeacher = (setListTeacher) => {
     .then((body) => {
       console.log(body);
       setListTeacher(body);
+      setIsSave(false);
     })
     .catch((err) => {
       console.log(err);
@@ -115,7 +122,7 @@ const getListTeacherByUsername = (username, setListTeacherByUsername) => {
     });
 };
 
-const updateTeacher = (Data) => {
+const updateTeacher = (Data, setIsSave, setNotification) => {
   axios({
     method: "post",
     url: `${baseUrl}update-teacher`,
@@ -128,9 +135,12 @@ const updateTeacher = (Data) => {
     .then((data) => data.body)
     .then((body) => {
       console.log(body);
+      setNotification(body);
+      setIsSave(true);
     })
     .catch((err) => {
       console.log(err);
+      setNotification("error");
     });
 };
 

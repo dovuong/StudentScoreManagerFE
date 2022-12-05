@@ -1,5 +1,7 @@
+import { Alert, Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { getListTeacher } from "Apis/teacher.api";
+import Loading from "components/Loading";
 // import Card from "@mui/material/Card";
 
 // Material Dashboard 2 React components
@@ -14,9 +16,48 @@ import { useEffect, useState } from "react";
 
 function Subjects() {
   const [listTeacher, setListTeacher] = useState([]);
+  const [isSave, setIsSave] = useState(true);
+  const [notification, setNotification] = useState("");
   useEffect(() => {
-    getListTeacher(setListTeacher);
-  }, []);
+    const notiTime = setTimeout(() => {
+      setNotification("");
+    }, 5000);
+    return () => {
+      clearTimeout(notiTime);
+    };
+  }, [notification]);
+  useEffect(() => {
+    if (isSave) {
+      getListTeacher(setListTeacher, setIsSave);
+    }
+  }, [isSave]);
+  const elemNoti = () => {
+    let res = null;
+    if (notification.length > 0) {
+      if (notification === "error") {
+        res = (
+          <Alert
+            severity="error"
+            style={{ marginBottom: "10px" }}
+            action={
+              <Button color="inherit" size="small">
+                UNDO
+              </Button>
+            }
+          >
+            {notification}
+          </Alert>
+        );
+      } else {
+        res = (
+          <Alert severity="success" style={{ marginBottom: "10px" }}>
+            {notification}
+          </Alert>
+        );
+      }
+    }
+    return res;
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -37,8 +78,17 @@ function Subjects() {
                 Quản lý giáo viên
               </MDTypography>
             </MDBox>
+            {elemNoti()}
             <MDBox mb={3} width="100%">
-              <ListTeacher listTeacher={listTeacher} />
+              {isSave ? (
+                <Loading type="spin" color="rgb(41,130,235)" />
+              ) : (
+                <ListTeacher
+                  listTeacher={listTeacher}
+                  setIsSave={setIsSave}
+                  setNotification={setNotification}
+                />
+              )}
             </MDBox>
           </Grid>
         </Grid>
