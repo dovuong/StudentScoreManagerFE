@@ -82,7 +82,10 @@ function Subjects() {
         );
       } else {
         res = (
-          <Alert severity="success" style={{ marginBottom: "10px" }}>
+          <Alert
+            severity="success"
+            style={{ marginBottom: "10px", backgroundColor: "rgb(212,255,218)" }}
+          >
             {notification}
           </Alert>
         );

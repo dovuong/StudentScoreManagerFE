@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import App from "App";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
@@ -34,10 +34,10 @@ Sentry.init({
 });
 
 ReactDOM.render(
-  <BrowserRouter>
+  <HashRouter>
     <MaterialUIControllerProvider>
       <App />
     </MaterialUIControllerProvider>
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById("root")
 );

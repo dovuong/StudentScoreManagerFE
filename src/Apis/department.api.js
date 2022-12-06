@@ -13,7 +13,7 @@ const getDepartment = (setDepartments, setIsSave = null) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setDepartments(body);
       if (setIsSave) {
         setIsSave(false);

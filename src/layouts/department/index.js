@@ -51,7 +51,10 @@ function Department() {
         );
       } else {
         res = (
-          <Alert severity="success" style={{ marginBottom: "10px" }}>
+          <Alert
+            severity="success"
+            style={{ marginBottom: "10px", backgroundCOlor: "rgb(212,255,218)" }}
+          >
             {notification}
           </Alert>
         );

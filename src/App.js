@@ -130,9 +130,11 @@ export default function App() {
     // useLayoutEffect(() => {
     //   currentUser();
     // }, []);
-    useEffect(() => {
-      console.log(new Date().valueOf() - Date.parse(JSON.parse(localStorage.getItem("EXPIRE"))));
-    }, []);
+    // useEffect(() => {
+    //   console.log(
+    //     new Date().valueOf() - Date.parse(JSON.parse(localStorage.getItem("EXPIRE")) < 86400000)
+    //   );
+    // }, []);
     const getRoutes = (allRoutes) =>
       allRoutes.map((route) => {
         // if (route.collapse) {
@@ -151,6 +153,16 @@ export default function App() {
 
         // return null;
       });
+
+    const elemDefault = () => {
+      let res = null;
+      if (localStorage.getItem("POSITION") === "0") {
+        res = <Route path="*" element={<Navigate to="/admin/dashboard" />} />;
+      } else if (localStorage.getItem("POSITION") === "1") {
+        res = <Route path="*" element={<Navigate to="/manageScore" />} />;
+      }
+      return res;
+    };
 
     const configsButton = (
       <MDBox
@@ -230,21 +242,12 @@ export default function App() {
             ? getRoutesPublic(routes)
             : null}
 
-          {/* {localStorage.getItem(STORAGE.USER_TOKEN) &&
-          new Date().valueOf() - Date.parse(JSON.parse(localStorage.getItem("EXPIRE")) < 86400000)
+          {localStorage.getItem(STORAGE.USER_TOKEN) &&
+          new Date().valueOf() - Date.parse(JSON.parse(localStorage.getItem("EXPIRE"))) < 86400000
             ? getRoutes(routes)
-            : null} */}
-          {getRoutes(routes)}
-          {localStorage.getItem("POSITION") === "0" ? (
-            <Route path="*" element={<Navigate to="/admin/dashboard" />} />
-          ) : (
-            <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
-          )}
-          {/* {localStorage.getItem("POSITION") === "0" ? (
-            <Route path="*" element={<Navigate to="/admin/dashboard" />} />
-          ) : localStorage.getItem("POSITION") === "1" ? (
-            <Route path="*" element={<Navigate to="/manageScore" />} />
-          ) : null} */}
+            : null}
+          {/* {getRoutes(routes)} */}
+          {elemDefault()}
         </Routes>
       </ThemeProvider>
     );

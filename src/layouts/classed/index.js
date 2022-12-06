@@ -37,7 +37,7 @@ function Classed() {
         getListClassroom(setListClass, setIsSave);
         getDepartment(setDepartments, setIsSave);
       } else {
-        getListClassroomById(idFacultyChosen, setListClass);
+        getListClassroomById(idFacultyChosen, setListClass, setIsSave);
         getDepartment(setDepartments, setIsSave);
       }
     }
@@ -61,7 +61,10 @@ function Classed() {
         );
       } else {
         res = (
-          <Alert severity="success" style={{ marginBottom: "10px" }}>
+          <Alert
+            severity="success"
+            style={{ marginBottom: "10px", backgroundColor: "rgb(212,255,218)" }}
+          >
             {notification}
           </Alert>
         );

@@ -14,7 +14,7 @@ const createTeacher = (Data, setIsSave, setNotification) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setNotification(body);
       setIsSave(true);
     })
@@ -54,7 +54,7 @@ const deleteTeacher = (idTeacher, setIsSave, setNotification) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setNotification(body);
       setIsSave(true);
     })
@@ -83,7 +83,7 @@ const deleteListTeacher = (Data) => {
     });
 };
 
-const getListTeacher = (setListTeacher, setIsSave) => {
+const getListTeacher = (setListTeacher, setIsSave = null) => {
   axios({
     method: "get",
     url: `${baseUrl}get-teacher`,
@@ -94,9 +94,11 @@ const getListTeacher = (setListTeacher, setIsSave) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setListTeacher(body);
-      setIsSave(false);
+      if (setIsSave) {
+        setIsSave(false);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -114,7 +116,7 @@ const getListTeacherByUsername = (username, setListTeacherByUsername) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setListTeacherByUsername(body);
     })
     .catch((err) => {
@@ -134,7 +136,7 @@ const updateTeacher = (Data, setIsSave, setNotification) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setNotification(body);
       setIsSave(true);
     })

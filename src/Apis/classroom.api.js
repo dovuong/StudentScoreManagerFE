@@ -14,7 +14,7 @@ const createClassroom = (Data, setIsSave, setNotification) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setNotification(body);
       setIsSave(true);
     })
@@ -45,7 +45,7 @@ const createListClassroom = (Data, setNotification) => {
     });
 };
 
-const getListClassroom = (setListClassroom, setIsSave) => {
+const getListClassroom = (setListClassroom, setIsSave = null) => {
   axios({
     method: "get",
     url: `${baseUrl}get-list-classroom`,
@@ -56,9 +56,11 @@ const getListClassroom = (setListClassroom, setIsSave) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setListClassroom(body);
-      setIsSave(false);
+      if (setIsSave) {
+        setIsSave(false);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -76,7 +78,7 @@ const getListClassroomById = (idFaculty, setListClassroomByFaculty, setIsSave) =
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setListClassroomByFaculty(body);
       setIsSave(false);
     })
@@ -97,7 +99,7 @@ const updateClassroom = (Data, setIsSave, setNotification) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setNotification(body);
       setIsSave(true);
     })

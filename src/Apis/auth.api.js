@@ -52,7 +52,9 @@ function logout(navigate) {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
     },
   })
-    .then(() => {
+    .then((res) => res.data)
+    .then((data) => {
+      console.log(data);
       removeLocalStorage(STORAGE.USER_DATA);
       removeLocalStorage(STORAGE.USER_TOKEN);
       removeLocalStorage("POSITION");

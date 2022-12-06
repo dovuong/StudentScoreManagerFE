@@ -14,7 +14,7 @@ const createStudent = (Data, setIsSave, setNotification) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setNotification(body);
       setIsSave(true);
     })
@@ -55,7 +55,7 @@ const deleteStudent = (Data, setIsSave, setNotification) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setIsSave(true);
       setNotification(body);
     })
@@ -84,7 +84,7 @@ const deleteListStudent = (Data) => {
     });
 };
 
-const getListStudent = (setListStudent, setIsSave) => {
+const getListStudent = (setListStudent, setIsSave = null) => {
   axios({
     method: "get",
     url: `${baseUrl}get-list-student`,
@@ -95,9 +95,11 @@ const getListStudent = (setListStudent, setIsSave) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setListStudent(body);
-      setIsSave(false);
+      if (setIsSave) {
+        setIsSave(false);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -115,7 +117,7 @@ const getListStudentByClass = (idClassRoom, setListStudentByClass, setIsSave) =>
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setListStudentByClass(body);
       setIsSave(false);
     })
@@ -136,7 +138,7 @@ const updateStudent = (Data, setIsSave, setNotification) => {
     .then((res) => res.data)
     .then((data) => data.body)
     .then((body) => {
-      console.log(body);
+      // console.log(body);
       setIsSave(true);
       setNotification(body);
     })
