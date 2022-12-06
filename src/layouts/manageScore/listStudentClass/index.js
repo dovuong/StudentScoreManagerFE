@@ -41,29 +41,38 @@ function ListStudentClass() {
               <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
                 1
               </MDTypography>
-              <MDTypography variant="caption" color="text" fontWeight="medium" ml={10} width="30%">
+              <MDTypography variant="caption" color="text" fontWeight="medium" ml={9} width="120px">
                 102190052
               </MDTypography>
-              <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="30%">
+              <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="128px">
                 Nguyen van a
               </MDTypography>
-              <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="34%">
+              <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="120px">
                 12/07/2002
               </MDTypography>
-              <MDTypography variant="caption" color="text" fontWeight="medium" ml={4} width="30%">
+              <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="150px">
                 a@gmail.com
               </MDTypography>
-              <MDTypography variant="caption" color="text" fontWeight="medium" ml={6} width="24%">
+              <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="158px">
                 0365886556
               </MDTypography>
               {!edit ? (
-                <MDBox width="105%" mt={-1.3}>
+                <MDBox width="400px" mt={-1.3}>
+                  <MDTypography
+                    variant="caption"
+                    color="text"
+                    fontWeight="medium"
+                    ml={1}
+                    width="20px"
+                  >
+                    9
+                  </MDTypography>
                   <MDTypography
                     variant="caption"
                     color="text"
                     fontWeight="medium"
                     ml={9}
-                    width="18%"
+                    width="20px"
                   >
                     9
                   </MDTypography>
@@ -71,8 +80,8 @@ function ListStudentClass() {
                     variant="caption"
                     color="text"
                     fontWeight="medium"
-                    ml={11}
-                    width="13%"
+                    ml={9.5}
+                    width="20px"
                   >
                     9
                   </MDTypography>
@@ -80,17 +89,8 @@ function ListStudentClass() {
                     variant="caption"
                     color="text"
                     fontWeight="medium"
-                    ml={10.5}
-                    width="23%"
-                  >
-                    9
-                  </MDTypography>
-                  <MDTypography
-                    variant="caption"
-                    color="text"
-                    fontWeight="medium"
-                    ml={13}
-                    width="8%"
+                    ml={12}
+                    width="20px"
                   >
                     9
                   </MDTypography>
@@ -99,20 +99,20 @@ function ListStudentClass() {
                     color="text"
                     fontWeight="medium"
                     ml={10}
-                    width="8%"
+                    width="20px"
                   >
                     3.8
                   </MDTypography>
                 </MDBox>
               ) : (
-                <MDBox width="105%" mt={-1.7}>
+                <MDBox width="400px" mt={-1.7}>
                   <TextField
                     autoFocus
                     margin="dense"
                     id="bt"
                     type="text"
                     variant="standard"
-                    sx={{ width: "10%", ml: 7, textAlign: "center" }}
+                    sx={{ width: "30px", ml: -0.5, textAlign: "center" }}
                   />
                   <TextField
                     autoFocus
@@ -120,7 +120,7 @@ function ListStudentClass() {
                     id="gk"
                     type="text"
                     variant="standard"
-                    sx={{ width: "10%", ml: 5 }}
+                    sx={{ width: "30px", ml: 6.7 }}
                   />
                   <TextField
                     autoFocus
@@ -128,7 +128,7 @@ function ListStudentClass() {
                     id="ck"
                     type="text"
                     variant="standard"
-                    sx={{ width: "10%", ml: 6 }}
+                    sx={{ width: "30px", ml: 6.5 }}
                   />
                   <TextField
                     autoFocus
@@ -136,7 +136,7 @@ function ListStudentClass() {
                     id="t10"
                     type="text"
                     variant="standard"
-                    sx={{ width: "10%", ml: 7 }}
+                    sx={{ width: "30px", ml: 8 }}
                   />
                   <TextField
                     autoFocus
@@ -144,7 +144,7 @@ function ListStudentClass() {
                     id="t4"
                     type="text"
                     variant="standard"
-                    sx={{ width: "10%", ml: 5.8 }}
+                    sx={{ width: "30px", ml: 8.8 }}
                   />
                 </MDBox>
               )}
@@ -153,7 +153,7 @@ function ListStudentClass() {
                   <MDButton
                     variant="text"
                     color={darkMode ? "white" : "dark"}
-                    sx={{ width: "150px" }}
+                    sx={{ width: "100px", px: 0 }}
                     onClick={handleClick}
                   >
                     <Icon>edit</Icon>&nbsp;edit
@@ -162,7 +162,7 @@ function ListStudentClass() {
                   <MDButton
                     variant="text"
                     color={darkMode ? "white" : "dark"}
-                    sx={{ width: "150px", px: 0 }}
+                    sx={{ width: "100px", px: 0 }}
                     onClick={handleClick}
                   >
                     <Icon>save</Icon>&nbsp;save
