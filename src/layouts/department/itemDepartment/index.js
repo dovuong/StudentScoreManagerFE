@@ -69,11 +69,16 @@ function ItemDepartment({ stt, khoa, hide }) {
       ) : (
         <MDBox display="flex" alignItems="center" mt={-2} width="40%">
           <MDBox mr={6} ml={2}>
-            <MDButton variant="text" color="error">
+            <MDButton variant="text" color="error" disabled>
               <Icon>delete</Icon>&nbsp;delete
             </MDButton>
           </MDBox>
-          <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
+          <MDButton
+            variant="text"
+            color={darkMode ? "white" : "dark"}
+            onClick={handleClickOpen}
+            disabled
+          >
             <Icon>edit</Icon>&nbsp;edit
           </MDButton>
         </MDBox>

@@ -47,7 +47,8 @@ function ItemTeacher({ stt, hovaten, ngaysinh, sdt, hide, setIsSave, idTeacher, 
   };
   // const day = ngaysinh.split("T")[0].split("-");
   const [data, setData] = React.useState({
-    birthday: ngaysinh.split("T")[0],
+    birthday: ngaysinh?.split("T")[0],
+    // birthday: ngaysinh?.slice(0, 10),
     idTeacher,
     name: hovaten,
     numberPhone: sdt,
@@ -55,7 +56,8 @@ function ItemTeacher({ stt, hovaten, ngaysinh, sdt, hide, setIsSave, idTeacher, 
   });
   React.useEffect(() => {
     setData({
-      birthday: ngaysinh.split("T")[0],
+      birthday: ngaysinh?.split("T")[0],
+      // birthday: ngaysinh.slice(0, 10),
       idTeacher,
       name: hovaten,
       numberPhone: sdt,
@@ -78,7 +80,7 @@ function ItemTeacher({ stt, hovaten, ngaysinh, sdt, hide, setIsSave, idTeacher, 
         {hovaten}
       </MDTypography>
       <MDTypography variant="caption" color="text" fontWeight="medium" width="20%" textAlign="left">
-        {ngaysinh.split("T")[0]}
+        {ngaysinh?.split("T")[0]}
       </MDTypography>
       <MDTypography variant="caption" color="text" fontWeight="medium" width="20%" textAlign="left">
         {sdt}
