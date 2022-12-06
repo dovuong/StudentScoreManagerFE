@@ -60,7 +60,7 @@
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b develop -d build"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
