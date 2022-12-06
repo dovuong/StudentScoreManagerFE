@@ -33,48 +33,50 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { updateClassroom } from "Apis/classroom.api";
-// import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { updateCourse } from "Apis/course.api";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-function ItemClass({
+function ItemCourse({
   stt,
-  lophoc,
-  khoa,
-  idClass,
-  idFaculty,
-  nameFaculty,
+  khoahoc,
+  monhoc,
+  giaovien,
+  status,
   hide,
   setIsSave,
   setNotification,
+  idCourse,
+  listTeacher,
+  idTeacher,
 }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
-  const [newNameClass, setnewNameClass] = React.useState("");
+  const [dataUpdate, setDataUpdate] = React.useState({
+    courseId: 0,
+    name: "",
+    teacherId: 0,
+  });
   React.useEffect(() => {
-    setnewNameClass(lophoc);
-  }, [lophoc]);
+    setDataUpdate({
+      ...dataUpdate,
+      courseId: idCourse,
+      name: khoahoc,
+      teacherId: idTeacher,
+    });
+  }, []);
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-  const handleUpdateClass = () => {
-    updateClassroom(
-      {
-        idClass,
-        idFaculty,
-        nameClassRoom: newNameClass,
-      },
-      setIsSave,
-      setNotification
-    );
+  const handleUpdateCourse = () => {
+    updateCourse(dataUpdate, setIsSave, setNotification);
   };
 
   return (
     <MDBox
-      pl={3}
       display="flex"
       height="3.5rem"
       borderBottom="0.2px solid #f0f2f5"
@@ -98,33 +100,53 @@ function ItemClass({
         variant="caption"
         color="text"
         fontWeight="medium"
-        // width="30%"
-        // textAlign="left"
-        px={2}
+        px={1}
         style={{
-          width: "40%",
+          width: "17%",
         }}
       >
-        {lophoc}
+        {khoahoc}
       </MDTypography>
       <MDTypography
         variant="caption"
         color="text"
         fontWeight="medium"
         style={{
-          width: "20%",
+          width: "18%",
         }}
         textAlign="left"
       >
-        {khoa}
+        {monhoc}
+      </MDTypography>
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        style={{
+          width: "18%",
+        }}
+        textAlign="left"
+      >
+        {giaovien}
+      </MDTypography>
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        style={{
+          width: "8%",
+        }}
+        textAlign="left"
+      >
+        {status ? "true" : "false"}
       </MDTypography>
       {hide ? (
-        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
+        <MDBox display="flex" alignItems="center" mt={-2} width="20%">
           {null}
         </MDBox>
       ) : (
-        <MDBox display="flex" alignItems="center" mt={-1} width="40%">
-          <MDBox mr={2} ml={2}>
+        <MDBox display="flex" alignItems="center" mt={-1} width="20%">
+          <MDBox>
             <MDButton variant="text" color="error" disabled>
               <Icon>delete</Icon>&nbsp;delete
             </MDButton>
@@ -142,7 +164,7 @@ function ItemClass({
             autoFocus
             margin="dense"
             id="name"
-            label="Lớp"
+            label="Tên Khóa học"
             type="email"
             fullWidth
             variant="standard"
@@ -150,24 +172,15 @@ function ItemClass({
             style={{
               marginBottom: 20,
             }}
-            value={newNameClass}
+            value={dataUpdate.name}
             onChange={(e) => {
-              setnewNameClass(e.target.value);
+              setDataUpdate({
+                ...dataUpdate,
+                name: e.target.value,
+              });
             }}
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Khoa"
-            type="email"
-            fullWidth
-            variant="standard"
-            sx={{ width: "450px", mx: 4 }}
-            defaultValue={nameFaculty}
-            inputProps={{ readOnly: true }}
-          />
-          {/* <FormControl
+          <FormControl
             size="small"
             sx={{ width: "450px", mx: 4 }}
             // autoWidth
@@ -175,27 +188,31 @@ function ItemClass({
               height: 40,
             }}
           >
-            <InputLabel id="demo-simple-select-label">Khoa</InputLabel>
+            <InputLabel id="demo-simple-select-label">Giáo Viên</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              label="Khoa"
+              label="Giáo Viên"
+              value={dataUpdate.teacherId}
               onChange={(e) => {
-                setIdFaculty(e.target.value);
+                setDataUpdate({
+                  ...dataUpdate,
+                  teacherId: e.target.value,
+                });
               }}
               style={{ height: "100%" }}
             >
-              {departments.map((item) => (
+              {listTeacher?.map((item) => (
                 <MenuItem value={item.id}>{item.name}</MenuItem>
               ))}
             </Select>
-          </FormControl> */}
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button
             onClick={() => {
-              handleUpdateClass();
+              handleUpdateCourse();
               handleClose();
             }}
           >
@@ -213,17 +230,22 @@ function ItemClass({
 // };
 
 // // Typechecking props for the ItemClass
-ItemClass.propTypes = {
+ItemCourse.propTypes = {
   stt: PropTypes.string.isRequired,
-  lophoc: PropTypes.string.isRequired,
-  khoa: PropTypes.string.isRequired,
+  monhoc: PropTypes.string.isRequired,
+  khoahoc: PropTypes.string.isRequired,
+  giaovien: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
   // departments: PropTypes.arrayOf.isRequired,
-  idClass: PropTypes.number.isRequired,
-  idFaculty: PropTypes.number.isRequired,
-  nameFaculty: PropTypes.string.isRequired,
+  // idClass: PropTypes.number.isRequired,
+  // idFaculty: PropTypes.number.isRequired,
+  // nameFaculty: PropTypes.string.isRequired,
   hide: PropTypes.bool.isRequired,
   setIsSave: PropTypes.func.isRequired,
   setNotification: PropTypes.func.isRequired,
+  idCourse: PropTypes.number.isRequired,
+  listTeacher: PropTypes.arrayOf.isRequired,
+  idTeacher: PropTypes.number.isRequired,
 };
 
-export default ItemClass;
+export default ItemCourse;

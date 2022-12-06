@@ -12,6 +12,7 @@ import ManageScore from "layouts/manageScore";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
+import Course from "layouts/Course";
 
 const routes = [
   {
@@ -46,16 +47,6 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Quản lý môn học",
-    key: "admin/subjects",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/admin/subjects",
-    component: <Subjects />,
-    role: "admin",
-    permission: "login",
-  },
-  {
-    type: "collapse",
     name: "Quản lý giáo viên",
     key: "admin/teacher",
     icon: <Icon fontSize="small">receipt_long</Icon>,
@@ -76,11 +67,21 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Profile",
-    key: "admin/profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/admin/profile",
-    component: <Profile />,
+    name: "Quản lý môn học",
+    key: "admin/subjects",
+    icon: <Icon fontSize="small">receipt_long</Icon>,
+    route: "/admin/subjects",
+    component: <Subjects />,
+    role: "admin",
+    permission: "login",
+  },
+  {
+    type: "collapse",
+    name: "Quản Lý Khóa học",
+    key: "admin/course",
+    icon: <Icon fontSize="small">receipt_long</Icon>,
+    route: "/admin/course",
+    component: <Course />,
     role: "admin",
     permission: "login",
   },

@@ -12,16 +12,18 @@ import { getDepartment } from "Apis/department.api";
 import { getListClassroom } from "Apis/classroom.api";
 import { getListTeacher } from "Apis/teacher.api";
 import { getListStudent } from "Apis/student.api";
+import { getListSubject } from "Apis/subject.api";
 
 function Dashboard() {
   const [departments, setDepartments] = useState([]);
   const [classrooms, setClassrooms] = useState([]);
-  // const [subjects, setSubjects] = useState([]);
+  const [subjects, setSubjects] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
   useEffect(() => {
     getDepartment(setDepartments);
     getListClassroom(setClassrooms);
+    getListSubject(setSubjects);
     getListTeacher(setTeachers);
     getListStudent(setStudents);
   }, []);
@@ -65,7 +67,7 @@ function Dashboard() {
                 color="dark"
                 icon="assignment"
                 title="Môn học"
-                count="+12"
+                count={`+${subjects.length}`}
                 percentage={{
                   color: "success",
                   amount: "+",

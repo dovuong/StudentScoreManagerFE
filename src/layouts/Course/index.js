@@ -8,15 +8,22 @@ import MDTypography from "components/MDTypography";
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import ListSubjects from "layouts/subjects/ListSubjects";
-import AddSubject from "layouts/subjects/AddSubject";
+// import AddClass from "layouts/classed/AddClass";
 import { useEffect, useState } from "react";
-import { getListSubject } from "Apis/subject.api";
 import Loading from "components/Loading";
 import { Alert, Button } from "@mui/material";
+import { getListSubject } from "Apis/subject.api";
+import { getListTeacher } from "Apis/teacher.api";
+import { getListCourseBySubject, getListCourseByTeacher, getListCourse } from "Apis/course.api";
+import ListCourse from "./ListCourse";
+import AddCourse from "./AddCourse";
 
-function Subjects() {
+function Course() {
+  const [listCourse, setListCourse] = useState([]);
   const [listSubject, setListSubject] = useState([]);
+  const [listTeacher, setListTeacher] = useState([]);
+  const [typeFilter, setTypeFilter] = useState(0);
+  const [idChosen, setIdChosen] = useState(0);
   const [isSave, setIsSave] = useState(true);
   const [notification, setNotification] = useState("");
   useEffect(() => {
@@ -27,11 +34,27 @@ function Subjects() {
       clearTimeout(notiTime);
     };
   }, [notification]);
+
+  useEffect(() => {
+    getListSubject(setListSubject, setIsSave, setNotification);
+    getListTeacher(setListTeacher, setIsSave, setNotification);
+  }, []);
+
+  useEffect(() => {
+    setIdChosen(0);
+  }, [typeFilter]);
+
   useEffect(() => {
     if (isSave) {
-      getListSubject(setListSubject, setIsSave);
+      if (typeFilter === 1) {
+        getListCourseBySubject(idChosen, setListCourse, setIsSave);
+      } else if (typeFilter === 2) {
+        getListCourseByTeacher(idChosen, setListCourse, setIsSave);
+      } else {
+        getListCourse(setListCourse, setIsSave);
+      }
     }
-  }, [isSave]);
+  }, [idChosen, isSave, typeFilter]);
   const elemNoti = () => {
     let res = null;
     if (notification.length > 0) {
@@ -53,7 +76,7 @@ function Subjects() {
         res = (
           <Alert
             severity="success"
-            style={{ marginBottom: "10px", backgroundCOlor: "rgb(212,255,218)" }}
+            style={{ marginBottom: "10px", backgroundColor: "rgb(212,255,218)" }}
           >
             {notification}
           </Alert>
@@ -79,25 +102,36 @@ function Subjects() {
               marginBottom="2rem"
             >
               <MDTypography variant="h6" color="white">
-                Quản lý môn học
+                Quản lý lớp học
               </MDTypography>
             </MDBox>
             {elemNoti()}
             <MDBox mb={3}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={7}>
+                <Grid item xs={14} md={8}>
                   {isSave ? (
                     <Loading type="spin" color="rgb(41,130,235)" />
                   ) : (
-                    <ListSubjects
+                    <ListCourse
+                      listCourse={listCourse}
                       listSubject={listSubject}
+                      listTeacher={listTeacher}
                       setIsSave={setIsSave}
                       setNotification={setNotification}
+                      setIdChosen={setIdChosen}
+                      idChosen={idChosen}
+                      setTypeFilter={setTypeFilter}
+                      typeFilter={typeFilter}
                     />
                   )}
                 </Grid>
-                <Grid item xs={12} md={5}>
-                  <AddSubject setIsSave={setIsSave} setNotification={setNotification} />
+                <Grid item xs={10} md={4}>
+                  <AddCourse
+                    listSubject={listSubject}
+                    listTeacher={listTeacher}
+                    setIsSave={setIsSave}
+                    setNotification={setNotification}
+                  />
                 </Grid>
               </Grid>
             </MDBox>
@@ -108,4 +142,4 @@ function Subjects() {
   );
 }
 
-export default Subjects;
+export default Course;
