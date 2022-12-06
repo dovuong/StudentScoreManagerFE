@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/StudentScoreManagerFE/static/js/main.0982ec9f.js",
+    "main.js": "/StudentScoreManagerFE/static/js/main.8d4b128e.js",
     "static/media/home-decor-3.jpg": "/StudentScoreManagerFE/static/media/home-decor-3.74d13fcbd3c631fc7908.jpg",
     "static/media/home-decor-2.jpg": "/StudentScoreManagerFE/static/media/home-decor-2.b4e5397c9846645ba275.jpg",
     "static/media/home-decor-1.jpg": "/StudentScoreManagerFE/static/media/home-decor-1.05e218fd495ccc65c99d.jpg",
@@ -17,9 +17,9 @@
     "static/media/kal-visuals-square.jpg": "/StudentScoreManagerFE/static/media/kal-visuals-square.3210e28a48ff572ae88b.jpg",
     "static/media/team-4.jpg": "/StudentScoreManagerFE/static/media/team-4.85c82b6e60178804017f.jpg",
     "index.html": "/StudentScoreManagerFE/index.html",
-    "main.0982ec9f.js.map": "/StudentScoreManagerFE/static/js/main.0982ec9f.js.map"
+    "main.8d4b128e.js.map": "/StudentScoreManagerFE/static/js/main.8d4b128e.js.map"
   },
   "entrypoints": [
-    "static/js/main.0982ec9f.js"
+    "static/js/main.8d4b128e.js"
   ]
 }
