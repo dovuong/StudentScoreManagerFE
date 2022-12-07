@@ -30,7 +30,7 @@ function AddSubject({ setIsSave, setNotification }) {
           </MDTypography>
           <MDBox ml={4} width="15rem">
             <TextField
-              label="mon"
+              label="Môn"
               variant="outlined"
               sx={{ mt: -1, width: "24ch" }}
               onChange={(e) => {

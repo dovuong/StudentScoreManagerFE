@@ -8,8 +8,15 @@ import authorsTableData from "layouts/classed/data/authorsTableData";
 
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { PropTypes } from "prop-types";
-import ItemCourse from "../itemCourse";
+import { useState } from "react";
+import Dialog from "@mui/material/Dialog";
+import MDButton from "components/MDButton";
+import AddCourse from "../AddCourse";
+// import DialogActions from "@mui/material/DialogActions";
+// import DialogContent from "@mui/material/DialogContent";
+// import DialogTitle from "@mui/material/DialogTitle";
 // import { useEffect } from "react";
+import ItemCourse from "../itemCourse";
 
 function ListCourse({
   listCourse,
@@ -21,8 +28,16 @@ function ListCourse({
   idChosen,
   setTypeFilter,
   typeFilter,
+  listStudent,
 }) {
   const { columns, rows } = authorsTableData();
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   // useEffect(() => {
   //   console.log(typeFilter);
   // }, []);
@@ -109,7 +124,7 @@ function ListCourse({
             width: "40%",
           }}
         >
-          Danh sách lớp học
+          Danh sách khóa học
         </MDTypography>
         <FormControl
           size="small"
@@ -137,14 +152,19 @@ function ListCourse({
           </Select>
         </FormControl>
         {elemFormControl()}
+        <MDBox mt={1} mb={2} width="120px">
+          <MDButton to="/admin/dashboard" variant="gradient" color="info" onClick={handleClickOpen}>
+            + create
+          </MDButton>
+        </MDBox>
       </MDBox>
-      <MDBox pt={1} pb={2} px={2}>
+      <MDBox pt={1} pb={2} px={0}>
         <ItemCourse
           stt="STT"
-          khoahoc="Khóa học"
+          khoahoc="Lớp học phần"
           monhoc="Môn Học"
           giaovien="Giáo viên"
-          status="Trạng thái"
+          status="Số lượng"
           hide
         />
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
@@ -160,20 +180,90 @@ function ListCourse({
               <ItemCourse
                 stt={index + 1}
                 khoahoc={item?.name}
-                monhoc={item.subject?.name}
-                giaovien={item.teacher?.name}
-                status={item.status}
+                monhoc={item.subjectName}
+                giaovien={item.teacherName}
+                status={item.totalStudent}
                 idCourse={item.id}
-                idTeacher={item.teacher.id}
+                idTeacher={item.teacherId}
                 // idFaculty={item.faculty.id}
                 listTeacher={listTeacher}
                 hide={false}
                 setIsSave={setIsSave}
                 setNotification={setNotification}
+                listStudent={listStudent}
               />
             ))}
           </MDBox>
         </MDBox>
+        <Dialog open={open} onClose={handleClose}>
+          <AddCourse
+            listSubject={listSubject}
+            listTeacher={listTeacher}
+            setIsSave={setIsSave}
+            setNotification={setNotification}
+          />
+          {/* <DialogTitle ml="43%">Update</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Tên Khóa học"
+              type="email"
+              fullWidth
+              variant="standard"
+              sx={{ width: "450px", mx: 4 }}
+              style={{
+                marginBottom: 20,
+              }}
+              value={dataUpdate.name}
+              onChange={(e) => {
+                setDataUpdate({
+                  ...dataUpdate,
+                  name: e.target.value,
+                });
+              }}
+            />
+            <FormControl
+              size="small"
+              sx={{ width: "450px", mx: 4 }}
+              // autoWidth
+              style={{
+                height: 40,
+              }}
+            >
+              <InputLabel id="demo-simple-select-label">Giáo Viên</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Giáo Viên"
+                value={dataUpdate.teacherId}
+                onChange={(e) => {
+                  setDataUpdate({
+                    ...dataUpdate,
+                    teacherId: e.target.value,
+                  });
+                }}
+                style={{ height: "100%" }}
+              >
+                {listTeacher?.map((item) => (
+                  <MenuItem value={item.id}>{item.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              onClick={() => {
+                handleUpdateCourse();
+                handleClose();
+              }}
+            >
+              Update
+            </Button>
+          </DialogActions> */}
+        </Dialog>
       </MDBox>
     </Card>
   );
@@ -189,5 +279,6 @@ ListCourse.propTypes = {
   idChosen: PropTypes.number.isRequired,
   setTypeFilter: PropTypes.func.isRequired,
   typeFilter: PropTypes.number.isRequired,
+  listStudent: PropTypes.arrayOf.isRequired,
 };
 export default ListCourse;

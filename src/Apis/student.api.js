@@ -45,7 +45,7 @@ const createListStudent = (Data) => {
 
 const deleteStudent = (Data, setIsSave, setNotification) => {
   axios({
-    method: "post",
+    method: "delete",
     url: `${baseUrl}delete-student`,
     data: Data,
     headers: {
@@ -67,7 +67,7 @@ const deleteStudent = (Data, setIsSave, setNotification) => {
 
 const deleteListStudent = (Data) => {
   axios({
-    method: "post",
+    method: "delete",
     url: `${baseUrl}delete-list-student`,
     data: Data,
     headers: {
@@ -128,7 +128,7 @@ const getListStudentByClass = (idClassRoom, setListStudentByClass, setIsSave) =>
 
 const updateStudent = (Data, setIsSave, setNotification) => {
   axios({
-    method: "post",
+    method: "put",
     url: `${baseUrl}update-student`,
     data: Data,
     headers: {
@@ -150,7 +150,7 @@ const updateStudent = (Data, setIsSave, setNotification) => {
 
 const updateListStudent = (Data) => {
   axios({
-    method: "post",
+    method: "put",
     url: `${baseUrl}update-list-student`,
     data: Data,
     headers: {

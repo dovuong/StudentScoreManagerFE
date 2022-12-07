@@ -15,13 +15,15 @@ import { Alert, Button } from "@mui/material";
 import { getListSubject } from "Apis/subject.api";
 import { getListTeacher } from "Apis/teacher.api";
 import { getListCourseBySubject, getListCourseByTeacher, getListCourse } from "Apis/course.api";
+import { getListStudent } from "Apis/student.api";
 import ListCourse from "./ListCourse";
-import AddCourse from "./AddCourse";
+// import AddCourse from "./AddCourse";
 
 function Course() {
   const [listCourse, setListCourse] = useState([]);
   const [listSubject, setListSubject] = useState([]);
   const [listTeacher, setListTeacher] = useState([]);
+  const [listStudent, setListStudent] = useState([]);
   const [typeFilter, setTypeFilter] = useState(0);
   const [idChosen, setIdChosen] = useState(0);
   const [isSave, setIsSave] = useState(true);
@@ -38,6 +40,7 @@ function Course() {
   useEffect(() => {
     getListSubject(setListSubject, setIsSave, setNotification);
     getListTeacher(setListTeacher, setIsSave, setNotification);
+    getListStudent(setListStudent, setIsSave, setNotification);
   }, []);
 
   useEffect(() => {
@@ -108,7 +111,7 @@ function Course() {
             {elemNoti()}
             <MDBox mb={3}>
               <Grid container spacing={3}>
-                <Grid item xs={14} md={8}>
+                <Grid item xs={14} md={15}>
                   {isSave ? (
                     <Loading type="spin" color="rgb(41,130,235)" />
                   ) : (
@@ -116,6 +119,7 @@ function Course() {
                       listCourse={listCourse}
                       listSubject={listSubject}
                       listTeacher={listTeacher}
+                      listStudent={listStudent}
                       setIsSave={setIsSave}
                       setNotification={setNotification}
                       setIdChosen={setIdChosen}
@@ -125,14 +129,14 @@ function Course() {
                     />
                   )}
                 </Grid>
-                <Grid item xs={10} md={4}>
+                {/* <Grid item xs={10} md={4}>
                   <AddCourse
                     listSubject={listSubject}
                     listTeacher={listTeacher}
                     setIsSave={setIsSave}
                     setNotification={setNotification}
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             </MDBox>
           </Grid>

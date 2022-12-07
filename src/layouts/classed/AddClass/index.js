@@ -50,14 +50,14 @@ function AddClass({ departments, setIsSave, setNotification }) {
       </MDBox> */}
       <MDBox pt={3} pb={2} px={4}>
         <MDBox mb={2} display="flex">
-          <MDTypography variant="caption" color="text" fontWeight="bold" width="70px">
+          <MDTypography variant="caption" color="text" fontWeight="bold" width="40%">
             Tên lớp học
           </MDTypography>
-          <MDBox ml={4} width="15rem">
+          <MDBox ml={1} width="80%">
             <TextField
-              label="lop"
+              label="Lớp"
               variant="outlined"
-              sx={{ mt: -1, width: "24ch" }}
+              sx={{ mt: -1, width: "100%" }}
               onChange={(e) => {
                 setNameClassroom(e.target.value);
               }}
@@ -65,13 +65,13 @@ function AddClass({ departments, setIsSave, setNotification }) {
           </MDBox>
         </MDBox>
         <MDBox mb={2} display="flex">
-          <MDTypography variant="caption" color="text" fontWeight="bold" width="70px">
+          <MDTypography variant="caption" color="text" fontWeight="bold" width="40%">
             Khoa:
           </MDTypography>
           {/* <MDBox ml={4} width="15rem">
             <TextField label="khoa" variant="outlined" sx={{ mt: -1, width: "24ch" }} />
           </MDBox> */}
-          <MDBox ml={4} width="15rem">
+          <MDBox ml={1} width="80%">
             <FormControl
               size="small"
               // sx={{ m: 1, minWidth: 120 }}

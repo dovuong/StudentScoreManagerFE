@@ -80,7 +80,7 @@ function ItemClass({
       borderBottom="0.2px solid #f0f2f5"
       style={{
         width: "100%",
-        justifyContent: "center",
+        // justifyContent: "center",
         alignItems: "center",
       }}
     >
@@ -119,12 +119,12 @@ function ItemClass({
         {khoa}
       </MDTypography>
       {hide ? (
-        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
+        <MDBox display="flex" alignItems="center" mt={-2} width="30%">
           {null}
         </MDBox>
       ) : (
-        <MDBox display="flex" alignItems="center" mt={-1} width="40%">
-          <MDBox mr={2} ml={2}>
+        <MDBox display="flex" alignItems="center" mt={0} width="30%">
+          <MDBox>
             <MDButton variant="text" color="error" disabled>
               <Icon>delete</Icon>&nbsp;delete
             </MDButton>
