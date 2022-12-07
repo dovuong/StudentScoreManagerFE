@@ -66,10 +66,19 @@ function Overview() {
       name: profile.body?.name,
       numberPhone: profile.body?.numberPhone,
     });
-  }, []);
+  }, [profile]);
 
   const handleUpdateProfile = () => {
     updateProfile(dataUpdate, setIsSave, setNotification);
+  };
+
+  const [inValidPassword, setInValidPassword] = useState(false);
+  const handleValidPassword = (val) => {
+    if (val.length > 7) {
+      setInValidPassword(true);
+    } else {
+      setInValidPassword(false);
+    }
   };
 
   const elemNoti = () => {
@@ -289,19 +298,34 @@ function Overview() {
                                 ...dataUpdate,
                                 password: e.target.value,
                               });
+                              handleValidPassword(e.target.value);
                             }}
                           />
                         </MDBox>
-                        <MDBox display="flex" py={1} pr={2}>
-                          <Button
-                            sx={{ width: "150px", marginLeft: "16rem" }}
-                            onClick={() => {
-                              handleUpdateProfile();
-                            }}
-                          >
-                            Update
-                          </Button>
-                        </MDBox>
+                        {!inValidPassword ? (
+                          <MDBox display="flex" py={1} pr={2}>
+                            <Button
+                              sx={{ width: "150px", marginLeft: "16rem" }}
+                              onClick={() => {
+                                handleUpdateProfile();
+                              }}
+                              disabled
+                            >
+                              Update
+                            </Button>
+                          </MDBox>
+                        ) : (
+                          <MDBox display="flex" py={1} pr={2}>
+                            <Button
+                              sx={{ width: "150px", marginLeft: "16rem" }}
+                              onClick={() => {
+                                handleUpdateProfile();
+                              }}
+                            >
+                              Update
+                            </Button>
+                          </MDBox>
+                        )}
                       </MDBox>
                     )}
                     <MDBox display="flex" py={1} pr={2}>
