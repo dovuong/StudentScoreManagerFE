@@ -18,6 +18,13 @@ function ListClass({ listCourse, setIsSave, setNotification }) {
         </MDTypography>
       </MDBox>
       <MDBox pt={1} pb={2} px={2}>
+        <Item
+          stt="stt"
+          malop="mã lớp học phần "
+          tenlop="tên lớp học phần"
+          sosv="số sinh viên"
+          hide
+        />
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
           <DataTable
             table={{ columns, rows }}
@@ -36,6 +43,7 @@ function ListClass({ listCourse, setIsSave, setNotification }) {
                 item={item}
                 setIsSave={setIsSave}
                 setNotification={setNotification}
+                hide={false}
               />
             ))}
           </MDBox>

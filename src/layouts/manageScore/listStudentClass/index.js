@@ -106,8 +106,8 @@ function ListStudentClass({ listPoint, setIsSave, setNotification }) {
                     <MDTypography
                       variant="caption"
                       color="text"
-                      fontWeight="medium"
-                      ml={12}
+                      fonWeight="medium"
+                      ml={1}
                       sx={{ width: "20px" }}
                     >
                       {item.point}
@@ -119,7 +119,7 @@ function ListStudentClass({ listPoint, setIsSave, setNotification }) {
                       id="t4"
                       type="text"
                       variant="standard"
-                      sx={{ width: "30px", ml: 11 }}
+                      sx={{ width: "30px", ml: 0 }}
                       value={dataUpdate.point}
                       onChange={(e) => {
                         setDataUpdate({
