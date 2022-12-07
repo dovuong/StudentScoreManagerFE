@@ -10,18 +10,35 @@ import Icon from "@mui/material/Icon";
 import { useMaterialUIController } from "context";
 import MDButton from "components/MDButton";
 import TextField from "@mui/material/TextField";
+import { PropTypes } from "prop-types";
+import { updatePoint } from "Apis/manageScore.api";
 
-function ListStudentClass() {
+function ListStudentClass({ listPoint, setIsSave, setNotification }) {
   const { columns, rows } = authorsTableData();
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
-  const [edit, setEdit] = React.useState(false);
-  const handleClick = () => {
-    setEdit(!edit);
+  const [edit, setEdit] = React.useState("");
+  const handleClick = (id) => {
+    if (edit === "") {
+      setEdit(id);
+    }
+    if (edit === id) {
+      setEdit("");
+    }
+  };
+
+  const [dataUpdate, setDataUpdate] = React.useState({
+    course_id: 0,
+    point: "",
+    student_id: 0,
+  });
+
+  const handleUpdatePoint = () => {
+    updatePoint(dataUpdate, setIsSave, setNotification);
   };
 
   return (
-    <Card id="delete-account">
+    <Card id="delete-account" sx={{ mb: 4 }}>
       <MDBox pt={3} px={2} display="flex">
         <MDTypography variant="h6" fontWeight="medium" ml={2}>
           Danh sách sinh viên
@@ -37,139 +54,125 @@ function ListStudentClass() {
             noEndBorder
           />
           <MDBox mt="-40px">
-            <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
-              <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
-                1
-              </MDTypography>
-              <MDTypography variant="caption" color="text" fontWeight="medium" ml={9} width="120px">
-                102190052
-              </MDTypography>
-              <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="128px">
-                Nguyen van a
-              </MDTypography>
-              <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="120px">
-                12/07/2002
-              </MDTypography>
-              <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="150px">
-                a@gmail.com
-              </MDTypography>
-              <MDTypography variant="caption" color="text" fontWeight="medium" ml={0} width="158px">
-                0365886556
-              </MDTypography>
-              {!edit ? (
-                <MDBox width="400px" mt={-1.3}>
+            {listPoint?.map((item, index) => (
+              <MDBox
+                pl={3}
+                display="flex"
+                height="3.5rem"
+                pt={2}
+                borderBottom="0.2px solid #f0f2f5"
+              >
+                <MDTypography variant="caption" color="text" fontWeight="medium" margineft="5px">
+                  {index + 1}
+                </MDTypography>
+                <MDTypography
+                  variant="caption"
+                  color="text"
+                  fontWeight="medium"
+                  ml={10}
+                  width="180px"
+                >
+                  10219005{item.student.id}
+                </MDTypography>
+                <MDTypography
+                  variant="caption"
+                  color="text"
+                  fontWeight="medium"
+                  ml={0}
+                  width="190px"
+                >
+                  {item.student.name}
+                </MDTypography>
+                <MDTypography
+                  variant="caption"
+                  color="text"
+                  fontWeight="medium"
+                  ml={0}
+                  width="190px"
+                >
+                  {item.student.birthday.slice(0, 10)}
+                </MDTypography>
+                <MDTypography
+                  variant="caption"
+                  color="text"
+                  fontWeight="medium"
+                  ml={0}
+                  width="160px"
+                >
+                  {item.student.numberPhone}
+                </MDTypography>
+                <MDBox width="250px" mt={-1.3}>
+                  {!(edit === item.id) ? (
+                    <MDTypography
+                      variant="caption"
+                      color="text"
+                      fontWeight="medium"
+                      ml={12}
+                      sx={{ width: "20px" }}
+                    >
+                      {item.point}
+                    </MDTypography>
+                  ) : (
+                    <TextField
+                      autoFocus
+                      margin="dense"
+                      id="t4"
+                      type="text"
+                      variant="standard"
+                      sx={{ width: "30px", ml: 11 }}
+                      value={dataUpdate.point}
+                      onChange={(e) => {
+                        setDataUpdate({
+                          ...dataUpdate,
+                          point: e.target.value,
+                        });
+                      }}
+                    />
+                  )}
                   <MDTypography
                     variant="caption"
                     color="text"
                     fontWeight="medium"
-                    ml={1}
+                    ml={14}
                     width="20px"
                   >
-                    9
-                  </MDTypography>
-                  <MDTypography
-                    variant="caption"
-                    color="text"
-                    fontWeight="medium"
-                    ml={9}
-                    width="20px"
-                  >
-                    9
-                  </MDTypography>
-                  <MDTypography
-                    variant="caption"
-                    color="text"
-                    fontWeight="medium"
-                    ml={9.5}
-                    width="20px"
-                  >
-                    9
-                  </MDTypography>
-                  <MDTypography
-                    variant="caption"
-                    color="text"
-                    fontWeight="medium"
-                    ml={12}
-                    width="20px"
-                  >
-                    9
-                  </MDTypography>
-                  <MDTypography
-                    variant="caption"
-                    color="text"
-                    fontWeight="medium"
-                    ml={10}
-                    width="20px"
-                  >
-                    3.8
+                    {Math.round((item.point / 10) * 4 * 10) / 10}
                   </MDTypography>
                 </MDBox>
-              ) : (
-                <MDBox width="400px" mt={-1.7}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="bt"
-                    type="text"
-                    variant="standard"
-                    sx={{ width: "30px", ml: -0.5, textAlign: "center" }}
-                  />
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="gk"
-                    type="text"
-                    variant="standard"
-                    sx={{ width: "30px", ml: 6.7 }}
-                  />
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="ck"
-                    type="text"
-                    variant="standard"
-                    sx={{ width: "30px", ml: 6.5 }}
-                  />
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="t10"
-                    type="text"
-                    variant="standard"
-                    sx={{ width: "30px", ml: 8 }}
-                  />
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="t4"
-                    type="text"
-                    variant="standard"
-                    sx={{ width: "30px", ml: 8.8 }}
-                  />
+                <MDBox display="flex" alignItems="center" mt={-2.5}>
+                  {!(edit === item.id) ? (
+                    <MDButton
+                      variant="text"
+                      color={darkMode ? "white" : "dark"}
+                      sx={{ width: "160px", px: 0 }}
+                      onClick={() => {
+                        handleClick(item.id);
+                        setDataUpdate({
+                          ...dataUpdate,
+                          course_id: item.course.id,
+                          point: item.point,
+                          student_id: item.student.id,
+                        });
+                      }}
+                    >
+                      <Icon>edit</Icon>&nbsp;edit
+                    </MDButton>
+                  ) : (
+                    <MDButton
+                      variant="text"
+                      color={darkMode ? "white" : "dark"}
+                      sx={{ width: "160px", px: 0 }}
+                      onClick={() => {
+                        handleClick(item.id);
+                        handleUpdatePoint();
+                      }}
+                    >
+                      <Icon>save</Icon>&nbsp;save
+                    </MDButton>
+                  )}
                 </MDBox>
-              )}
-              <MDBox display="flex" alignItems="center" mt={-2.5}>
-                {!edit ? (
-                  <MDButton
-                    variant="text"
-                    color={darkMode ? "white" : "dark"}
-                    sx={{ width: "100px", px: 0 }}
-                    onClick={handleClick}
-                  >
-                    <Icon>edit</Icon>&nbsp;edit
-                  </MDButton>
-                ) : (
-                  <MDButton
-                    variant="text"
-                    color={darkMode ? "white" : "dark"}
-                    sx={{ width: "100px", px: 0 }}
-                    onClick={handleClick}
-                  >
-                    <Icon>save</Icon>&nbsp;save
-                  </MDButton>
-                )}
               </MDBox>
-            </MDBox>
+            ))}
           </MDBox>
         </MDBox>
       </MDBox>
@@ -177,4 +180,9 @@ function ListStudentClass() {
   );
 }
 
+ListStudentClass.propTypes = {
+  listPoint: PropTypes.arrayOf.isRequired,
+  setIsSave: PropTypes.arrayOf.isRequired,
+  setNotification: PropTypes.arrayOf.isRequired,
+};
 export default ListStudentClass;

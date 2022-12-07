@@ -98,7 +98,7 @@ const routes = [
     type: "collapse",
     name: "Quản lý điểm",
     key: "manageScore",
-    icon: <Icon fontSize="small">person</Icon>,
+    icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/manageScore",
     component: <ManageScore />,
     role: "teacher",

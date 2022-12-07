@@ -1,5 +1,5 @@
 import Card from "@mui/material/Card";
-
+import { PropTypes } from "prop-types";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
@@ -8,9 +8,8 @@ import authorsTableData from "layouts/manageScore/data/authorsTableData";
 import Item from "layouts/manageScore/itemClass";
 import * as React from "react";
 
-function ListClass() {
+function ListClass({ listCourse, setIsSave, setNotification }) {
   const { columns, rows } = authorsTableData();
-
   return (
     <Card id="delete-account">
       <MDBox pt={3} px={2} display="flex">
@@ -28,18 +27,27 @@ function ListClass() {
             noEndBorder
           />
           <MDBox mt="-40px">
-            <Item
-              stt="1"
-              malop="1021883.2210.19.11"
-              tenlop="Lập trình Java"
-              khoabieu="Thứ 6, 2-5, F201"
-              sosv="50"
-            />
+            {listCourse?.map((item, index) => (
+              <Item
+                stt={index + 1}
+                malop={item.name}
+                tenlop={item.subjectName}
+                sosv={item.totalStudent}
+                item={item}
+                setIsSave={setIsSave}
+                setNotification={setNotification}
+              />
+            ))}
           </MDBox>
         </MDBox>
       </MDBox>
     </Card>
   );
 }
+ListClass.propTypes = {
+  listCourse: PropTypes.arrayOf.isRequired,
+  setIsSave: PropTypes.string.isRequired,
+  setNotification: PropTypes.string.isRequired,
+};
 
 export default ListClass;

@@ -131,6 +131,7 @@ function ListStudent({
             {listStudent.map((item, index) => (
               <Item
                 stt={index + 1}
+                masv={`1021900${item.id}`}
                 hovaten={item.name}
                 lop={item.classRoom.name}
                 ngaysinh={item.birthday.split("T")[0]}

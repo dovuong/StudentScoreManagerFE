@@ -28,8 +28,10 @@ import MDButton from "components/MDButton";
 import { useMaterialUIController } from "context";
 import * as React from "react";
 import ListStudentClass from "layouts/manageScore/listStudentClass";
+import { getListPointByScore } from "Apis/manageScore.api";
+import { useEffect, useState } from "react";
 
-function ItemClass({ stt, malop, tenlop, khoabieu, sosv }) {
+function ItemClass({ stt, malop, tenlop, sosv, item, setIsSave, setNotification }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -37,22 +39,24 @@ function ItemClass({ stt, malop, tenlop, khoabieu, sosv }) {
     setOpen(!open);
   };
 
+  const [listPoint, setListPoint] = useState([]);
+  useEffect(() => {
+    getListPointByScore(item.id, setListPoint, setIsSave);
+  }, []);
+
   return (
     <MDBox display="block">
       <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
         <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
           {stt}
         </MDTypography>
-        <MDTypography variant="caption" color="text" fontWeight="medium" ml={17} width="50%">
+        <MDTypography variant="caption" color="text" fontWeight="medium" ml={17} width="280px">
           {malop}
         </MDTypography>
-        <MDTypography variant="caption" color="text" fontWeight="medium" ml={5} width="50%">
+        <MDTypography variant="caption" color="text" fontWeight="medium" ml={1} width="380px">
           {tenlop}
         </MDTypography>
-        <MDTypography variant="caption" color="text" fontWeight="medium" ml={11} width="50%">
-          {khoabieu}
-        </MDTypography>
-        <MDTypography variant="caption" color="text" fontWeight="medium" ml={15} width="50%">
+        <MDTypography variant="caption" color="text" fontWeight="medium" ml={1} width="200px">
           {sosv}
         </MDTypography>
         <MDBox display="flex" alignItems="center" mt={-2} mr={7}>
@@ -77,7 +81,13 @@ function ItemClass({ stt, malop, tenlop, khoabieu, sosv }) {
           )}
         </MDBox>
       </MDBox>
-      {open && <ListStudentClass />}
+      {open && (
+        <ListStudentClass
+          listPoint={listPoint}
+          setIsSave={setIsSave}
+          setNotification={setNotification}
+        />
+      )}
     </MDBox>
   );
 }
@@ -86,8 +96,10 @@ ItemClass.propTypes = {
   stt: PropTypes.string.isRequired,
   malop: PropTypes.string.isRequired,
   tenlop: PropTypes.string.isRequired,
-  khoabieu: PropTypes.string.isRequired,
   sosv: PropTypes.string.isRequired,
+  item: PropTypes.string.isRequired,
+  setIsSave: PropTypes.string.isRequired,
+  setNotification: PropTypes.string.isRequired,
 };
 
 export default ItemClass;
