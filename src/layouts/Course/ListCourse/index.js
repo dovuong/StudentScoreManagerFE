@@ -164,7 +164,7 @@ function ListCourse({
           khoahoc="Lớp học phần"
           monhoc="Môn Học"
           giaovien="Giáo viên"
-          status="Trạng thái"
+          status="Số lượng"
           hide
         />
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
@@ -180,11 +180,11 @@ function ListCourse({
               <ItemCourse
                 stt={index + 1}
                 khoahoc={item?.name}
-                monhoc={item.subject?.name}
-                giaovien={item.teacher?.name}
-                status={item.status}
+                monhoc={item.subjectName}
+                giaovien={item.teacherName}
+                status={item.totalStudent}
                 idCourse={item.id}
-                idTeacher={item.teacher.id}
+                idTeacher={item.teacherId}
                 // idFaculty={item.faculty.id}
                 listTeacher={listTeacher}
                 hide={false}

@@ -132,8 +132,8 @@ const addStudentToCourse = (Data, setIsSave, setNotification) => {
   })
     .then((res) => res.data)
     .then((data) => {
-      console.log(data);
-      setNotification(`Add Student successfully!`);
+      // console.log(data);
+      setNotification(data);
       setIsSave(true);
     })
     .catch((err) => {

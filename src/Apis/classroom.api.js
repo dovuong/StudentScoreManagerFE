@@ -89,7 +89,7 @@ const getListClassroomById = (idFaculty, setListClassroomByFaculty, setIsSave) =
 
 const updateClassroom = (Data, setIsSave, setNotification) => {
   axios({
-    method: "post",
+    method: "put",
     url: `${baseUrl}update-classroom`,
     data: Data,
     headers: {
@@ -111,7 +111,7 @@ const updateClassroom = (Data, setIsSave, setNotification) => {
 
 const updateListClassroom = (Data) => {
   axios({
-    method: "post",
+    method: "put",
     url: `${baseUrl}update-list-classroom`,
     data: Data,
     headers: {

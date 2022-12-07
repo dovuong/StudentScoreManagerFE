@@ -45,7 +45,7 @@ const createListTeacher = (Data) => {
 
 const deleteTeacher = (idTeacher, setIsSave, setNotification) => {
   axios({
-    method: "post",
+    method: "delete",
     url: `${baseUrl}delete-teacher/${idTeacher}`,
     headers: {
       Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
@@ -66,7 +66,7 @@ const deleteTeacher = (idTeacher, setIsSave, setNotification) => {
 
 const deleteListTeacher = (Data) => {
   axios({
-    method: "post",
+    method: "delete",
     url: `${baseUrl}delete-list-teacher`,
     data: Data,
     headers: {
@@ -126,7 +126,7 @@ const getListTeacherByUsername = (username, setListTeacherByUsername) => {
 
 const updateTeacher = (Data, setIsSave, setNotification) => {
   axios({
-    method: "post",
+    method: "put",
     url: `${baseUrl}update-teacher`,
     data: Data,
     headers: {
@@ -148,7 +148,7 @@ const updateTeacher = (Data, setIsSave, setNotification) => {
 
 const updateListTeacher = (Data) => {
   axios({
-    method: "post",
+    method: "put",
     url: `${baseUrl}update-list-teacher`,
     data: Data,
     headers: {

@@ -172,7 +172,7 @@ function ItemCourse({
         }}
         textAlign="left"
       >
-        {status ? "true" : "false"}
+        {status}
       </MDTypography>
       {hide ? (
         <MDBox display="flex" alignItems="center" mt={-2} width="50%">
