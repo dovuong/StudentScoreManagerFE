@@ -101,10 +101,75 @@ const updateCourse = (Data, setIsSave, setNotification) => {
     });
 };
 
+const getListStudentByCourse = (idCourse, setListStudentByCourse, setIsSave = null) => {
+  axios({
+    method: "get",
+    url: `${baseUrl}student-course/get-list-student-course-by-course/${idCourse}`,
+    headers: {
+      Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
+    },
+  })
+    .then((res) => res.data)
+    .then((data) => {
+      setListStudentByCourse(data);
+      if (setIsSave) {
+        setIsSave(false);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const addStudentToCourse = (Data, setIsSave, setNotification) => {
+  axios({
+    method: "post",
+    url: `${baseUrl}student-course/add-student-course`,
+    data: Data,
+    headers: {
+      Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
+    },
+  })
+    .then((res) => res.data)
+    .then((data) => {
+      console.log(data);
+      setNotification(`Add Student successfully!`);
+      setIsSave(true);
+    })
+    .catch((err) => {
+      console.log(err);
+      setNotification("error");
+    });
+};
+
+const updateStudentInCourse = (Data, setIsSave, setNotification) => {
+  axios({
+    method: "post",
+    url: `${baseUrl}student-course/update-student-course`,
+    data: Data,
+    headers: {
+      Authorization: `${getLocalStorage(STORAGE.USER_TOKEN)}`,
+    },
+  })
+    .then((res) => res.data)
+    .then((data) => {
+      console.log(data);
+      setNotification(`Update student successfully!`);
+      setIsSave(true);
+    })
+    .catch((err) => {
+      console.log(err);
+      setNotification("error");
+    });
+};
+
 export {
   createCourse,
   getListCourse,
   getListCourseBySubject,
   getListCourseByTeacher,
   updateCourse,
+  getListStudentByCourse,
+  addStudentToCourse,
+  updateStudentInCourse,
 };

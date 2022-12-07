@@ -72,17 +72,25 @@ function ItemTeacher({ stt, hovaten, ngaysinh, sdt, hide, setIsSave, idTeacher, 
     deleteTeacher(idTeacher, setIsSave, setNotification);
   };
   return (
-    <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
+    <MDBox
+      pl={3}
+      display="flex"
+      height="3.5rem"
+      borderBottom="0.2px solid #f0f2f5"
+      style={{
+        alignItems: "center",
+      }}
+    >
       <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px" width="5%">
         {stt}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" width="15%" textAlign="left">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="22%" textAlign="left">
         {hovaten}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" width="20%" textAlign="left">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="22%" textAlign="left">
         {ngaysinh?.split("T")[0]}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" width="20%" textAlign="left">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="22%" textAlign="left">
         {sdt}
       </MDTypography>
       {/* <MDTypography
@@ -96,11 +104,11 @@ function ItemTeacher({ stt, hovaten, ngaysinh, sdt, hide, setIsSave, idTeacher, 
         Function
       </MDTypography> */}
       {hide ? (
-        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
+        <MDBox display="flex" alignItems="center" mt={-2} width="20%">
           {null}
         </MDBox>
       ) : (
-        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
+        <MDBox display="flex" alignItems="center" mt={0} width="20%">
           <MDBox mr={6} ml={2}>
             <MDButton
               variant="text"

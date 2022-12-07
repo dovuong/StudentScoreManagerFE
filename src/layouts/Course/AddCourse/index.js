@@ -20,10 +20,10 @@ function AddCourse({ listSubject, listTeacher, setIsSave, setNotification }) {
     createCourse(dataAdd, setIsSave, setNotification);
   };
   return (
-    <Card sx={{ height: "320px", width: "100%" }}>
+    <Card sx={{ height: "100%", width: "100%" }}>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={4}>
         <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-          Thêm Khóa Học
+          Thêm lớp học phần
         </MDTypography>
       </MDBox>
       {/* <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={4}>
@@ -34,9 +34,9 @@ function AddCourse({ listSubject, listTeacher, setIsSave, setNotification }) {
       <MDBox pt={3} pb={2} px={4}>
         <MDBox mb={2} display="flex">
           <MDTypography variant="caption" color="text" fontWeight="bold" width="40%">
-            Tên khóa học
+            Tên lớp học phần:
           </MDTypography>
-          <MDBox ml={2} width="60%">
+          <MDBox ml={2} width="70%">
             <TextField
               label="Khóa Học"
               variant="outlined"
@@ -52,12 +52,12 @@ function AddCourse({ listSubject, listTeacher, setIsSave, setNotification }) {
         </MDBox>
         <MDBox mb={2} display="flex">
           <MDTypography variant="caption" color="text" fontWeight="bold" width="40%">
-            Môn Học
+            Môn Học:
           </MDTypography>
           {/* <MDBox ml={4} width="15rem">
             <TextField label="khoa" variant="outlined" sx={{ mt: -1, width: "24ch" }} />
           </MDBox> */}
-          <MDBox ml={4} width="70%">
+          <MDBox ml={4} width="80%">
             <FormControl
               size="small"
               sx={{ mt: 1, width: "100%" }}
@@ -88,9 +88,9 @@ function AddCourse({ listSubject, listTeacher, setIsSave, setNotification }) {
         </MDBox>
         <MDBox mb={2} display="flex">
           <MDTypography variant="caption" color="text" fontWeight="bold" width="40%">
-            Giáo Viên
+            Giáo Viên:
           </MDTypography>
-          <MDBox ml={4} width="70%">
+          <MDBox ml={4} width="80%">
             <FormControl
               size="small"
               sx={{ mt: 1, width: "100%" }}

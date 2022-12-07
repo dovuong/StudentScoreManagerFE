@@ -59,7 +59,15 @@ function ItemSubject({ stt, subject, hide, setIsSave, setNotification, idSubject
     updateSubject(dataUpdate, setIsSave, setNotification);
   };
   return (
-    <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
+    <MDBox
+      pl={3}
+      display="flex"
+      height="3.5rem"
+      borderBottom="0.2px solid #f0f2f5"
+      style={{
+        alignItems: "center",
+      }}
+    >
       <MDTypography variant="caption" color="text" fontWeight="medium" width="10%">
         {stt}
       </MDTypography>
@@ -71,8 +79,8 @@ function ItemSubject({ stt, subject, hide, setIsSave, setNotification, idSubject
           {null}
         </MDBox>
       ) : (
-        <MDBox display="flex" alignItems="center" mt={-2} width="30%">
-          <MDBox mr={4} ml={2}>
+        <MDBox display="flex" alignItems="center" mt={0} width="30%">
+          <MDBox mr={2} ml={2}>
             <MDButton variant="text" color="error" disabled>
               <Icon>delete</Icon>&nbsp;delete
             </MDButton>

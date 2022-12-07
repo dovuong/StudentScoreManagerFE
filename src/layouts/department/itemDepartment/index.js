@@ -50,10 +50,10 @@ function ItemDepartment({ stt, khoa, hide }) {
       pl={3}
       display="flex"
       height="3.5rem"
-      pt={2}
       borderBottom="0.2px solid #f0f2f5"
       style={{
         width: "100%",
+        alignItems: "center",
       }}
     >
       <MDTypography variant="caption" color="text" fontWeight="medium" width="10%" textAlign="left">
@@ -67,7 +67,7 @@ function ItemDepartment({ stt, khoa, hide }) {
           {null}
         </MDBox>
       ) : (
-        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
+        <MDBox display="flex" alignItems="center" mt={0} width="40%">
           <MDBox mr={6} ml={2}>
             <MDButton variant="text" color="error" disabled>
               <Icon>delete</Icon>&nbsp;delete

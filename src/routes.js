@@ -77,7 +77,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Quản Lý Khóa học",
+    name: "Quản Lý lớp học phần",
     key: "admin/course",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/admin/course",

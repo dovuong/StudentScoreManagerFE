@@ -80,11 +80,11 @@ function ListStudent({
               marginLeft: 50,
             }}
           >
-            <InputLabel id="demo-simple-select-label">Lop</InputLabel>
+            <InputLabel id="demo-simple-select-label">Lớp</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              label="Lop"
+              label="Lớp"
               defaultValue={0}
               value={idClassChosen}
               onChange={(e) => {
@@ -141,6 +141,7 @@ function ListStudent({
                 hide={false}
                 setIsSave={setIsSave}
                 setNotification={setNotification}
+                fromCourse={false}
               />
             ))}
           </MDBox>

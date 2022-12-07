@@ -24,11 +24,11 @@ function AddDepartment({ setClickSave, setNotification }) {
       <MDBox pt={3} pb={2} px={4}>
         <MDBox mb={2} display="flex">
           <MDTypography variant="caption" color="text" fontWeight="bold">
-            Tên khoa
+            Tên khoa:
           </MDTypography>
           <MDBox ml={4} width="15rem">
             <TextField
-              label="khoa"
+              label="Khoa"
               variant="outlined"
               sx={{ mt: -1, width: "24ch" }}
               onChange={(e) => {

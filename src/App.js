@@ -156,7 +156,12 @@ export default function App() {
 
     const elemDefault = () => {
       let res = null;
-      if (localStorage.getItem("POSITION") === "0") {
+      if (
+        !localStorage.getItem(STORAGE.USER_TOKEN) ||
+        new Date().valueOf() - Date.parse(JSON.parse(localStorage.getItem("EXPIRE")) > 86400000)
+      ) {
+        res = <Route path="*" element={<Navigate to="/authentication/sign-in" />} />;
+      } else if (localStorage.getItem("POSITION") === "0") {
         res = <Route path="*" element={<Navigate to="/admin/dashboard" />} />;
       } else if (localStorage.getItem("POSITION") === "1") {
         res = <Route path="*" element={<Navigate to="/manageScore" />} />;

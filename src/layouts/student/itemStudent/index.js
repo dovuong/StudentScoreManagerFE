@@ -47,6 +47,7 @@ function ItemStudent({
   hide,
   setIsSave,
   setNotification,
+  fromCourse,
 }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
@@ -107,7 +108,15 @@ function ItemStudent({
   };
 
   return (
-    <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
+    <MDBox
+      pl={3}
+      display="flex"
+      height="3.5rem"
+      borderBottom="0.2px solid #f0f2f5"
+      style={{
+        alignItems: "center",
+      }}
+    >
       <MDTypography
         variant="caption"
         color="text"
@@ -118,45 +127,49 @@ function ItemStudent({
       >
         {stt}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" width="13%" textAlign="left">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="10%" textAlign="left">
         {masv}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" width="13%" textAlign="left">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="15%" textAlign="left">
         {hovaten}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" width="13%" textAlign="left">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="15%" textAlign="left">
         {lop}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" width="13%" textAlign="left">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="15%" textAlign="left">
         {ngaysinh}
       </MDTypography>
-      {/* <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="13%"
+      {/* <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="15%"
         textAlign="left">
         {email}
       </MDTypography> */}
-      <MDTypography variant="caption" color="text" fontWeight="medium" width="13%" textAlign="left">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="15%" textAlign="left">
         {sdt}
       </MDTypography>
       {hide ? (
-        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
+        <MDBox display="flex" alignItems="center" mt={-2} width="20%">
           {null}
         </MDBox>
       ) : (
-        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
-          <MDBox mr={6} ml={2}>
-            <MDButton
-              variant="text"
-              color="error"
-              onClick={() => {
-                handleDeleteStudent();
-              }}
-            >
-              <Icon>delete</Icon>&nbsp;delete
+        <MDBox display="flex" alignItems="center" mt={-2} width="20%">
+          {fromCourse ? null : (
+            <MDBox mr={1} ml={1}>
+              <MDButton
+                variant="text"
+                color="error"
+                onClick={() => {
+                  handleDeleteStudent();
+                }}
+              >
+                <Icon>delete</Icon>&nbsp;delete
+              </MDButton>
+            </MDBox>
+          )}
+          {fromCourse ? null : (
+            <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
+              <Icon>edit</Icon>&nbsp;edit
             </MDButton>
-          </MDBox>
-          <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
-            <Icon>edit</Icon>&nbsp;edit
-          </MDButton>
+          )}
         </MDBox>
       )}
       <Dialog open={open} onClose={handleClose}>
@@ -265,6 +278,7 @@ ItemStudent.propTypes = {
   hide: PropTypes.bool.isRequired,
   setIsSave: PropTypes.func.isRequired,
   setNotification: PropTypes.func.isRequired,
+  fromCourse: PropTypes.bool.isRequired,
 };
 
 export default ItemStudent;
