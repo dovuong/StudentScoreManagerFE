@@ -58,15 +58,6 @@ function Overview() {
   useEffect(() => {
     getProfile(setProfile, setIsSave);
   }, [profile]);
-  useEffect(() => {
-    setDataUpdate({
-      ...dataUpdate,
-      birthday: profile.body?.birthday.split("T")[0],
-      idTeacher: profile.body?.id,
-      name: profile.body?.name,
-      numberPhone: profile.body?.numberPhone,
-    });
-  }, [profile]);
 
   const handleUpdateProfile = () => {
     updateProfile(dataUpdate, setIsSave, setNotification);
@@ -130,7 +121,16 @@ function Overview() {
                   Profile information
                 </MDTypography>
                 <MDTypography
-                  onClick={() => handleClick()}
+                  onClick={() => {
+                    handleClick();
+                    setDataUpdate({
+                      ...dataUpdate,
+                      birthday: profile.body?.birthday.split("T")[0],
+                      idTeacher: profile.body?.id,
+                      name: profile.body?.name,
+                      numberPhone: profile.body?.numberPhone,
+                    });
+                  }}
                   variant="body2"
                   color="secondary"
                   sx={{ cursor: "pointer" }}
