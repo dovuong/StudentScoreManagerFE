@@ -117,14 +117,19 @@ function ListStudentClass({ listPoint, setIsSave, setNotification }) {
                       autoFocus
                       margin="dense"
                       id="t4"
-                      type="text"
+                      type="number"
+                      inputProps={{ min: 0, max: 10 }}
                       variant="standard"
                       sx={{ width: "30px", ml: 11 }}
                       value={dataUpdate.point}
                       onChange={(e) => {
+                        let value = parseInt(e.target.value, 10);
+
+                        if (value > 10) value = 10;
+                        if (value < 0) value = 0;
                         setDataUpdate({
                           ...dataUpdate,
-                          point: e.target.value,
+                          point: value,
                         });
                       }}
                     />
