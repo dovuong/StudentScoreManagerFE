@@ -106,8 +106,8 @@ function ListStudentClass({ listPoint, setIsSave, setNotification }) {
                     <MDTypography
                       variant="caption"
                       color="text"
-                      fontWeight="medium"
-                      ml={12}
+                      fonWeight="medium"
+                      ml={1}
                       sx={{ width: "20px" }}
                     >
                       {item.point}
@@ -120,7 +120,7 @@ function ListStudentClass({ listPoint, setIsSave, setNotification }) {
                       type="number"
                       inputProps={{ min: 0, max: 10 }}
                       variant="standard"
-                      sx={{ width: "30px", ml: 11 }}
+                      sx={{ width: "30px", ml: 0 }}
                       value={dataUpdate.point}
                       onChange={(e) => {
                         let value = parseInt(e.target.value, 10);

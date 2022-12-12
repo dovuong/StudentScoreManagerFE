@@ -16,8 +16,10 @@ import { getListSubject } from "Apis/subject.api";
 import { getListTeacher } from "Apis/teacher.api";
 import { getListCourseBySubject, getListCourseByTeacher, getListCourse } from "Apis/course.api";
 import { getListStudent } from "Apis/student.api";
-import ListCourse from "./ListCourse";
 // import AddCourse from "./AddCourse";
+import Snackbar from "@mui/material/Snackbar";
+import Fade from "@mui/material/Fade";
+import ListCourse from "./ListCourse";
 
 function Course() {
   const [listCourse, setListCourse] = useState([]);
@@ -28,10 +30,34 @@ function Course() {
   const [idChosen, setIdChosen] = useState(0);
   const [isSave, setIsSave] = useState(true);
   const [notification, setNotification] = useState("");
+  const [state, setState] = useState({
+    open: false,
+    vertical: "bottom",
+    horizontal: "center",
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClose = () => {
+    setState({
+      ...state,
+      open: false,
+    });
+  };
+
   useEffect(() => {
+    if (notification) {
+      setState({
+        ...state,
+        open: true,
+      });
+    }
     const notiTime = setTimeout(() => {
       setNotification("");
-    }, 5000);
+      setState({
+        ...state,
+        open: false,
+      });
+    }, 6000);
     return () => {
       clearTimeout(notiTime);
     };
@@ -108,7 +134,16 @@ function Course() {
                 Quản lý lớp học
               </MDTypography>
             </MDBox>
-            {elemNoti()}
+            <Snackbar
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+              message={notification}
+              anchorOrigin={{ vertical, horizontal }}
+              // key={vertical + horizontal}
+            >
+              {elemNoti()}
+            </Snackbar>
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={14} md={15}>

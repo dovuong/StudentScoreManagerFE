@@ -15,6 +15,8 @@ import { getListClassroom, getListClassroomById } from "Apis/classroom.api";
 import { getDepartment } from "Apis/department.api";
 import Loading from "components/Loading";
 import { Alert, Button } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import Fade from "@mui/material/Fade";
 
 function Classed() {
   const [listClass, setListClass] = useState([]);
@@ -22,10 +24,33 @@ function Classed() {
   const [isSave, setIsSave] = useState(true);
   const [idFacultyChosen, setIdFacultyChosen] = useState(0);
   const [notification, setNotification] = useState("");
+  const [state, setState] = useState({
+    open: false,
+    vertical: "bottom",
+    horizontal: "center",
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClose = () => {
+    setState({
+      ...state,
+      open: false,
+    });
+  };
   useEffect(() => {
+    if (notification) {
+      setState({
+        ...state,
+        open: true,
+      });
+    }
     const notiTime = setTimeout(() => {
       setNotification("");
-    }, 5000);
+      setState({
+        ...state,
+        open: false,
+      });
+    }, 6000);
     return () => {
       clearTimeout(notiTime);
     };
@@ -92,7 +117,16 @@ function Classed() {
                 Quản lý lớp học
               </MDTypography>
             </MDBox>
-            {elemNoti()}
+            <Snackbar
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+              message={notification}
+              anchorOrigin={{ vertical, horizontal }}
+              // key={vertical + horizontal}
+            >
+              {elemNoti()}
+            </Snackbar>
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={7}>
