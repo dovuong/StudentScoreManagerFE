@@ -14,19 +14,46 @@ import { useEffect, useState } from "react";
 import Loading from "components/Loading";
 import { getDepartment } from "Apis/department.api";
 import { Alert, Button } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import Fade from "@mui/material/Fade";
 
 function Department() {
   const [clickSave, setClickSave] = useState(true);
   const [departments, setDepartments] = useState([]);
   const [notification, setNotification] = useState("");
+  const [state, setState] = useState({
+    open: false,
+    vertical: "bottom",
+    horizontal: "center",
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClose = () => {
+    setState({
+      ...state,
+      open: false,
+    });
+  };
+
   useEffect(() => {
+    if (notification) {
+      setState({
+        ...state,
+        open: true,
+      });
+    }
     const notiTime = setTimeout(() => {
       setNotification("");
-    }, 5000);
+      setState({
+        ...state,
+        open: false,
+      });
+    }, 6000);
     return () => {
       clearTimeout(notiTime);
     };
   }, [notification]);
+
   useEffect(() => {
     if (clickSave) {
       getDepartment(setDepartments, setClickSave);
@@ -42,7 +69,7 @@ function Department() {
             style={{ marginBottom: "10px" }}
             action={
               <Button color="inherit" size="small">
-                UNDO
+                {null}
               </Button>
             }
           >
@@ -53,7 +80,7 @@ function Department() {
         res = (
           <Alert
             severity="success"
-            style={{ marginBottom: "10px", backgroundCOlor: "rgb(212,255,218)" }}
+            style={{ marginBottom: "10px", backgroundColor: "rgb(212,255,218)" }}
           >
             {notification}
           </Alert>
@@ -82,7 +109,17 @@ function Department() {
                 Quản lý khoa
               </MDTypography>
             </MDBox>
-            {elemNoti()}
+
+            <Snackbar
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+              message={notification}
+              anchorOrigin={{ vertical, horizontal }}
+              // key={vertical + horizontal}
+            >
+              {elemNoti()}
+            </Snackbar>
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={7}>

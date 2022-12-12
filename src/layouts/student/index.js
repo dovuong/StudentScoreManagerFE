@@ -14,6 +14,8 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ListStudent from "layouts/student/ListStudent";
 import { useEffect, useState } from "react";
+import Snackbar from "@mui/material/Snackbar";
+import Fade from "@mui/material/Fade";
 
 function Subjects() {
   const [listStudent, setListStudent] = useState([]);
@@ -21,10 +23,33 @@ function Subjects() {
   const [idClassChosen, setIdClassChosen] = useState(0);
   const [isSave, setIsSave] = useState(true);
   const [notification, setNotification] = useState("");
+  const [state, setState] = useState({
+    open: false,
+    vertical: "bottom",
+    horizontal: "center",
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClose = () => {
+    setState({
+      ...state,
+      open: false,
+    });
+  };
   useEffect(() => {
+    if (notification) {
+      setState({
+        ...state,
+        open: true,
+      });
+    }
     const notiTime = setTimeout(() => {
       setNotification("");
-    }, 5000);
+      setState({
+        ...state,
+        open: false,
+      });
+    }, 6000);
     return () => {
       clearTimeout(notiTime);
     };
@@ -113,7 +138,16 @@ function Subjects() {
                 Quản lý sinh viên
               </MDTypography>
             </MDBox>
-            {elemNoti()}
+            <Snackbar
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+              message={notification}
+              anchorOrigin={{ vertical, horizontal }}
+              // key={vertical + horizontal}
+            >
+              {elemNoti()}
+            </Snackbar>
 
             <MDBox mb={3} width="100%">
               {isSave ? (

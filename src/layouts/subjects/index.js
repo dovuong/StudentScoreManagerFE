@@ -14,19 +14,47 @@ import { useEffect, useState } from "react";
 import { getListSubject } from "Apis/subject.api";
 import Loading from "components/Loading";
 import { Alert, Button } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import Fade from "@mui/material/Fade";
 
 function Subjects() {
   const [listSubject, setListSubject] = useState([]);
   const [isSave, setIsSave] = useState(true);
   const [notification, setNotification] = useState("");
+
+  const [state, setState] = useState({
+    open: false,
+    vertical: "bottom",
+    horizontal: "center",
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClose = () => {
+    setState({
+      ...state,
+      open: false,
+    });
+  };
+
   useEffect(() => {
+    if (notification) {
+      setState({
+        ...state,
+        open: true,
+      });
+    }
     const notiTime = setTimeout(() => {
       setNotification("");
-    }, 5000);
+      setState({
+        ...state,
+        open: false,
+      });
+    }, 6000);
     return () => {
       clearTimeout(notiTime);
     };
   }, [notification]);
+
   useEffect(() => {
     if (isSave) {
       getListSubject(setListSubject, setIsSave);
@@ -53,7 +81,7 @@ function Subjects() {
         res = (
           <Alert
             severity="success"
-            style={{ marginBottom: "10px", backgroundCOlor: "rgb(212,255,218)" }}
+            style={{ marginBottom: "10px", backgroundColor: "rgb(212,255,218)" }}
           >
             {notification}
           </Alert>
@@ -82,7 +110,16 @@ function Subjects() {
                 Quản lý môn học
               </MDTypography>
             </MDBox>
-            {elemNoti()}
+            <Snackbar
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+              message={notification}
+              anchorOrigin={{ vertical, horizontal }}
+              // key={vertical + horizontal}
+            >
+              {elemNoti()}
+            </Snackbar>
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={7}>
