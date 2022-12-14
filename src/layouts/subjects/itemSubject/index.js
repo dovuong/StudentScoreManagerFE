@@ -33,36 +33,63 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { updateSubject } from "Apis/subject.api";
 
-function ItemSubject({ stt, monhoc }) {
+function ItemSubject({ stt, subject, hide, setIsSave, setNotification, idSubject }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
+  const [dataUpdate, setDataUpdate] = React.useState({
+    name: "",
+    subjectId: 0,
+  });
+  React.useEffect(() => {
+    setDataUpdate({
+      name: subject,
+      subjectId: idSubject,
+    });
+  }, []);
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-
+  const handleUpdateSubject = () => {
+    updateSubject(dataUpdate, setIsSave, setNotification);
+  };
   return (
-    <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
-      <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
+    <MDBox
+      pl={3}
+      display="flex"
+      height="3.5rem"
+      borderBottom="0.2px solid #f0f2f5"
+      style={{
+        alignItems: "center",
+      }}
+    >
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="10%">
         {stt}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
-        {monhoc}
+      <MDTypography variant="caption" color="text" fontWeight="medium" ml={1} width="30%">
+        {subject}
       </MDTypography>
-      <MDBox display="flex" alignItems="center" mt={-2}>
-        <MDBox mr={6} ml={2}>
-          <MDButton variant="text" color="error">
-            <Icon>delete</Icon>&nbsp;delete
+      {hide ? (
+        <MDBox display="flex" alignItems="center" mt={-2} width="30%">
+          {null}
+        </MDBox>
+      ) : (
+        <MDBox display="flex" alignItems="center" mt={0} width="30%">
+          <MDBox mr={2} ml={2}>
+            <MDButton variant="text" color="error" disabled>
+              <Icon>delete</Icon>&nbsp;delete
+            </MDButton>
+          </MDBox>
+          <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
+            <Icon>edit</Icon>&nbsp;edit
           </MDButton>
         </MDBox>
-        <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
-          <Icon>edit</Icon>&nbsp;edit
-        </MDButton>
-      </MDBox>
+      )}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle ml="43%">Update</DialogTitle>
         <DialogContent>
@@ -75,11 +102,25 @@ function ItemSubject({ stt, monhoc }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            value={dataUpdate.name}
+            onChange={(e) => {
+              setDataUpdate({
+                ...dataUpdate,
+                name: e.target.value,
+              });
+            }}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Update</Button>
+          <Button
+            onClick={() => {
+              handleUpdateSubject();
+              handleClose();
+            }}
+          >
+            Update
+          </Button>
         </DialogActions>
       </Dialog>
     </MDBox>
@@ -88,7 +129,11 @@ function ItemSubject({ stt, monhoc }) {
 
 ItemSubject.propTypes = {
   stt: PropTypes.string.isRequired,
-  monhoc: PropTypes.string.isRequired,
+  subject: PropTypes.string.isRequired,
+  hide: PropTypes.bool.isRequired,
+  setIsSave: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
+  idSubject: PropTypes.number.isRequired,
 };
 
 export default ItemSubject;

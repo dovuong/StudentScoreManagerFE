@@ -6,8 +6,10 @@ import MDTypography from "components/MDTypography";
 import DataTable from "examples/Tables/DataTable";
 import authorsTableData from "layouts/department/data/authorsTableData";
 import Item from "layouts/department/itemDepartment";
+import { PropTypes } from "prop-types";
 
-function ListDepartment() {
+function ListDepartment(props) {
+  const { departments } = props;
   const { columns, rows } = authorsTableData();
 
   return (
@@ -17,7 +19,9 @@ function ListDepartment() {
           Danh sách khoa
         </MDTypography>
       </MDBox>
+
       <MDBox pt={1} pb={2} px={2}>
+        <Item stt="STT" khoa="Khoa" key={0} hide />
         <MDBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
           <DataTable
             table={{ columns, rows }}
@@ -27,17 +31,18 @@ function ListDepartment() {
             noEndBorder
           />
           <MDBox mt="-40px">
-            <Item stt="1" khoa="CNTT" />
-            <Item stt="2" khoa="Cơ khí" />
-            <Item stt="3" khoa="Điện tử viễn thông" />
-            <Item stt="4" khoa="Hóa" />
-            <Item stt="5" khoa="Nhiệt" />
-            <Item stt="6" khoa="Điện" />
+            {departments.map((item) => (
+              <Item stt={item.id.toString()} khoa={item.name} key={item.id} hide={false} />
+            ))}
           </MDBox>
         </MDBox>
       </MDBox>
     </Card>
   );
 }
+
+ListDepartment.propTypes = {
+  departments: PropTypes.arrayOf.isRequired,
+};
 
 export default ListDepartment;

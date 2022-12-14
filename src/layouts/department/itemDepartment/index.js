@@ -34,7 +34,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-function ItemDepartment({ stt, khoa }) {
+function ItemDepartment({ stt, khoa, hide }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -46,23 +46,44 @@ function ItemDepartment({ stt, khoa }) {
   };
 
   return (
-    <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
-      <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
+    <MDBox
+      pl={3}
+      display="flex"
+      height="3.5rem"
+      borderBottom="0.2px solid #f0f2f5"
+      style={{
+        width: "100%",
+        alignItems: "center",
+      }}
+    >
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="10%" textAlign="left">
         {stt}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="20%" textAlign="left">
         {khoa}
       </MDTypography>
-      <MDBox display="flex" alignItems="center" mt={-2}>
-        <MDBox mr={6} ml={2}>
-          <MDButton variant="text" color="error">
-            <Icon>delete</Icon>&nbsp;delete
+      {hide ? (
+        <MDBox display="flex" alignItems="center" mt={-2} width="40%">
+          {null}
+        </MDBox>
+      ) : (
+        <MDBox display="flex" alignItems="center" mt={0} width="40%">
+          <MDBox mr={6} ml={2}>
+            <MDButton variant="text" color="error" disabled>
+              <Icon>delete</Icon>&nbsp;delete
+            </MDButton>
+          </MDBox>
+          <MDButton
+            variant="text"
+            color={darkMode ? "white" : "dark"}
+            onClick={handleClickOpen}
+            disabled
+          >
+            <Icon>edit</Icon>&nbsp;edit
           </MDButton>
         </MDBox>
-        <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
-          <Icon>edit</Icon>&nbsp;edit
-        </MDButton>
-      </MDBox>
+      )}
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle ml="43%">Update</DialogTitle>
         <DialogContent>
@@ -89,6 +110,7 @@ function ItemDepartment({ stt, khoa }) {
 ItemDepartment.propTypes = {
   stt: PropTypes.string.isRequired,
   khoa: PropTypes.string.isRequired,
+  hide: PropTypes.bool.isRequired,
 };
 
 export default ItemDepartment;

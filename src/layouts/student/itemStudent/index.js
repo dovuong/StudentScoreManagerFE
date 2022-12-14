@@ -33,8 +33,22 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { deleteStudent, updateStudent } from "Apis/student.api";
 
-function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
+function ItemStudent({
+  stt,
+  masv,
+  hovaten,
+  lop,
+  ngaysinh,
+  sdt,
+  idStudent,
+  idClass,
+  hide,
+  setIsSave,
+  setNotification,
+  fromCourse,
+}) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -45,36 +59,119 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
     setOpen(false);
   };
 
+  const [dataUpdate, setDataUpdate] = React.useState({
+    birthday: ngaysinh,
+    name: hovaten,
+    numberPhone: sdt,
+  });
+
+  React.useEffect(() => {
+    setDataUpdate({
+      birthday: ngaysinh,
+      name: hovaten,
+      numberPhone: sdt,
+    });
+  }, [ngaysinh, hovaten, sdt]);
+
+  const handleDeleteStudent = () => {
+    // console.log(dataUpdate);
+    deleteStudent(
+      {
+        idClass,
+        idStudent,
+      },
+      setIsSave,
+      setNotification
+    );
+  };
+
+  const handleUpdateStudent = () => {
+    // console.log({
+    //   birthday: dataUpdate.birthday,
+    //   idClassroom: idClass,
+    //   idStudent,
+    //   name: dataUpdate.name,
+    //   numberPhone: dataUpdate.numberPhone,
+    // });
+    // console.log(dataUpdate);
+    updateStudent(
+      {
+        birthday: dataUpdate.birthday,
+        idClassroom: idClass,
+        idStudent,
+        name: dataUpdate.name,
+        numberPhone: dataUpdate.numberPhone,
+      },
+      setIsSave,
+      setNotification
+    );
+  };
+
   return (
-    <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
-      <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
+    <MDBox
+      pl={3}
+      display="flex"
+      height="3.5rem"
+      borderBottom="0.2px solid #f0f2f5"
+      style={{
+        alignItems: "center",
+      }}
+    >
+      <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        marginLeft="5px"
+        width="5%"
+        textAlign="left"
+      >
         {stt}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={11} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="10%" textAlign="left">
+        {masv}
+      </MDTypography>
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="15%" textAlign="left">
         {hovaten}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={4} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="15%" textAlign="left">
         {lop}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="15%" textAlign="left">
         {ngaysinh}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
+      {/* <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="15%"
+        textAlign="left">
         {email}
-      </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={10} width="50%">
+      </MDTypography> */}
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="15%" textAlign="left">
         {sdt}
       </MDTypography>
-      <MDBox display="flex" alignItems="center" mt={-2}>
-        <MDBox mr={6} ml={2}>
-          <MDButton variant="text" color="error">
-            <Icon>delete</Icon>&nbsp;delete
-          </MDButton>
+      {hide ? (
+        <MDBox display="flex" alignItems="center" mt={-2} width="20%">
+          {null}
         </MDBox>
-        <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
-          <Icon>edit</Icon>&nbsp;edit
-        </MDButton>
-      </MDBox>
+      ) : (
+        <MDBox display="flex" alignItems="center" mt={-2} width="20%">
+          {fromCourse ? null : (
+            <MDBox mr={1} ml={1}>
+              <MDButton
+                variant="text"
+                color="error"
+                onClick={() => {
+                  handleDeleteStudent();
+                }}
+              >
+                <Icon>delete</Icon>&nbsp;delete
+              </MDButton>
+            </MDBox>
+          )}
+          {fromCourse ? null : (
+            <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
+              <Icon>edit</Icon>&nbsp;edit
+            </MDButton>
+          )}
+        </MDBox>
+      )}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle ml="43%">Update</DialogTitle>
         <DialogContent>
@@ -87,6 +184,13 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            value={dataUpdate.name}
+            onChange={(e) => {
+              setDataUpdate({
+                ...dataUpdate,
+                name: e.target.value,
+              });
+            }}
           />
           <TextField
             autoFocus
@@ -97,18 +201,27 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            defaultValue={lop}
+            inputProps={{ readOnly: true }}
           />
           <TextField
             autoFocus
             margin="dense"
             id="name"
             label="Ngày sinh"
-            type="email"
+            type="date"
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            value={dataUpdate.birthday}
+            onChange={(e) => {
+              setDataUpdate({
+                ...dataUpdate,
+                birthday: e.target.value,
+              });
+            }}
           />
-          <TextField
+          {/* <TextField
             autoFocus
             margin="dense"
             id="name"
@@ -117,7 +230,7 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
-          />
+          /> */}
           <TextField
             autoFocus
             margin="dense"
@@ -127,11 +240,25 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            value={dataUpdate.numberPhone}
+            onChange={(e) => {
+              setDataUpdate({
+                ...dataUpdate,
+                numberPhone: e.target.value,
+              });
+            }}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Update</Button>
+          <Button
+            onClick={() => {
+              handleUpdateStudent();
+              handleClose();
+            }}
+          >
+            Update
+          </Button>
         </DialogActions>
       </Dialog>
     </MDBox>
@@ -140,11 +267,18 @@ function ItemStudent({ stt, hovaten, lop, ngaysinh, email, sdt }) {
 
 ItemStudent.propTypes = {
   stt: PropTypes.string.isRequired,
+  masv: PropTypes.string.isRequired,
   hovaten: PropTypes.string.isRequired,
   lop: PropTypes.string.isRequired,
   ngaysinh: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  // email: PropTypes.string.isRequired,
   sdt: PropTypes.string.isRequired,
+  idClass: PropTypes.number.isRequired,
+  idStudent: PropTypes.number.isRequired,
+  hide: PropTypes.bool.isRequired,
+  setIsSave: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
+  fromCourse: PropTypes.bool.isRequired,
 };
 
 export default ItemStudent;

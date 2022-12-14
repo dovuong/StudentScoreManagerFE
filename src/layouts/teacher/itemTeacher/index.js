@@ -33,8 +33,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { updateTeacher, deleteTeacher } from "Apis/teacher.api";
 
-function ItemTeacher({ stt, hovaten, chuyenmon, chunhiemlop, email, sdt }) {
+function ItemTeacher({ stt, hovaten, ngaysinh, sdt, hide, setIsSave, idTeacher, setNotification }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const [open, setOpen] = React.useState(false);
@@ -44,37 +45,86 @@ function ItemTeacher({ stt, hovaten, chuyenmon, chunhiemlop, email, sdt }) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  // const day = ngaysinh.split("T")[0].split("-");
+  const [data, setData] = React.useState({
+    birthday: ngaysinh?.split("T")[0],
+    // birthday: ngaysinh?.slice(0, 10),
+    idTeacher,
+    name: hovaten,
+    numberPhone: sdt,
+    password: "",
+  });
+  React.useEffect(() => {
+    setData({
+      birthday: ngaysinh?.split("T")[0],
+      // birthday: ngaysinh.slice(0, 10),
+      idTeacher,
+      name: hovaten,
+      numberPhone: sdt,
+      password: "",
+    });
+  }, [ngaysinh, hovaten, sdt]);
+  const handleUpdateTeacher = () => {
+    updateTeacher(data, setIsSave, setNotification);
+  };
+  const handleDeleteTeacher = () => {
+    // console.log("a");
+    deleteTeacher(idTeacher, setIsSave, setNotification);
+  };
   return (
-    <MDBox pl={3} display="flex" height="3.5rem" pt={2} borderBottom="0.2px solid #f0f2f5">
-      <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px">
+    <MDBox
+      pl={3}
+      display="flex"
+      height="3.5rem"
+      borderBottom="0.2px solid #f0f2f5"
+      style={{
+        alignItems: "center",
+      }}
+    >
+      <MDTypography variant="caption" color="text" fontWeight="medium" marginLeft="5px" width="5%">
         {stt}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={11} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="22%" textAlign="left">
         {hovaten}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={4} width="50%">
-        {chuyenmon}
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="22%" textAlign="left">
+        {ngaysinh?.split("T")[0]}
       </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={10} width="50%">
-        {chunhiemlop}
-      </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={8} width="50%">
-        {email}
-      </MDTypography>
-      <MDTypography variant="caption" color="text" fontWeight="medium" ml={10} width="50%">
+      <MDTypography variant="caption" color="text" fontWeight="medium" width="22%" textAlign="left">
         {sdt}
       </MDTypography>
-      <MDBox display="flex" alignItems="center" mt={-2}>
-        <MDBox mr={6} ml={2}>
-          <MDButton variant="text" color="error">
-            <Icon>delete</Icon>&nbsp;delete
+      {/* <MDTypography
+        variant="caption"
+        color="text"
+        fontWeight="medium"
+        width="20%"
+        ml={3}
+        textAlign="left"
+      >
+        Function
+      </MDTypography> */}
+      {hide ? (
+        <MDBox display="flex" alignItems="center" mt={-2} width="20%">
+          {null}
+        </MDBox>
+      ) : (
+        <MDBox display="flex" alignItems="center" mt={0} width="20%">
+          <MDBox mr={6} ml={2}>
+            <MDButton
+              variant="text"
+              color="error"
+              onClick={() => {
+                handleDeleteTeacher();
+              }}
+            >
+              <Icon>delete</Icon>&nbsp;delete
+            </MDButton>
+          </MDBox>
+          <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
+            <Icon>edit</Icon>&nbsp;edit
           </MDButton>
         </MDBox>
-        <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={handleClickOpen}>
-          <Icon>edit</Icon>&nbsp;edit
-        </MDButton>
-      </MDBox>
+      )}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle ml="43%">Update</DialogTitle>
         <DialogContent>
@@ -87,39 +137,36 @@ function ItemTeacher({ stt, hovaten, chuyenmon, chunhiemlop, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            value={data.name}
+            onChange={(e) => {
+              setData({
+                ...data,
+                name: e.target.value,
+              });
+            }}
           />
           <TextField
-            autoFocus
+            // autoFocus
             margin="dense"
             id="name"
-            label="Chuyên môn"
-            type="email"
+            label="Ngày sinh"
+            type="date"
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={data.birthday}
+            onChange={(e) => {
+              setData({
+                ...data,
+                birthday: e.target.value,
+              });
+            }}
           />
           <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Lớp chủ nhiệm"
-            type="email"
-            fullWidth
-            variant="standard"
-            sx={{ width: "450px", mx: 4 }}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email"
-            type="email"
-            fullWidth
-            variant="standard"
-            sx={{ width: "450px", mx: 4 }}
-          />
-          <TextField
-            autoFocus
+            // autoFocus
             margin="dense"
             id="name"
             label="Số điện thoại"
@@ -127,11 +174,43 @@ function ItemTeacher({ stt, hovaten, chuyenmon, chunhiemlop, email, sdt }) {
             fullWidth
             variant="standard"
             sx={{ width: "450px", mx: 4 }}
+            value={data.numberPhone}
+            onChange={(e) => {
+              setData({
+                ...data,
+                numberPhone: e.target.value,
+              });
+            }}
+          />
+          <TextField
+            // autoFocus
+            margin="dense"
+            id="name"
+            label="Mật khẩu"
+            type="password"
+            fullWidth
+            variant="standard"
+            sx={{ width: "450px", mx: 4 }}
+            value={data.password}
+            onChange={(e) => {
+              setData({
+                ...data,
+                password: e.target.value,
+              });
+            }}
           />
         </DialogContent>
+
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Update</Button>
+          <Button
+            onClick={() => {
+              handleUpdateTeacher();
+              handleClose();
+            }}
+          >
+            Update
+          </Button>
         </DialogActions>
       </Dialog>
     </MDBox>
@@ -141,10 +220,12 @@ function ItemTeacher({ stt, hovaten, chuyenmon, chunhiemlop, email, sdt }) {
 ItemTeacher.propTypes = {
   stt: PropTypes.string.isRequired,
   hovaten: PropTypes.string.isRequired,
-  chuyenmon: PropTypes.string.isRequired,
-  chunhiemlop: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  ngaysinh: PropTypes.string.isRequired,
   sdt: PropTypes.string.isRequired,
+  hide: PropTypes.bool.isRequired,
+  setIsSave: PropTypes.bool.isRequired,
+  idTeacher: PropTypes.number.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
 
 export default ItemTeacher;
