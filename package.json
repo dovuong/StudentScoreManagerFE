@@ -1,6 +1,7 @@
 {
-  "name": "material-dashboard-2-react",
+  "name": "student-score-manage",
   "version": "2.1.0",
+  "homepage": "https://lythanhhai.github.io/StudentScoreManagerFE",
   "private": true,
   "author": "Creative Tim",
   "license": "See license in https://www.creative-tim.com/license",
@@ -20,33 +21,46 @@
     "@emotion/cache": "11.7.1",
     "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
+    "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "5.4.1",
     "@mui/material": "5.4.1",
     "@mui/styled-engine": "5.4.1",
+    "@sentry/react": "^7.21.1",
+    "@sentry/tracing": "^7.21.1",
     "@testing-library/jest-dom": "5.16.2",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
+    "axios": "^1.2.0",
     "chart.js": "3.4.1",
     "chroma-js": "2.4.2",
-    "prop-types": "15.8.1",
+    "mui-datatables": "^4.2.2",
+    "prop-types": "^15.8.1",
     "react": "17.0.2",
+    "react-alert": "^7.0.3",
+    "react-alert-template-basic": "^1.0.2",
     "react-chartjs-2": "3.0.4",
     "react-dom": "17.0.2",
     "react-github-btn": "1.2.1",
+    "react-loading": "^2.0.3",
+    "react-material-ui-datatable": "^2.0.0-alpha.30",
     "react-router-dom": "6.2.1",
     "react-scripts": "5.0.0",
     "react-table": "7.7.0",
+    "save": "^2.9.0",
     "stylis": "4.0.13",
     "stylis-plugin-rtl": "2.1.1",
     "web-vitals": "2.1.4",
     "yup": "0.32.11"
   },
   "scripts": {
+    "lint": "eslint ./",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -75,6 +89,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-react-hooks": "4.3.0",
+    "gh-pages": "^4.0.0",
     "prettier": "2.5.1"
   }
 }

@@ -13,16 +13,17 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
 import MuiLink from "@mui/material/Link";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 // @mui icons
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -34,12 +35,12 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
-
 // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import { login } from "Apis/auth.api";
 
 // import SignUp from "layouts/authentication/sign-up";
 
@@ -47,6 +48,27 @@ function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const [data, setData] = useState({
+    username: "",
+    password: "",
+  });
+  const [err, setErr] = useState("");
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    // console.log(data);
+    login(data, navigate, setErr);
+  };
+  const [position, setPosition] = useState("");
+  const [url, seturl] = useState(false);
+  useEffect(() => {
+    console.log(url);
+    localStorage.setItem("POSITION", position);
+    if (position === "0") {
+      seturl("/admin/dashboard");
+    } else {
+      seturl("/manageScore");
+    }
+  }, [position]);
 
   return (
     <BasicLayout image={bgImage}>
@@ -86,11 +108,56 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput
+                type="email"
+                label="Username"
+                fullWidth
+                onChange={(e) => {
+                  setData({
+                    ...data,
+                    username: e.target.value,
+                  });
+                }}
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput
+                type="password"
+                label="Password"
+                fullWidth
+                onChange={(e) => {
+                  setData({
+                    ...data,
+                    password: e.target.value,
+                  });
+                }}
+              />
             </MDBox>
+            <MDBox>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Position</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={position}
+                  label="Position"
+                  sx={{ height: "45px" }}
+                  onChange={(e) => {
+                    setPosition(e.target.value);
+                  }}
+                >
+                  <MenuItem value={0}>Quản lý</MenuItem>
+                  <MenuItem value={1}>Giáo viên</MenuItem>
+                </Select>
+              </FormControl>
+            </MDBox>
+            {err ? (
+              <MDBox mt={-1} mb={1} textAlign="start">
+                <MDTypography color="error" fontWeight="small" textGradient fontSize={13}>
+                  Login failed
+                </MDTypography>
+              </MDBox>
+            ) : null}
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
               <MDTypography
@@ -105,17 +172,21 @@ function Basic() {
             </MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton
-                component={Link}
-                to="/admin/dashboard"
+                // component={Link}
+                // to="/admin/dashboard"
                 variant="gradient"
                 fullWidth
                 color="info"
+                onClick={() => {
+                  handleLogin();
+                }}
               >
                 sign in
               </MDButton>
             </MDBox>
+
             <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
+              {/* <MDTypography variant="button" color="text">
                 Don&apos;t have an account?{" "}
                 <MDTypography
                   component={Link}
@@ -127,7 +198,7 @@ function Basic() {
                 >
                   Sign up
                 </MDTypography>
-              </MDTypography>
+              </MDTypography> */}
             </MDBox>
           </MDBox>
         </MDBox>

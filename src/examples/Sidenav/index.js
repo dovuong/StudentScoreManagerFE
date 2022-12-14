@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
@@ -30,6 +30,7 @@ import {
   setTransparentSidenav,
   setWhiteSidenav,
 } from "context";
+import { logout } from "Apis/auth.api";
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const [controller, dispatch] = useMaterialUIController();
@@ -67,7 +68,15 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
-  const rou = routes.slice(0, 8);
+  const [rou, setRou] = useState([]);
+  useEffect(() => {
+    if (localStorage.getItem("POSITION") === "1") {
+      setRou(routes.slice(8, 11));
+    } else {
+      setRou(routes.slice(0, 8));
+    }
+  }, [routes]);
+  const navigate = useNavigate();
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = rou.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
     let returnValue;
@@ -89,7 +98,15 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           />
         </Link>
       ) : (
-        <NavLink key={key} to={route}>
+        <NavLink
+          key={key}
+          to={route}
+          onClick={() => {
+            if (name === "Logout") {
+              logout(navigate);
+            }
+          }}
+        >
           <SidenavCollapse name={name} icon={icon} active={key === collapseName} />
         </NavLink>
       );

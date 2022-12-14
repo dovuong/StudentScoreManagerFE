@@ -7,8 +7,26 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
+import { useEffect, useState } from "react";
+import { getDepartment } from "Apis/department.api";
+import { getListClassroom } from "Apis/classroom.api";
+import { getListTeacher } from "Apis/teacher.api";
+import { getListStudent } from "Apis/student.api";
+import { getListSubject } from "Apis/subject.api";
 
 function Dashboard() {
+  const [departments, setDepartments] = useState([]);
+  const [classrooms, setClassrooms] = useState([]);
+  const [subjects, setSubjects] = useState([]);
+  const [teachers, setTeachers] = useState([]);
+  const [students, setStudents] = useState([]);
+  useEffect(() => {
+    getDepartment(setDepartments);
+    getListClassroom(setClassrooms);
+    getListSubject(setSubjects);
+    getListTeacher(setTeachers);
+    getListStudent(setStudents);
+  }, []);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -20,7 +38,7 @@ function Dashboard() {
                 color="dark"
                 icon="assignment"
                 title="Khoa"
-                count="+7"
+                count={`+${departments.length}`}
                 percentage={{
                   color: "success",
                   amount: "+",
@@ -34,7 +52,7 @@ function Dashboard() {
               <ComplexStatisticsCard
                 icon="cottage"
                 title="Lớp học"
-                count="+50"
+                count={`+${classrooms.length}`}
                 percentage={{
                   color: "success",
                   amount: "+",
@@ -49,7 +67,7 @@ function Dashboard() {
                 color="dark"
                 icon="assignment"
                 title="Môn học"
-                count="+12"
+                count={`+${subjects.length}`}
                 percentage={{
                   color: "success",
                   amount: "+",
@@ -64,7 +82,7 @@ function Dashboard() {
                 color="success"
                 icon="groups"
                 title="Giáo viên"
-                count="+150"
+                count={`+${teachers.length}`}
                 percentage={{
                   color: "success",
                   amount: "+",
@@ -79,7 +97,7 @@ function Dashboard() {
                 color="primary"
                 icon="groups"
                 title="Sinh viên"
-                count="+2000"
+                count={`+${students.length}`}
                 percentage={{
                   color: "success",
                   amount: "+",
